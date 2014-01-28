@@ -1,20 +1,31 @@
 \documentclass{article}
-\input{misc/packages}
-\input{misc/settings}
+\input{config/packages}
+\input{config/settings}
 
 
 \begin{document}
-\maketitle
+
+\input{extra/title-page.tex}
 \pagebreak
 
-% \tableofcontents
+% \input{extra/Acknowledgments.tex}
 % \pagebreak
 
+\input{extra/abstract.tex}
+\pagebreak
 
-\input{intro/intro.tex}
+% \input{extra/Declaration.tex}
+% \pagebreak
 
-\bibliography{misc/references}
-% entries appear in order of citation
-\bibliographystyle{unsrt}
+\input{extra/contents.tex}
+\pagebreak
+
+\input{content/intro.tex}
+
+% \bibliography{config/references}
+% % entries appear in order of citation
+% \bibliographystyle{unsrt}
+
+\input{extra/bibliography.tex}
 
 \end{document}
