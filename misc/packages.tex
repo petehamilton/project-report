@@ -23,7 +23,6 @@
 %For fancy mathmode stuff (mathbb etc)
 \usepackage{amsfonts}
 
-
 %For useful math stuff like cases, align* etc
 \usepackage{amsmath}
 
@@ -42,10 +41,24 @@
 % To do nested enumerations
 \usepackage{enumitem}
 
+% Verbatim Output
 \usepackage{verbatim}
+
+% Nags you if your syntax is wrong
+\RequirePackage[l2tabu, orthodox]{nag}
+
+% Improve spacing between words and letters
+\usepackage{microtype}
+
+% Clever Referencing
+\usepackage{cleveref}
+
+% Better looking tables
+\usepackage{booktabs}
 
 % Formatting paragraphs as sections
 \usepackage{titlesec}
+
 \setcounter{secnumdepth}{4}
 \titleformat{\paragraph}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
