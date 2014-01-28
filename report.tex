@@ -1,31 +1,21 @@
-\documentclass{article}
-\input{config/packages}
-\input{config/settings}
+% SETUP
+\input{config/all}
 
+\usepackage[backend=bibtex, style=authoryear]{biblatex}
+\addbibresource{references.bib}
 
+% DOCUMENT
 \begin{document}
 
-\input{extra/title-page.tex}
+\input{extra/front-matter.tex}
+
 \pagebreak
 
-% \input{extra/Acknowledgments.tex}
-% \pagebreak
+\chapter{Introduction}
+\input{chapters/introduction}
 
-\input{extra/abstract.tex}
-\pagebreak
+\printbibliography
 
-% \input{extra/Declaration.tex}
-% \pagebreak
-
-\input{extra/contents.tex}
-\pagebreak
-
-\input{content/intro.tex}
-
-% \bibliography{config/references}
-% % entries appear in order of citation
-% \bibliographystyle{unsrt}
-
-\input{extra/bibliography.tex}
 
 \end{document}
+

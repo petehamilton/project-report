@@ -9,10 +9,9 @@ FLAGS=-output-directory ${OUTPUT}
 default:
 	mkdir -p ${OUTPUT}
 	${TEX} ${FLAGS} ${PROJECT}
-	${BB} ${OUTPUT}/${PROJECT}
-	${TEX} ${FLAGS} ${PROJECT}
-	${TEX} ${FLAGS} ${PROJECT}
-	open ${OUTPUT}/${PROJECT}.pdf
+	# ${BB} ${OUTPUT}/${PROJECT}
+	# ${TEX} ${FLAGS} ${PROJECT}
+	# open ${OUTPUT}/${PROJECT}.pdf
 
 clean:
 	rm -rf ${OUTPUT}
