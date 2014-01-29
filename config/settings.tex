@@ -17,10 +17,8 @@
 \usepackage{float}                           % For figure placing
 \usepackage{amsfonts}                        % For fancy mathmode stuff (mathbb etc)
 \usepackage{amsmath}                         % For useful math stuff like cases, align* etc
-\usepackage[colorinlistoftodos]{todonotes}   % For todos
 \usepackage{subfigure}                       % For subfigures and captions
 \usepackage[parfill]{parskip}                % For new line instead of para indents
-\usepackage{todonotes}                       % Todo
 \usepackage{enumitem}                        % To do nested enumerations
 \usepackage{verbatim}                        % Verbatim Output
 \usepackage{microtype}                       % Improve spacing between words and letters
@@ -31,11 +29,22 @@
 \usepackage{hyperref}                        % Hyperlink References
 \RequirePackage[l2tabu, orthodox]{nag}       % Nags you if your syntax is wrong
 
+%----------------------------------------------------------------------------------------
+% TODOs
+%----------------------------------------------------------------------------------------
+\usepackage[colorinlistoftodos]{todonotes}
+\setlength{\marginparwidth}{2cm}
+
+%----------------------------------------------------------------------------------------
+% QUOTING
+%----------------------------------------------------------------------------------------
+\usepackage{quoting}
+\usepackage{csquotes}
+\SetBlockEnvironment{quoting}% I've only added this
 
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
-
 \usepackage[backend=bibtex, citestyle=authoryear-icomp,doi=true,url=true]{biblatex}
 \addbibresource{references.bib}
 
@@ -43,7 +52,6 @@
 %----------------------------------------------------------------------------------------
 % FONT
 %----------------------------------------------------------------------------------------
-
 % \usepackage[sc]{mathpazo}
 % \usepackage[T1]{fontenc}
 % \linespread{1.05} % Palatino needs more leading (space between lines)
@@ -57,6 +65,5 @@
 %----------------------------------------------------------------------------------------
 % IMPORTS
 %----------------------------------------------------------------------------------------
-
 \input{config/commands}
 \input{config/listings}
