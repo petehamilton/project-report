@@ -1,6 +1,6 @@
 %%%%%%%%%%% PACKAGES %%%%%%%%%%%
 
-\usepackage[margin=1in]{geometry}            % For margins
+\usepackage[margin=1.4in]{geometry}          % For margins
 \usepackage{graphicx}                        % For picture includes
 \usepackage{float}                           % Used to set option H in figures
 \usepackage{wrapfig}                         % To wrap figures with text
@@ -20,7 +20,9 @@
 \usepackage{titlesec}                        % Formatting paragraphs as sections
 \usepackage{fixltx2e}                        % Fixes some LaTeX stuff
 \usepackage{hyperref}                        % Hyperlink References
-% \RequirePackage[l2tabu, orthodox]{nag}       % Nags you if your syntax is wrong
-% \usepackage{tabularx}                        % Better tables
-% \usepackage{caption}
-% \usepackage{subfig}
+\RequirePackage[l2tabu, orthodox]{nag}       % Nags you if your syntax is wrong
+\usepackage[backend=bibtex, citestyle=authoryear-icomp,doi=true,url=true]{biblatex}
+
+% FONTS
+\usepackage[sc]{mathpazo}
+\usepackage[T1]{fontenc}
