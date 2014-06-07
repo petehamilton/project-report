@@ -1,23 +1,27 @@
 PROJECT=report
 OUTPUT=output
 TEX=pdflatex
-TEX_FLAGS=-output-directory ${OUTPUT}
+FLAGS=-output-directory ${OUTPUT}
 BIBTEX=bibtex
-LILLYPOND=/Applications/LilyPond.app/Contents/Resources/bin/lilypond-book
-LILLYPOND_FLAGS=--output=${OUTPUT} --pdf
 
 .PHONY: clean view
 
 default:
+	${TEX} ${PROJECT};
+	${BIBTEX} ${PROJECT};
+	${TEX} ${PROJECT};
+	${TEX} ${PROJECT};
+	open${PROJECT}.pdf;
+
+default:
 	mkdir -p ${OUTPUT};
-	${LILLYPOND} ${LILLYPOND_FLAGS} ${PROJECT}.tex
-	cp -R gfx ${OUTPUT};
+	${TEX} ${FLAGS} ${PROJECT}.tex;
+
+full: default
 	cp *.bib ${OUTPUT};
-	cd ${OUTPUT}; ${TEX} ${PROJECT};
 	cd ${OUTPUT}; ${BIBTEX} ${PROJECT};
-	cd ${OUTPUT}; ${TEX} ${PROJECT};
-	cd ${OUTPUT}; ${TEX} ${PROJECT};
-	open ${OUTPUT}/${PROJECT}.pdf;
+	${TEX} ${FLAGS} ${PROJECT}.tex;
+	${TEX} ${FLAGS} ${PROJECT}.tex;
 
 clean:
 	rm -rf ${OUTPUT}

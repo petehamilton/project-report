@@ -23,11 +23,14 @@ For example, given the following LilyPond syntax:
 }
 \end{lstlisting}
 
-We can run LilyPond to produce the following output:
+We can run LilyPond to produce the output you see in figure \ref{fig:lilypond-output}
 
-\begin{lilypond}[fragment, staffsize=26]
-  c' d' e' f' g'2 g'2
-\end{lilypond}
+\begin{figure}[h!]
+  \frame{\includegraphics[width=\linewidth]{gfx/background/lilypond-output.png}}
+  \centering
+  \caption{Lilypond Output Example}
+  \label{fig:lilypond-output}
+\end{figure}
 
 Using Lilypond and some basic algorithms around music theory we could happily generate textual representations of exercises and generate the necessary images from them. It's also free and accessible meaning that I can easily install it on development machines and servers. Indeed, Lilypond is the primary method by which I have generated the manuscript examples in this dissertation.
 
