@@ -9,6 +9,7 @@
 % PACKAGES
 %----------------------------------------------------------------------------------------
 
+\usepackage{footnote}
 \usepackage[margin=1.1in]{geometry}          % For margins
 \usepackage{graphicx}                        % For picture includes
 \usepackage{float}                           % Used to set option H in figures
@@ -29,7 +30,9 @@
 \usepackage{hyperref}                        % Hyperlink References
 \usepackage{listings}                        % Code listings
 \usepackage{longtable}                       % Don't break table across pages
-\RequirePackage[l2tabu, orthodox]{nag}       % Nags you if your syntax is wrong
+\usepackage[british]{babel}                  % No idea
+\usepackage{tabularx}
+% \RequirePackage[l2tabu, orthodox]{nag}       % Nags you if your syntax is wrong
 
 %----------------------------------------------------------------------------------------
 % TODOs
@@ -47,7 +50,7 @@
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
-\usepackage[backend=bibtex,citestyle=authoryear,doi=true,url=true]{biblatex}
+\usepackage[backend=bibtex,citestyle=authoryear,doi=true,url=true,urldate=long]{biblatex}
 \addbibresource{references.bib}
 
 %----------------------------------------------------------------------------------------

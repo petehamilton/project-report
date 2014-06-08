@@ -99,13 +99,13 @@ If we are using binary data we can simplify this further, simply tracking the in
 
   1D Flattened Image \\
   \ \\
-  {[} 1,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,1 {]} \\
+  {[} 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1 {]} \\
   \ \\
   \hline
   \ \\
   Run Length Encoding \\
   \ \\
-  {[} 1,6,4,3,5,4 {]} \\
+  {[} 0, 3, 6, 4, 3, 5, 4 {]} or {[} 3, 6, 4, 3, 5, 4 {]} (assume initial bit is 0) \\
   \end{tabular}
   \caption{1D Binary Image with RLE}
   \label{fig:rle-1d-binary}
