@@ -4,24 +4,16 @@ TEX=pdflatex
 FLAGS=-output-directory ${OUTPUT}
 BIBTEX=bibtex
 
-.PHONY: clean view
+.PHONY: clean
 
-default:
-	${TEX} ${PROJECT};
-	${BIBTEX} ${PROJECT};
-	${TEX} ${PROJECT};
-	${TEX} ${PROJECT};
-	open${PROJECT}.pdf;
-
-default:
+default: default
 	mkdir -p ${OUTPUT};
 	${TEX} ${FLAGS} ${PROJECT}.tex;
-
-full: default
 	cp *.bib ${OUTPUT};
 	cd ${OUTPUT}; ${BIBTEX} ${PROJECT};
 	${TEX} ${FLAGS} ${PROJECT}.tex;
 	${TEX} ${FLAGS} ${PROJECT}.tex;
+	open output/report.pdf;
 
 clean:
 	rm -rf ${OUTPUT}

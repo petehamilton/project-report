@@ -9,13 +9,104 @@ Height, Width, Centroid
 
 \subsection{Centralised Moments}
 \todo[inline]{Centralised Moments - Scikit Image References}
-Page 56
 
 \subsection{Normalised Central Moments}
 \todo[inline]{Normalised Central Moments - Scikit Image References}
 
 \subsection{Run Length Encoding}
-You can use raw pixel data, in which case data storage is hard/large
-\todo[inline]{Overview of run length encoding, raw pixels}
+\label{sec:tb-rle}
 
-\todo[inline]{Reference the Principles of digital image processing book + link to papers}
+Run Length Encoding (RLE) is something which is regularly mentioned in regard to OMR, it involves taking a pixel based image and converting what would be a huge amount of information into a more compact format by establishing ``runs'' of identical pixels which are in a contiguous block.
+
+In \cite{burger2009principles} an example of RLE is given for a two dimensional binary image where a run of pixels is represented by it's row, column and run length, an example of a more general greyscale version of this can be seen in figure \ref{fig:rle-2d}
+
+\begin{figure}
+  \centering
+
+  \begin{tabular}{c}
+
+  2D Greyscale Image \\
+  \ \\
+    $
+  \begin{bmatrix}
+    1 & 2 & 2 & 2 & 2 & 3 & 3 & 3 \\
+    3 & 3 & 3 & 4 & 4 & 4 & 4 & 1 \\
+    1 & 1 & 5 & 5 & 5 & 2 & 2 & 2 \\
+    2 & 2 & 2 & 2 & 5 & 5 & 4 & 4
+  \end{bmatrix}
+  $ \\
+  \ \\
+  \hline
+  \ \\
+  Run Length Encoding $\langle \textbf{row}, \textbf{column}, \textbf{value}, \textbf{length} \rangle$\\
+  \ \\
+  $\langle 0, 0, 1, 1 \rangle$,
+  $\langle 0, 1, 2, 4 \rangle$,
+  $\langle 0, 5, 3, 3 \rangle$,
+  $\langle 1, 0, 3, 3 \rangle$,
+  $\langle 1, 3, 4, 4 \rangle$,
+  $\langle 1, 7, 1, 1 \rangle$, \\
+  $\langle 2, 0, 1, 2 \rangle$,
+  $\langle 2, 2, 5, 3 \rangle$,
+  $\langle 2, 5, 2, 3 \rangle$,
+  $\langle 3, 0, 2, 4 \rangle$,
+  $\langle 3, 4, 5, 2 \rangle$,
+  $\langle 3, 6, 4, 2 \rangle$
+  \\
+  \end{tabular}
+  \caption{2D Greyscale Image with RLE}
+  \label{fig:rle-2d}
+\end{figure}
+
+If you then reshape this 2D image into a one dimensional array (retrieving and reshaping it to it's 2D representation later), you can remove 50\% of the compressed data (row and column) as seen in figure \ref{fig:rle-1d}
+
+\begin{figure}
+  \centering
+
+  \begin{tabular}{c}
+
+  1D Flattened Image \\
+  \ \\
+  {[}
+    1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 1
+    1, 1, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 5, 5, 4, 4
+  {]} \\
+  \ \\
+  \hline
+  \ \\
+  Run Length Encoding $\langle \textbf{value}, \textbf{length} \rangle$\\
+  \ \\
+  $\langle 1, 1 \rangle$,
+  $\langle 2, 4 \rangle$,
+  $\langle 3, 6 \rangle$,
+  $\langle 4, 4 \rangle$,
+  $\langle 1, 3 \rangle$,
+  $\langle 5, 3 \rangle$,
+  $\langle 2, 7 \rangle$,
+  $\langle 5, 2 \rangle$,
+  $\langle 4, 2 \rangle$
+  \end{tabular}
+  \caption{1D Greyscale Image with RLE}
+  \label{fig:rle-1d}
+\end{figure}
+
+If we are using binary data we can simplify this further, simply tracking the initial bit, then recording runs of alternating values as seen in figure \ref{fig:rle-1d-binary}, we can simplify this further with an additional assumption \parencite{fujinaga1996adaptive} by assuming the sequence will start with a 0, removing the need for the initial bit. If the sequence begins with a 1 we just start with a entry of length 0. Since a lot of musical entities don't touch the top left corner, this is the implementation I have used.
+
+\begin{figure}
+  \centering
+
+  \begin{tabular}{c}
+
+  1D Flattened Image \\
+  \ \\
+  {[} 1,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,1 {]} \\
+  \ \\
+  \hline
+  \ \\
+  Run Length Encoding \\
+  \ \\
+  {[} 1,6,4,3,5,4 {]} \\
+  \end{tabular}
+  \caption{1D Binary Image with RLE}
+  \label{fig:rle-1d-binary}
+\end{figure}
