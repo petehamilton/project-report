@@ -3,6 +3,7 @@ OUTPUT=output
 TEX=pdflatex
 FLAGS=-output-directory ${OUTPUT}
 BIBTEX=bibtex
+GLOSSARY=makeglossaries
 
 .PHONY: clean
 
@@ -11,6 +12,7 @@ default: default
 	${TEX} ${FLAGS} ${PROJECT}.tex;
 	cp *.bib ${OUTPUT};
 	cd ${OUTPUT}; ${BIBTEX} ${PROJECT};
+	cd ${OUTPUT}; ${GLOSSARY} ${PROJECT};
 	${TEX} ${FLAGS} ${PROJECT}.tex;
 	${TEX} ${FLAGS} ${PROJECT}.tex;
 	open output/report.pdf;
