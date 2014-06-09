@@ -1,0 +1,29 @@
+\begin{lstlisting}[caption=Iterative Two-Pass Connected Component Labelling, label=alg:ccl-iterative]
+let img be the binary image
+let lblimg be the labelled image
+
+lblimg = negate(image)
+lbl = 1
+equivalent_labels = []
+
+first_pass():
+  for i = 0 to height:
+    for j = 0 to width:
+      if lblimg[i, j] == 1:
+        labels = neighbour_labels(i, j)
+        if size(labels) == 0:
+          lbl += 1
+          lblimg[i, j] = lbl
+        else:
+          lblimg[i, j] = labels[0]
+          if size(labels) > 1:
+            equivalent_labels << labels
+
+second_pass():
+    for labelgroup in equivalent_labels:
+      firstlabel  = labelgroup[0]
+      otherlabels = labelgroup[1..]
+
+      for label in otherlabels:
+        relabelpixels(label, firstlabel)
+\end{lstlisting}

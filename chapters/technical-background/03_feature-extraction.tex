@@ -90,7 +90,7 @@ If you then reshape this 2D image into a one dimensional array (retrieving and r
   \label{fig:rle-1d}
 \end{figure}
 
-If we are using binary data we can simplify this further, simply tracking the initial bit, then recording runs of alternating values as seen in figure \ref{fig:rle-1d-binary}, we can simplify this further with an additional assumption \parencite{fujinaga1996adaptive} by assuming the sequence will start with a 0, removing the need for the initial bit. If the sequence begins with a 1 we just start with a entry of length 0. Since a lot of musical entities don't touch the top left corner, this is the implementation I have used.
+If we are using binary data we can simplify this further, simply tracking the initial bit, then recording runs of alternating values as seen in figure \ref{fig:rle-1d-binary}, we can simplify this further with the additional assumption \parencite{fujinaga1996adaptive} that the sequence will start with a 0, removing the need for the initial bit. If the sequence begins with a 1 we just start with an entry of length 0. Since a lot of musical entities don't touch the top left corner, this is the implementation I have used.
 
 \begin{figure}
   \centering

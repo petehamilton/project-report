@@ -1,6 +1,6 @@
 \section{Segmentation}
 
-The first step is to take a given image or scene and extract the individual objects.
+Segmentation is the challenge of taking a given image or scene and extracting individual objects or `components'.
 
 Typically this can be a complex problem to tackle as stafflines connect almost all components together and must therefore first be removed. Also some musical entities are themselves comprised of multiple other entities. Good examples are the bass clef which is comprised of two dots placed above each other to the right of the curve and dotted notes , both of which can be seen in \todo[inline]{Examples of multi-component musical entities}.
 
@@ -8,7 +8,81 @@ Particularly in this project, we also need to be able to break down the musical 
 
 \subsection{Connected Component Analysis}
 
+Connected component analysis is a technique used to establish distinct regions within an image. An individual pixel in a binary image can possess two forms of connectedness, \emph{4-neighbour} or \emph{8-neighbour}. It should be noted that this evaluation only takes place for pixels with a value of 1 or ``filled pixels''.
+
+More formally, ``A connected component labelling of a binary image B is a labeled image LB in which the value of each pixel is the label of it's connected component'' \parencite[pg 69]{shapiro2001computer}
+
+To be \textbf{4-neighbour}, at least one of the pixels above, below or to the left or right (which we can refer to as the vertical and horizontal neighbours) of the pixel under investigation must have a value of 1.
+
+In a similar fashion, an \textbf{8-neighbour} pixel is one where any of the surrounding 8 pixels (vertical, horizontal or diagonal neighbours) has a value of 1.
+
+Regions for 4-neighbour and 8-neighbour connected pixels are outlined in figure \ref{fig:pixel-neighbours}
+
+\begin{figure}[h!]
+  \centering
+  \subfigure[4 Neighbour Regions]{
+    \input{gfx/technical-background/connected-component/neighbour-4.tikz}
+    \label{fig:4-neighbour-regions}
+  }
+  \quad
+  \subfigure[4 Neighbour Connected]{
+    \input{gfx/technical-background/connected-component/neighbour-4-connected.tikz}
+    \label{fig:4-neighbour-connected}
+  }\\
+  \subfigure[8 Neighbour Regions]{
+    \input{gfx/technical-background/connected-component/neighbour-8.tikz}
+    \label{fig:8-neighbour-regions}
+  }
+  \quad
+  \subfigure[8 Neighbour Connected]{
+    \input{gfx/technical-background/connected-component/neighbour-8-connected.tikz}
+    \label{fig:8-neighbour-connected}
+  }
+
+  \caption{4 and 8 Neighbour Regions and examples of connected pixels}
+  \label{fig:pixel-neighbours}
+\end{figure}
+
+There are two primary algorithms for establishing connected regions, the first is recursive and the second requires two scans.
+
+\subsubsection{Recursive Labelling}
+
+If we assume that the size of the image to be evaluated is small and we can fit it in memory (a reasonable assumption give the scope of the project and the hardware available) we can employ a recursive algorithm which can grow regions by visiting any pixel in the image using depth first of breadth first searching. An outline for a depth first algorithm is given in algorithm \ref{alg:ccl-recursive}
+
+\input{chapters/technical-background/recursive-algo}
+
+\subsubsection{Two Pass Labelling}
+
+An alternate algorithm involves performing the labelling in two passes. Assuming 8-neighbour connectedness and that we will most likely be scanning left to right we inspect the 3 pixels above and the pixel to the left of the current pixel as seen in figure \ref{fig:scan-neighbours}.
+
+\begin{figure}[h!]
+  \centering
+  \input{gfx/technical-background/connected-component/pixel-scan.tikz}
+  \caption{Pixels which are inspected during each row scan}
+  \label{fig:scan-neighbours}
+\end{figure}
+
+We label each pixel according to these neighbours (if neighbours have multiple labels we just pick any of them and record that they were adjacent) and then finally reduce the number of labels by merging adjacent labels. An visual example of the process can be seen in figure \ref{fig:ccl-two-pass}
+
+\input{chapters/technical-background/two-pass-algo}
+
+\begin{figure}[h!]
+  \centering
+
+  \subfigure[Initial Image]{\input{gfx/technical-background/connected-component/iterative-pass-0.tikz}}\\
+  \subfigure[After First Pass (Row 1)]{\input{gfx/technical-background/connected-component/iterative-pass-1.tikz}}\quad
+  \subfigure[After First Pass (Row 2)]{\input{gfx/technical-background/connected-component/iterative-pass-2.tikz}}\quad
+  \subfigure[After First Pass (Row 3)]{\input{gfx/technical-background/connected-component/iterative-pass-3.tikz}}\\
+  \subfigure[After Second Pass]{\input{gfx/technical-background/connected-component/iterative-pass-4.tikz}}
+
+  \caption{Step by step two pass connected component labelling}
+  \label{fig:ccl-two-pass}
+\end{figure}
+
+
 \subsection{Projections}
+
+Projections are regularly used in OMR during the preprocessing stage to detect and remove staff lines \parencite{rossant2002global}, but can also be used during the segmentation stage
 
 The technique essentially involves projecting the manuscript in the x and y axes, collecting the pixels in either individual pixel lines or buckets in order to help establish information about the image.
 
@@ -32,4 +106,20 @@ The horizontal and vertical projections can then be defined as:
   \label{fig:stave-projection}
 \end{figure}
 
-An example section of score is shown in figure \ref{fig:stave-projection} and you can immediately see the potential for use in detection/removal of staff lines using equation \eqref{eq:hproj} or in isolation and segmentation of components using equation \eqref{eq:vproj}.
+An example section of score is shown in figure \ref{fig:stave-projection} along with it's horizontal and vertical projections.
+
+\subsection{Defects and Difficulties}
+
+There are two regular types of error that can cause issues during segmentation, \textbf{touching objects} and \textbf{broken objects}. Since these are likely to occur a lot more regularly given the freedom allowed by handwritten music and the a beginner's learning curve, it is important that the application is able to spot (and subsequently feed back on) these errors.
+
+\subsubsection{Touching Objects}
+
+Touching objects are usually identifiable via a vertical projection profile \todo{reference projections} but can cause issues when segmenting components using \todo{Ref connected component} connected component analysis as it causes what were intended to be two separate objects to appear as one.
+
+\todo[inline]{Examples of touching objects}
+
+In a printed score, you can use \todo{ref template matching} template matching in order to separate the components but when they are handwritten, it's more likely I will have to rely on using projections to find the point of minimal intersection \todo{Reference to where I do split\_x and split\_y}
+
+
+
+
