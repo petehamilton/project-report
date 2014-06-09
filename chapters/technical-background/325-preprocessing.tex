@@ -1,0 +1,18 @@
+\section{Pre-processing}
+
+Most OMR applications and research is focussed on processing scanned in printed music sheets. Usually this consists of taking scanning a sheet of A4 into a Grey (256 colors) colorspace at a reasonably high resolution of about 300 - 400dpi\footnote{dpi - Dots per inch}.
+
+The image is usually then processed to remove any noise, skewing, warping, rotation or other graphical defects and then binarized, resulting in a black and white replica of the original score.
+
+Finally, staff lines are generally removed \todo[inline]{(Bainbridge and Bell, 2001)} although this isn't always the case.
+
+In this project I have managed to circumvent the need for stave line removal and many of the distortions and noise problems which usually hinder accuracy during the initial stages of OMR, however \todo{Reference to talking about no stave lines needed} there are still a few common pre-processing stages from which my implementation is not immune.
+
+\subsection{Binarization}
+\label{sec:binarization}
+
+\subsubsection{Otsu Thresholding}
+
+\subsubsection{Simplistic}
+
+all cells not white considered black

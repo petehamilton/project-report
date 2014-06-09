@@ -1,0 +1,22 @@
+\section{Classification}
+
+Classifiers are created by taking a sets of previously labelled samples and building a model which attempts to provide the most accurate relation between the samples and their labels.
+
+This allows new samples to be classified using the model to apply the most likely (and hopefully correct) label.
+
+\subsection{K Nearest Neighbour}
+
+The \acrfull{KNN} algorithm is an example of instance based learning and theoretically doesn't require supervision or training.
+
+KNN classification works by extracting a set of features for each sample and using this `feature vector' to represent each sample in a multidimensional vector space.
+
+Once this space has been generated, new samples may be classified by generating their feature vector and calculating the $k$ closest or `most similar' samples in the model by way of a distance calculation. By considering the $k$ closest samples, a consensus can be reached and the new sample is classified according to the label with the greatest majority in the $k$ nearest neighbours as seen in \ref{fig:knn-example}.
+
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[draft, width=\linewidth]{gfx/background-omr/knn-example.png}
+%   \caption{KNN example using musical symbols}
+%   \label{fig:knn-example}
+% \end{figure}
+\todo[inline]{KNN EXAMPLE}
+The two most critical aspects of the KNN classifier are the distance method used and the number of neighbours considered. In order to maximise the accuracy of the classifier I perform several experiments to this effect in section \ref{sec:imp-classification}

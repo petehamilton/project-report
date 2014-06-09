@@ -15,7 +15,8 @@ default: default
 	cd ${OUTPUT}; ${GLOSSARY} ${PROJECT};
 	${TEX} ${FLAGS} ${PROJECT}.tex;
 	${TEX} ${FLAGS} ${PROJECT}.tex;
-	open output/report.pdf;
+	cp output/report.pdf ./;
+	open report.pdf;
 
 clean:
 	rm -rf ${OUTPUT}

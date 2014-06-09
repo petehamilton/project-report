@@ -1,0 +1,16 @@
+PROJECT=report
+OUTPUT=output
+TEX=pdflatex
+FLAGS=-output-directory ${OUTPUT}
+BIBTEX=bibtex
+GLOSSARY=makeglossaries
+
+rm -rf report.pdf
+mkdir -p ${OUTPUT};
+${TEX} ${FLAGS} $TEXPAD_ROOTFILE;
+cp *.bib ${OUTPUT};
+${BIBTEX} $TEXPAD_ROOTFILE_NO_EXT
+${GLOSSARY} $TEXPAD_ROOTFILE_NO_EXT
+${TEX} ${FLAGS} $TEXPAD_ROOTFILE;
+${TEX} ${FLAGS} $TEXPAD_ROOTFILE;
+mv output/report.pdf ./

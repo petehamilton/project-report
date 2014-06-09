@@ -1,47 +1,32 @@
 % SETUP
-\input{config/settings.tex}
+\input{config/z_settings.tex}
 
 % DOCUMENT
 \begin{document}
 
 \listoftodos
 
-\input{chapters/front-matter.tex}
+\input{chapters/000-title-page}
+\input{chapters/001-abstract}
+\input{chapters/002-dedication}
+\input{chapters/003-declaration}
+\input{chapters/004-acknowledgements}
+
+\tableofcontents
 
 \pagebreak
 
-\chapter{Introduction}
-\input{chapters/introduction.tex}
-
-
-\chapter{Related Works}
-\input{chapters/related-works.tex}
-\label{sec:prior-research}
-
-% \chapter{Background}
-% \input{chapters/background.tex}
-
-\chapter{Technical Background}
-\input{chapters/technical-background.tex}
-
-\chapter{Implementation}
-\input{chapters/implementation.tex}
-
-\chapter{Evaluation}
-\input{chapters/evaluation.tex}
-
-\chapter{Conclusions}
-\input{chapters/conclusions.tex}
-
-\chapter{User Guide}
-\input{chapters/user-guide.tex}
+\input{chapters/100-introduction.tex}
+\input{chapters/200-background.tex}
+\input{chapters/300-technical-background.tex}
+\input{chapters/400-implementation.tex}
+\input{chapters/500-evaluation.tex}
+\input{chapters/600-conclusions.tex}
+\input{chapters/700-user-guide.tex}
 
 \printbibliography
 
 \appendix
-\chapter{Appendix}
-\input{chapters/appendix.tex}
-
 
 \glossarystyle{list}
 \printglossary[type=\acronymtype] % prints just the list of acronyms
