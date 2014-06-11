@@ -18,22 +18,22 @@ Height, Width, Centroid
 
 \acrfull{RLE} is something which is regularly mentioned in regard to OMR, it involves taking a pixel based image and converting what would be a huge amount of information into a more compact format by establishing ``runs'' of identical pixels which are in a contiguous block.
 
-For a two dimensional binary image a run of pixels can be represented by it's row, column, value and run length \parencite[p. 27-28]{burger2009principles} as seen in figure \ref{table:rle-2d}
+For a two dimensional binary image a run of pixels can be represented by it's row, column, value and run length \parencite[p. 27-28]{burger2009principles} as seen in \cref{table:rle-2d}
 
 \begin{table}[h]
-    
+
     \begin{tabularx}{\textwidth}{ X | X }
         \toprule
         Example & RLE $(\textbf{row}, \textbf{column}, \textbf{value}, \textbf{length})$\\
         \midrule
-        
+
         $$\begin{bmatrix}
         1 & 2 & 2 & 3  \\
         3 & 3 & 3 & 1  \\
         1 & 1 & 5 & 5  \\
         5 & 5 & 2 & 2
         \end{bmatrix}$$
-        
+
         &
         {[} (0, 0, 1, 1), (0, 1, 2, 2), (0, 3, 3, 1), \newline
         (1, 0, 3, 3), (1, 3, 1, 1), (2, 0, 1, 2), \newline
@@ -52,7 +52,7 @@ For a two dimensional binary image a run of pixels can be represented by it's ro
         \toprule
         Example & RLE $(\textbf{value}, \textbf{length})$\\
         \midrule
-        
+
         {[} 1, 2, 2, 3, 3, 3, 3, 1, 1, 1, 5, 5, 5, 5, 2, 2 {]}
         &
         {[} $(1, 1)$,
@@ -73,7 +73,7 @@ For a two dimensional binary image a run of pixels can be represented by it's ro
         \toprule
         Example & RLE $\langle \textbf{value}, \textbf{length} \rangle$\\
         \midrule
-        
+
         {[} 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1 {]}
         &
         {[} 0, 3, 3, 2, 4 {]} (first bit sets ordering)\newline
@@ -85,6 +85,6 @@ For a two dimensional binary image a run of pixels can be represented by it's ro
     \caption{1D Flattened Binary Image}
 \end{table}
 
-If you then reshape this 2D image into a one dimensional array (retrieving and reshaping it to it's 2D representation later), you can remove 50\% of the compressed data (row and column) as seen in figure \ref{table:rle-1d}
+If you then reshape this 2D image into a one dimensional array (retrieving and reshaping it to it's 2D representation later), you can remove 50\% of the compressed data (row and column) as seen in \cref{table:rle-1d}
 
-If we are using binary data we can simplify this further, simply tracking the initial bit, then recording runs of alternating values as seen in figure \ref{table-1d-binary}, we can simplify this further with the additional assumption \parencite{fujinaga1996adaptive} that the sequence will start with a 0, removing the need for the initial bit. If the sequence begins with a 1 we just start with an entry of length 0. Since a lot of musical entities don't touch the top left corner, this is the implementation I have used.
+If we are using binary data we can simplify this further, simply tracking the initial bit, then recording runs of alternating values as seen in \cref{table-1d-binary}, we can simplify this further with the additional assumption \parencite{fujinaga1996adaptive} that the sequence will start with a 0, removing the need for the initial bit. If the sequence begins with a 1 we just start with an entry of length 0. Since a lot of musical entities don't touch the top left corner, this is the implementation I have used.

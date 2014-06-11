@@ -16,7 +16,7 @@ To be \textbf{4-neighbour}, at least one of the pixels above, below or to the le
 
 In a similar fashion, an \textbf{8-neighbour} pixel is one where any of the surrounding 8 pixels (vertical, horizontal or diagonal neighbours) has a value of 1.
 
-Regions for 4-neighbour and 8-neighbour connected pixels are outlined in figure \ref{fig:pixel-neighbours}
+Regions for 4-neighbour and 8-neighbour connected pixels are outlined in \cref{fig:pixel-neighbours}
 
 \begin{figure}[h!]
     \centering
@@ -26,10 +26,13 @@ Regions for 4-neighbour and 8-neighbour connected pixels are outlined in figure 
         \caption{4 Neighbour Regions}
         \label{fig:4-neighbour-regions}
     \end{subfigure}
-    \begin{subfigure}[b]{.4\linewidth}        \centering
-        \input{gfx/background-omr/connected-component/neighbour-4-connected.tikz}        \caption{4N - 2 Regions Identified}
-        \label{fig:4-neighbour-regions}    \end{subfigure}
-        
+    \begin{subfigure}[b]{.4\linewidth}
+        \centering
+        \input{gfx/background-omr/connected-component/neighbour-4-connected.tikz}
+        \caption{4N - 2 Regions Identified}
+        \label{fig:4-neighbour-regions}
+    \end{subfigure}
+
     \vspace*{0.5in}
 
     \begin{subfigure}[b]{.4\linewidth}
@@ -38,11 +41,13 @@ Regions for 4-neighbour and 8-neighbour connected pixels are outlined in figure 
         \label{fig:8-neighbour-regions}
         \caption{8 Neighbour Regions}
     \end{subfigure}
-    \begin{subfigure}[b]{.4\linewidth}        \centering
+    \begin{subfigure}[b]{.4\linewidth}
+        \centering
         \input{gfx/background-omr/connected-component/neighbour-8-connected.tikz}
         \label{fig:8-neighbour-connected}
-        \caption{8N - 1 Region Identified}    \end{subfigure}
-    
+        \caption{8N - 1 Region Identified}
+    \end{subfigure}
+
     \caption{4 and 8 Neighbour Regions and examples of connected pixels}
     \label{fig:pixel-neighbours}
 \end{figure}
@@ -51,7 +56,7 @@ There are two primary algorithms for establishing connected regions, the first i
 
 \subsubsection{Recursive Labelling}
 
-If we assume that the size of the image to be evaluated is small and we can fit it in memory (a reasonable assumption give the scope of the project and the hardware available) we can employ a recursive algorithm which can grow regions by visiting any pixel in the image using depth first of breadth first searching. An outline for a depth first algorithm is given in algorithm \ref{alg:ccl-recursive}
+If we assume that the size of the image to be evaluated is small and we can fit it in memory (a reasonable assumption give the scope of the project and the hardware available) we can employ a recursive algorithm which can grow regions by visiting any pixel in the image using depth first of breadth first searching. An outline for a depth first algorithm is given in algorithm \cref{alg:ccl-recursive}
 
 \begin{lstlisting}[caption=Recursive Connected Component Labelling (DFS), label=alg:ccl-recursive]
 let img be the binary image
@@ -76,7 +81,7 @@ label_region(i, j):
 
 \subsubsection{Two Pass Labelling}
 
-An alternate algorithm involves performing the labelling in two passes. Assuming 8-neighbour connectedness and that we will most likely be scanning left to right we inspect the 3 pixels above and the pixel to the left of the current pixel as seen in figure \ref{fig:scan-neighbours}.
+An alternate algorithm involves performing the labelling in two passes. Assuming 8-neighbour connectedness and that we will most likely be scanning left to right we inspect the 3 pixels above and the pixel to the left of the current pixel as seen in \cref{fig:scan-neighbours}.
 
 \begin{figure}[h!]
   \centering
@@ -85,7 +90,7 @@ An alternate algorithm involves performing the labelling in two passes. Assuming
   \label{fig:scan-neighbours}
 \end{figure}
 
-We label each pixel according to these neighbours (if neighbours have multiple labels we just pick any of them and record that they were adjacent) and then finally reduce the number of labels by merging adjacent labels. An visual example of the process can be seen in figure \ref{fig:ccl-two-pass}
+We label each pixel according to these neighbours (if neighbours have multiple labels we just pick any of them and record that they were adjacent) and then finally reduce the number of labels by merging adjacent labels. An visual example of the process can be seen in \cref{fig:ccl-two-pass}
 
 \begin{lstlisting}[caption=Iterative Two-Pass Connected Component Labelling, label=alg:ccl-iterative]
 let img be the binary image
@@ -121,13 +126,13 @@ second_pass():
   \centering
 
   \subcaption[Initial Image]{\input{gfx/background-omr/connected-component/iterative-pass-0.tikz}}
-  
+
   \subcaption[1\textsuperscript{st} pass (Row 1)]{\input{gfx/background-omr/connected-component/iterative-pass-1.tikz}}
-  
+
   \subcaption[1\textsuperscript{st} pass (Row 2)]{\input{gfx/background-omr/connected-component/iterative-pass-2.tikz}}
-  
+
   \subcaption[1\textsuperscript{st} pass (Row 3)]{\input{gfx/background-omr/connected-component/iterative-pass-3.tikz}}
-  
+
   \subcaption[2\textsuperscript{nd} Pass]{\input{gfx/background-omr/connected-component/iterative-pass-4.tikz}}
 
   \caption{Step by step two pass connected component labelling}
@@ -161,14 +166,14 @@ The horizontal and vertical projections can then be defined as:
   \label{fig:stave-projection}
 \end{figure}
 
-An example section of score is shown in figure \ref{fig:stave-projection} along with it's horizontal and vertical projections.
+An example section of score is shown in \cref{fig:stave-projection} along with it's horizontal and vertical projections.
 
 
 \subsection{Template Matching}
 
 Image segmentation using template matching is uncommon but not unheard of, it receives particular attention in the segmentation phase in \cite{rossant2002global}. Different templates of reference components can be matched to the score, where a high correlation score in a certain position acts as both segmentation and classification.
 
-In testing, I was able to reproduce this effect by extracting components like the note head from the whole note as seen in Figure \ref{fig:templatematch}. However, as noted by \citeauthor{rossant2002global} this method is highly dependent on the font used in a printed score so for the purposes of handling handwritten notation it's unlikely to yield great results. Indeed, in preliminary testing, getting regular correct matches in a handwritten score proved troublesome.
+In testing, I was able to reproduce this effect by extracting components like the note head from the whole note as seen in Figure \cref{fig:templatematch}. However, as noted by \citeauthor{rossant2002global} this method is highly dependent on the font used in a printed score so for the purposes of handling handwritten notation it's unlikely to yield great results. Indeed, in preliminary testing, getting regular correct matches in a handwritten score proved troublesome.
 
 \begin{figure}[h!]
   \includegraphics[width=0.6\linewidth]{gfx/template.png}
@@ -177,7 +182,7 @@ In testing, I was able to reproduce this effect by extracting components like th
   \label{fig:templatematch}
 \end{figure}
 
-More formally, for the example in figure \ref{templatematch}, template matching involves analysing each pixel in an image (or a region of an image) and comparing it to a reference pixel in a template image. The score for two $n \times m$ images $x$ and $y$ can be generated using:
+More formally, for the example in \cref{templatematch}, template matching involves analysing each pixel in an image (or a region of an image) and comparing it to a reference pixel in a template image. The score for two $n \times m$ images $x$ and $y$ can be generated using:
 
 $$SSD_{xy} = \sum_{i = 0}^m \sum_{j = 0}^n (x(i, j) - y(i, j))^2$$
 
