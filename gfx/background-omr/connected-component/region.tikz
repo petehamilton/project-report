@@ -1,0 +1,6 @@
+\begin{tikzpicture}
+  \fill[green!60] (1,1) rectangle (2,2);
+  \fill[black] (2,1) rectangle (3,2);
+  \fill[black] (2,2) rectangle (3,3);
+  \draw[thick,step=1cm,color=gray!30] (0, 0) grid (3,3);
+\end{tikzpicture}

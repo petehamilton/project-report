@@ -38,4 +38,22 @@ This allows new samples to be classified using the model to apply the most likel
 
 \subsubsection{K Nearest Neighbour}
 
+\subsection{Pitch Identification}
+\label{sec:pitch-identification}
+
+\subsubsection{Finding Component Centres}
+
+For most components, the obvious choice would be to simply divide it in half vertically and horizontally and use that as an estimate for the centre and indeed that's often what is done in traditional OMR. \todo{Reference for dividing in half to get centre}.
+\todo{I know someone uses 1/3 for flats}.
+
+However, for several components I believe that a higher degree of accuracy can (and in the context of this project, should) be obtained. Students may unwittingly apply defects to the entities they draw which can have a knock-on effect later in the scoring process, particularly with regard to grouping and pitch identification (\cref{sec:pitch-identification}).
+
+We could use island centres? But Notes may not be joined up
+We could get over this with region growing until we find an island? but is there a better way?
+
+Yes - Pixel density as in \cref{benoptical}
+
+\todo[inline,color=red]{Pixel density to find centre even if there's a hold}
+
+
 

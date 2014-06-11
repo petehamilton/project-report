@@ -20,6 +20,14 @@ Regions for 4-neighbour and 8-neighbour connected pixels are outlined in \cref{f
 
 \begin{figure}[h!]
     \centering
+    \begin{subfigure}[b]{.6\linewidth}
+        \centering
+        \input{gfx/background-omr/connected-component/region.tikz}
+        \caption{Image (The pixel being examined is higlighted)}
+    \end{subfigure}
+
+    \vspace*{0.5in}
+    
     \begin{subfigure}[b]{.4\linewidth}
         \centering
         \input{gfx/background-omr/connected-component/neighbour-4.tikz}
@@ -123,17 +131,38 @@ second_pass():
 \end{lstlisting}
 
 \begin{figure}[h!]
-  \centering
+    \centering
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \input{gfx/background-omr/connected-component/iterative-pass-0.tikz}
+        \caption{Initial Image}
+    \end{subfigure}
 
-  \subcaption[Initial Image]{\input{gfx/background-omr/connected-component/iterative-pass-0.tikz}}
+    \vspace*{0.5in}
 
-  \subcaption[1\textsuperscript{st} pass (Row 1)]{\input{gfx/background-omr/connected-component/iterative-pass-1.tikz}}
+    \begin{subfigure}[b]{.3\linewidth}
+        \centering
+        \input{gfx/background-omr/connected-component/iterative-pass-1.tikz}
+        \caption{1\textsuperscript{st} pass (Row 1)}
+    \end{subfigure}
+    \begin{subfigure}[b]{.3\linewidth}
+        \centering
+        \input{gfx/background-omr/connected-component/iterative-pass-2.tikz}
+        \caption{1\textsuperscript{st} pass (Row 2)}
+    \end{subfigure}
+    \begin{subfigure}[b]{.3\linewidth}
+        \centering
+        \input{gfx/background-omr/connected-component/iterative-pass-3.tikz}
+        \caption{1\textsuperscript{st} pass (Row 3)}
+    \end{subfigure}
 
-  \subcaption[1\textsuperscript{st} pass (Row 2)]{\input{gfx/background-omr/connected-component/iterative-pass-2.tikz}}
-
-  \subcaption[1\textsuperscript{st} pass (Row 3)]{\input{gfx/background-omr/connected-component/iterative-pass-3.tikz}}
-
-  \subcaption[2\textsuperscript{nd} Pass]{\input{gfx/background-omr/connected-component/iterative-pass-4.tikz}}
+    \vspace*{0.5in}
+    
+    \begin{subfigure}[b]{.6\linewidth}
+        \centering
+        \input{gfx/background-omr/connected-component/iterative-pass-4.tikz}
+        \caption{2\textsuperscript{nd} Pass}
+    \end{subfigure}
 
   \caption{Step by step two pass connected component labelling}
   \label{fig:ccl-two-pass}

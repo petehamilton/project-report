@@ -1,5 +1,5 @@
 \begin{tikzpicture}
-  \fill[black] (1,1) rectangle (2,2);
+  \fill[green!60] (1,1) rectangle (2,2);
   \fill[gray!60]  (1,0) rectangle (2,1);
   \fill[gray!60]  (0,1) rectangle (1,2);
   \fill[gray!60]  (2,1) rectangle (3,2);
