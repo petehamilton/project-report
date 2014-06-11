@@ -20,11 +20,11 @@ Height, Width, Centroid
 
 For a two dimensional binary image a run of pixels can be represented by it's row, column, value and run length \parencite[p. 27-28]{burger2009principles} as seen in figure \ref{table:rle-2d}
 
-\begin{figure}[h]
-  \subfigure[2D Greyscale Image]{
+\begin{table}[h]
+    
     \begin{tabularx}{\textwidth}{ X | X }
-        Example & RLE $\langle \textbf{row}, \textbf{column}, \textbf{value}, \textbf{length} \rangle$\\
-        
+        \toprule
+        Example & RLE $(\textbf{row}, \textbf{column}, \textbf{value}, \textbf{length})$\\
         \midrule
         
         $$\begin{bmatrix}
@@ -35,53 +35,55 @@ For a two dimensional binary image a run of pixels can be represented by it's ro
         \end{bmatrix}$$
         
         &
-         $\langle 0, 0, 1, 1 \rangle$, $\langle 0, 1, 2, 2 \rangle$, $\langle 0, 3, 3, 1 \rangle$, \newline
-        $\langle 1, 0, 3, 3 \rangle$, $\langle 1, 3, 1, 1 \rangle$, $\langle 2, 0, 1, 2 \rangle$, \newline
-        $\langle 2, 2, 5, 2 \rangle$, $\langle 3, 0, 5, 2 \rangle$, $\langle 3, 2, 5, 2 \rangle$ \\
+        {[} (0, 0, 1, 1), (0, 1, 2, 2), (0, 3, 3, 1), \newline
+        (1, 0, 3, 3), (1, 3, 1, 1), (2, 0, 1, 2), \newline
+        (2, 2, 5, 2), (3, 0, 5, 2), (3, 2, 5, 2) {]} \\
         \ & \ \\
+    \bottomrule
     \end{tabularx}
+
     \label{table:rle-2d}
-  }
-  
-\vspace*{0.2in}
+    \caption{2D Greyscale Image}
+\end{table}
 
-\subfigure[1D Flattened Greyscale Image]{
+
+\begin{table}[h]
     \begin{tabularx}{\textwidth}{ X | X }
-        Example & RLE $\langle \textbf{value}, \textbf{length} \rangle$\\
-        
+        \toprule
+        Example & RLE $(\textbf{value}, \textbf{length})$\\
         \midrule
         
-        {[}1,2,2,3,3,3,3,1,1,1,5,5,5,5,2,2{]}
+        {[} 1, 2, 2, 3, 3, 3, 3, 1, 1, 1, 5, 5, 5, 5, 2, 2 {]}
         &
-  $\langle 1, 1 \rangle$,
-  $\langle 2, 2 \rangle$,
-  $\langle 3, 4 \rangle$,
-  $\langle 1, 3 \rangle$,
-  $\langle 5, 4 \rangle$,
-  $\langle 2, 2 \rangle$ \\
-        \ & \ \\
+        {[} $(1, 1)$,
+        $(2, 2)$,
+        $(3, 4)$,
+        $(1, 3)$,
+        $(5, 4)$,
+        $(2, 2)$ {]} \\
+    \bottomrule
     \end{tabularx}
-    \label{table:rle-1d}
-  }
-  
-\vspace*{0.2in}
 
-\subfigure[1D Flattened Binary Image]{
+    \label{table:rle-1d}
+    \caption{1D Flattened Greyscale Image}
+\end{table}
+
+\begin{table}[h]
     \begin{tabularx}{\textwidth}{ X | X }
-        Example & RLE \\
-        
+        \toprule
+        Example & RLE $\langle \textbf{value}, \textbf{length} \rangle$\\
         \midrule
-        {[} 0,0,0,1,1,1,0,0,1,1,1,1 {]}
+        
+        {[} 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1 {]}
         &
         {[} 0, 3, 3, 2, 4 {]} (first bit sets ordering)\newline
         {[} 3, 3, 2, 4 {]} (assuming initial bit is 0) \\
-        \ & \ \\
+    \bottomrule
     \end{tabularx}
-    \label{table:rle-1d-binary}
-  }
 
-  \caption{Different inputs and their RLE}
-\end{figure}
+    \label{table:rle-1d-binary}
+    \caption{1D Flattened Binary Image}
+\end{table}
 
 If you then reshape this 2D image into a one dimensional array (retrieving and reshaping it to it's 2D representation later), you can remove 50\% of the compressed data (row and column) as seen in figure \ref{table:rle-1d}
 

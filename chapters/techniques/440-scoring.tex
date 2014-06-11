@@ -7,15 +7,43 @@
 \todo[inline,color=red]{Scoring Techniques - Beats and Timing}
 
 \subsection{Stems}
-\subsubsection{Straightness}
-\todo[inline,color=red]{Scoring Techniques - Stem Straightness}
+\subsubsection{Stem Straightness}
+
+Given a drawn note stem, we wish to be able to determine a measure of `straightness' which we can threshold to discern a badly drawn stem shown in figure \ref{fig:wonky-stem} from a straight one  as shown in figure \ref{fig:straight-stem}.
+
+\begin{figure}[h!]
+    \centering
+    
+    \begin{subfigure}[b]{.4\linewidth}
+    \centering
+        \includegraphics[height=4cm]{gfx/implementation/stem-straightness/3876.png}
+        \quad
+        \includegraphics[height=4cm]{gfx/implementation/stem-straightness/5104.png}
+        \caption{Examples of straight stems}
+        \label{fig:straight-stems}
+    \end{subfigure}
+    \begin{subfigure}[b]{.4\linewidth}
+        \centering
+        \includegraphics[height=4cm]{gfx/implementation/stem-straightness/4912.png}
+        \quad
+        \includegraphics[height=4cm]{gfx/implementation/stem-straightness/5371.png}
+        \caption{Examples of uneven stems}
+        \label{fig:wonky-stems}
+    \end{subfigure}
+    
+    \caption{Examples of straight and uneven stems}
+    \label{fig:stem-straightness-examples}
+\end{figure}
+
+
+
 \input{chapters/techniques/stem-straightness-figure.tex}
 
-\subsubsection{Angle}
+\subsubsection{Stem Angle}
 \todo[inline,color=red]{Scoring Techniques - Stem Angle}
 \input{chapters/techniques/stem-angle-figure.tex}
 
-\subsubsection{Direction}
+\subsubsection{Stem Direction}
 
 To establish the stem direction which I will refer to as $S_d$, the relative upper left coordinates of the head and the stem are compared.
 
@@ -33,7 +61,7 @@ $$
 
 The case where a stem has the same $y$ coordinate as it's head isn't possible due to the way stems are extracted from a note complex as for this to happen a stem would need to be extracted \emph{out} of a note head. Since note heads are removed in order to identify stems as in section \todo[inline, color=blue]{REFERENCE: Extracting Stems}, this is impossible.
 
-\subsubsection{Side}
+\subsubsection{Stem Side}
 To establish the stem side which I will refer to as $S_s$, we do a similar operation to in determining the direction, however, since it is perfectly feasible that the stem and head have the same x coordinate, we can't just use the x coordinate directly.
 
 Instead, we compare the x coordinate of the stem $x_{\text{stem}}$ to the true centre \todo{Better definition later please} of the note head $cx_{\text{head}}$
@@ -50,7 +78,7 @@ S_{s} (S_\text{xoff}) =
 \left\{
 	\begin{array}{ll}
 		\text{left}   & \mbox{if } S_\text{xoff} < 0 \\
-		\text{right}  & \mbox{if } S_\text{xoff} \gte 0
+		\text{right}  & \mbox{if } S_\text{xoff} \ge 0
 	\end{array}
 \right.
 $$

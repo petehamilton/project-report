@@ -19,28 +19,32 @@ In a similar fashion, an \textbf{8-neighbour} pixel is one where any of the surr
 Regions for 4-neighbour and 8-neighbour connected pixels are outlined in figure \ref{fig:pixel-neighbours}
 
 \begin{figure}[h!]
-  \centering
-  \subfigure[4 Neighbour Regions]{
-    \input{gfx/background-omr/connected-component/neighbour-4.tikz}
-    \label{fig:4-neighbour-regions}
-  }
-  \quad
-  \subfigure[4N - 2 Regions Identified]{
-    \input{gfx/background-omr/connected-component/neighbour-4-connected.tikz}
-    \label{fig:4-neighbour-connected}
-  }\\
-  \subfigure[8 Neighbour Regions]{
-    \input{gfx/background-omr/connected-component/neighbour-8.tikz}
-    \label{fig:8-neighbour-regions}
-  }
-  \quad
-  \subfigure[8N - 1 Region Identified]{
-    \input{gfx/background-omr/connected-component/neighbour-8-connected.tikz}
-    \label{fig:8-neighbour-connected}
-  }
+    \centering
+    \begin{subfigure}[b]{.4\linewidth}
+        \centering
+        \input{gfx/background-omr/connected-component/neighbour-4.tikz}
+        \caption{4 Neighbour Regions}
+        \label{fig:4-neighbour-regions}
+    \end{subfigure}
+    \begin{subfigure}[b]{.4\linewidth}        \centering
+        \input{gfx/background-omr/connected-component/neighbour-4-connected.tikz}        \caption{4N - 2 Regions Identified}
+        \label{fig:4-neighbour-regions}    \end{subfigure}
+        
+    \vspace*{0.5in}
 
-  \caption{4 and 8 Neighbour Regions and examples of connected pixels}
-  \label{fig:pixel-neighbours}
+    \begin{subfigure}[b]{.4\linewidth}
+        \centering
+        \input{gfx/background-omr/connected-component/neighbour-8.tikz}
+        \label{fig:8-neighbour-regions}
+        \caption{8 Neighbour Regions}
+    \end{subfigure}
+    \begin{subfigure}[b]{.4\linewidth}        \centering
+        \input{gfx/background-omr/connected-component/neighbour-8-connected.tikz}
+        \label{fig:8-neighbour-connected}
+        \caption{8N - 1 Region Identified}    \end{subfigure}
+    
+    \caption{4 and 8 Neighbour Regions and examples of connected pixels}
+    \label{fig:pixel-neighbours}
 \end{figure}
 
 There are two primary algorithms for establishing connected regions, the first is recursive and the second requires two scans.
@@ -116,11 +120,15 @@ second_pass():
 \begin{figure}[h!]
   \centering
 
-  \subfigure[Initial Image]{\input{gfx/background-omr/connected-component/iterative-pass-0.tikz}}\\
-  \subfigure[1\textsuperscript{st} pass (Row 1)]{\input{gfx/background-omr/connected-component/iterative-pass-1.tikz}}\quad
-  \subfigure[1\textsuperscript{st} pass (Row 2)]{\input{gfx/background-omr/connected-component/iterative-pass-2.tikz}}\quad
-  \subfigure[1\textsuperscript{st} pass (Row 3)]{\input{gfx/background-omr/connected-component/iterative-pass-3.tikz}}\\
-  \subfigure[2\textsuperscript{nd} Pass]{\input{gfx/background-omr/connected-component/iterative-pass-4.tikz}}
+  \subcaption[Initial Image]{\input{gfx/background-omr/connected-component/iterative-pass-0.tikz}}
+  
+  \subcaption[1\textsuperscript{st} pass (Row 1)]{\input{gfx/background-omr/connected-component/iterative-pass-1.tikz}}
+  
+  \subcaption[1\textsuperscript{st} pass (Row 2)]{\input{gfx/background-omr/connected-component/iterative-pass-2.tikz}}
+  
+  \subcaption[1\textsuperscript{st} pass (Row 3)]{\input{gfx/background-omr/connected-component/iterative-pass-3.tikz}}
+  
+  \subcaption[2\textsuperscript{nd} Pass]{\input{gfx/background-omr/connected-component/iterative-pass-4.tikz}}
 
   \caption{Step by step two pass connected component labelling}
   \label{fig:ccl-two-pass}
