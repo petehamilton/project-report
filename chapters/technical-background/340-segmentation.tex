@@ -49,7 +49,26 @@ There are two primary algorithms for establishing connected regions, the first i
 
 If we assume that the size of the image to be evaluated is small and we can fit it in memory (a reasonable assumption give the scope of the project and the hardware available) we can employ a recursive algorithm which can grow regions by visiting any pixel in the image using depth first of breadth first searching. An outline for a depth first algorithm is given in algorithm \ref{alg:ccl-recursive}
 
-\input{chapters/technical-background/345-recursive-algo}
+\begin{lstlisting}[caption=Recursive Connected Component Labelling (DFS), label=alg:ccl-recursive]
+let img be the binary image
+let lblimg be the labelled image
+
+lblimg = negate(image)
+lbl = 0
+
+label_components():
+  for i = 0 to height:
+    for j = 0 to width:
+      if lblimg[i, j] == -1:
+        lbl += 1
+        label\_region(i, j)
+
+label_region(i, j):
+  lblimg[i, j] = lbl
+  for (i', j') in neighbours(i, j):
+    if lblimg[i, j] == -1:
+      label_region(i', j')
+\end{lstlisting}
 
 \subsubsection{Two Pass Labelling}
 
@@ -64,7 +83,35 @@ An alternate algorithm involves performing the labelling in two passes. Assuming
 
 We label each pixel according to these neighbours (if neighbours have multiple labels we just pick any of them and record that they were adjacent) and then finally reduce the number of labels by merging adjacent labels. An visual example of the process can be seen in figure \ref{fig:ccl-two-pass}
 
-\input{chapters/technical-background/346-two-pass-algo}
+\begin{lstlisting}[caption=Iterative Two-Pass Connected Component Labelling, label=alg:ccl-iterative]
+let img be the binary image
+let lblimg be the labelled image
+
+lblimg = negate(image)
+lbl = 1
+equivalent_labels = []
+
+first_pass():
+  for i = 0 to height:
+    for j = 0 to width:
+      if lblimg[i, j] == 1:
+        labels = neighbour_labels(i, j)
+        if size(labels) == 0:
+          lbl += 1
+          lblimg[i, j] = lbl
+        else:
+          lblimg[i, j] = labels[0]
+          if size(labels) > 1:
+            equivalent_labels << labels
+
+second_pass():
+    for labelgroup in equivalent_labels:
+      firstlabel  = labelgroup[0]
+      otherlabels = labelgroup[1..]
+
+      for label in otherlabels:
+        relabelpixels(label, firstlabel)
+\end{lstlisting}
 
 \begin{figure}[h!]
   \centering
@@ -108,6 +155,30 @@ The horizontal and vertical projections can then be defined as:
 
 An example section of score is shown in figure \ref{fig:stave-projection} along with it's horizontal and vertical projections.
 
+
+\subsection{Template Matching}
+
+Image segmentation using template matching is uncommon but not unheard of, it receives particular attention in the segmentation phase in \cite{rossant2002global}. Different templates of reference components can be matched to the score, where a high correlation score in a certain position acts as both segmentation and classification.
+
+In testing, I was able to reproduce this effect by extracting components like the note head from the whole note as seen in Figure \ref{fig:templatematch}. However, as noted by \citeauthor{rossant2002global} this method is highly dependent on the font used in a printed score so for the purposes of handling handwritten notation it's unlikely to yield great results. Indeed, in preliminary testing, getting regular correct matches in a handwritten score proved troublesome.
+
+\begin{figure}[h!]
+  \includegraphics[width=0.6\linewidth]{gfx/template.png}
+  \centering
+  \caption{Example of extracting note heads using template matching utilising OpenCV and the sum of square differences scoring measure}
+  \label{fig:templatematch}
+\end{figure}
+
+More formally, for the example in figure \ref{templatematch}, template matching involves analysing each pixel in an image (or a region of an image) and comparing it to a reference pixel in a template image. The score for two $n \times m$ images $x$ and $y$ can be generated using:
+
+$$SSD_{xy} = \sum_{i = 0}^m \sum_{j = 0}^n (x(i, j) - y(i, j))^2$$
+
+In the example I gave previously, we're only looking for a subsection or a partial template so if image $x$ is $m \times n$ and image $y$ is $a \times b$in size where $m \le a \land n \le b$, we can search each possible position $(k, l)$ for $y$ in $x$ with:
+
+$$SSD_{xy}(k, l) = \sum_{i = 0}^m \sum_{j = 0}^n (x(i + k, j + l) - y(i, j))^2$$
+
+and whichever positioning gives us the highest score is likely to be the best match.
+
 \subsection{Defects and Difficulties}
 
 There are two regular types of error that can cause issues during segmentation, \textbf{touching objects} and \textbf{broken objects}. Since these are likely to occur a lot more regularly given the freedom allowed by handwritten music and the a beginner's learning curve, it is important that the application is able to spot (and subsequently feed back on) these errors.
@@ -119,29 +190,3 @@ Touching objects are usually identifiable via a vertical projection profile \tod
 \todo[inline]{Examples of touching objects}
 
 In a printed score, you can use \todo{ref template matching} template matching in order to separate the components but when they are handwritten, it's more likely I will have to rely on using projections to find the point of minimal intersection \todo{Reference to where I do split\_x and split\_y}
-
-\subsection{Template Matching}
-
-I've also attempted some examples of image segmentation using template matching, extracting components like the note head from the whole note as seen in Figure \ref{fig:templatematch}.
-
-\begin{figure}[h!]
-  \includegraphics[width=0.6\linewidth]{gfx/template.png}
-  \centering
-  \caption{Example of extracting note heads using template matching}
-  \label{fig:templatematch}
-\end{figure}
-
-In this example, I've used the OpenCV library and utilised the SQ\_DIFF method (or sum of squared differences), to find similar image regions which is a popular method of producing a `matching' score.
-
-This involves analysing each pixel in an image (or a region of an image) and comparing it to a reference pixel in a template. The score for two $n \times m$ images $x$ and $y$ is therefore generated using:
-
-$$SSD_{xy} = \sum_{i = 0}^m \sum_{j = 0}^n (x(i, j) - y(i, j))^2$$
-
-In the example I gave previously, we're only looking for a subsection or a partial template. We therefore if image $x$ is $m \times n$ and image $y$ is $a \times b$in size where $m \le a \land n \le b$, we can search each possible position $(k, l)$ for $y$ in $x$ with:
-
-$$SSD_{xy}(k, l) = \sum_{i = 0}^m \sum_{j = 0}^n (x(i + k, j + l) - y(i, j))^2$$
-
-and whichever positioning gives us the highest score is likely to be the best match.
-
-
-

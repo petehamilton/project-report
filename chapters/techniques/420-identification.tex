@@ -1,6 +1,15 @@
-\section{Feature Extraction}
+\section{Identification}
 
-\subsection{Run Length Encoding}
+\todo[inline,color=red]{Identification Techniques - Write}
+
+\subsection{Segmentation}
+
+Why won't projection segmentation work for us? Want to be able to isolate stems and beams, projection segmentation only gives vertical sections
+
+
+\subsection{Feature Extraction}
+
+\subsubsection{Run Length Encoding}
 To improve the speed of my application, I utilised \acrfull{RLE} (covered in section \ref{sec:tb-rle}) to improve storage and retrieval times during feature extraction and classification by up to 97\%.
 
 Testing with a sample set of 3000 stored components, improvements in storage and runtime are noted in table \ref{table:rle-improvement}
@@ -15,7 +24,18 @@ Testing with a sample set of 3000 stored components, improvements in storage and
     Retrieval Time          & 1639 ms       & 42 ms      & 97.4\% \\
     \bottomrule
     \end{tabularx}
-    
+
     \label{table:rle-improvement}
     \caption{Improvements after implementing RLE}
 \end{table}
+
+\subsection{Classification}
+\label{sec:implementation-classification}
+
+Classifiers are created by taking a sets of previously labelled samples and building a model which attempts to provide the most accurate relation between the samples and their labels.
+
+This allows new samples to be classified using the model to apply the most likely (and hopefully correct) label.
+
+\subsubsection{K Nearest Neighbour}
+
+

@@ -1,14 +1,15 @@
-\section{Evaluation}
-
-Ways to evaluate objects
-
-Hough tranforms?
-
-Skeletonization?
+\section{Scoring \& Evaluation}
 
 \subsection{NCC}
 
+\todo[inline]{NCC: Upside: Easy to create a score from, set a threshold for 'good' then just divide and give stars}
+\todo[inline]{NCC: Downside: Small images lead to big score differences for seemingly small image differences}
+\todo[inline]{NCC: Downside: Wasn't ranking the images in the same order that a teacher would}
+\todo[inline]{NCC: Downside: Doesn't tell a student what they did wrong, just a black box score, is that all that's needed? - NO}
+
 \subsection{HOG}
+
+\todo[inline]{Similar to NCC, slightly more accurate but more intensive to calculate, see Delteil}
 
 \subsection{Image Difference}
 
@@ -20,3 +21,6 @@ If you're handling simple 1 bit images, you can perform a simple image differenc
   \caption{Highlighting differences between a perfect and a hand-drawn crochet}
   \label{crotchet-diff}
 \end{figure}
+
+\todo[inline]{Image Difference: Upside: Very visual, clear what's wrong}
+\todo[inline]{Image Difference: Downside: Sensitive to the blob size, means stem errors are less likely to impact the score}

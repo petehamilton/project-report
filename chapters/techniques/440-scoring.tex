@@ -1,0 +1,73 @@
+\section{Scoring}
+
+\subsection{Key Signatures}
+\todo[inline,color=red]{Scoring Techniques - Key Signatures}
+
+\subsection{Beats and Timing}
+\todo[inline,color=red]{Scoring Techniques - Beats and Timing}
+
+\subsection{Stems}
+\subsubsection{Straightness}
+\todo[inline,color=red]{Scoring Techniques - Stem Straightness}
+\input{chapters/techniques/stem-straightness-figure.tex}
+
+\subsubsection{Angle}
+\todo[inline,color=red]{Scoring Techniques - Stem Angle}
+\input{chapters/techniques/stem-angle-figure.tex}
+
+\subsubsection{Direction}
+
+To establish the stem direction which I will refer to as $S_d$, the relative upper left coordinates of the head and the stem are compared.
+
+If the stem is located at $(x_{\text{stem}}, y_{\text{stem}})$ and the note head at $(x_{\text{head}}, y_{\text{head}})$, give the coordinate axes have an origin starting from the top right of a given image, we can establish the following classifications:
+
+$$
+S_{d} (y_{\text{stem}}, y_{\text{head}}) =
+\left\{
+	\begin{array}{ll}
+		\text{up}   & \mbox{if } y_{\text{stem}} < y_{\text{head}} \\
+		\text{down} & \mbox{if } y_{\text{stem}} > y_{\text{head}}
+	\end{array}
+\right.
+$$
+
+The case where a stem has the same $y$ coordinate as it's head isn't possible due to the way stems are extracted from a note complex as for this to happen a stem would need to be extracted \emph{out} of a note head. Since note heads are removed in order to identify stems as in section \todo[inline, color=blue]{REFERENCE: Extracting Stems}, this is impossible.
+
+\subsubsection{Side}
+To establish the stem side which I will refer to as $S_s$, we do a similar operation to in determining the direction, however, since it is perfectly feasible that the stem and head have the same x coordinate, we can't just use the x coordinate directly.
+
+Instead, we compare the x coordinate of the stem $x_{\text{stem}}$ to the true centre \todo{Better definition later please} of the note head $cx_{\text{head}}$
+
+Again, given that the coordinate axes start from the top left, we can now establish the stem x offset
+
+$$
+S_\text{xoff} = x_{\text{stem}} - cx_{\text{head}}
+$$
+
+Using this, we can establish the side classifcation as
+$$
+S_{s} (S_\text{xoff}) =
+\left\{
+	\begin{array}{ll}
+		\text{left}   & \mbox{if } S_\text{xoff} < 0 \\
+		\text{right}  & \mbox{if } S_\text{xoff} \gte 0
+	\end{array}
+\right.
+$$
+
+\todo[inline,color=red]{Scoring Techniques - Stem Side}
+
+\subsubsection{Length}
+\todo[inline,color=red]{Scoring Techniques - Stem Length}
+
+\subsection{Quaver Tails}
+\todo[inline,color=red]{Scoring Techniques - Quaver tail side}
+
+\subsection{Note Heads}
+\todo[inline,color=red]{Scoring Techniques - Filled Percentage? (ambiguity)}
+\todo[inline,color=red]{Scoring Techniques - Stem Direction}
+\todo[inline,color=red]{Scoring Techniques - Stem Side}
+\todo[inline,color=red]{Scoring Techniques - Stem Straightness}
+
+\subsection{Aggregation}
+Given the large number of variables outlined previously, to produce a simple numeric score we must somehow aggregate the more detailed feedback. For example, we could assign weights to `musical correctness', `stems', `note heads' etc, then simply produce a score in a reasonable range for feedback.

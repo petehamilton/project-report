@@ -3,9 +3,11 @@
 In general, the challenge of OMR can be decomposed into more defined sections. Although implementations obviously differ, an overview of some of the techniques I have come across for the various `common' stages which I researched can be summarised by:
 
 \begin{table}[h]
-\small
-\begin{tabularx}{\linewidth}{ X | X | X | X }
+\footnotesize
+\begin{tabularx}{\linewidth}{ X X X X }
+\toprule
   \textbf{1. Pre Processing} & \textbf{2. Segmentation} & \textbf{3. Classification} &  \textbf{4. Reconstruction} \\
+  \midrule
 
   \begin{enumerate}[leftmargin=*]
     \item Level Adjustment
@@ -42,7 +44,8 @@ In general, the challenge of OMR can be decomposed into more defined sections. A
   \begin{enumerate}[leftmargin=*]
     \item Simple Heuristics
     \item Grammar
-  \end{enumerate}
+  \end{enumerate} \\
+  \bottomrule
 \end{tabularx}
-\caption{Comparison of existing OMR applications}
+\caption{OMR Stages}
 \end{table}

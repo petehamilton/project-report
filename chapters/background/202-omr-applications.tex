@@ -1,0 +1,19 @@
+\section{OMR Applications}
+
+Prior to embarking on a solution from scratch, research to gather an understanding of the existing OMR landscape and whether any tools already existed was done. Several software solutions were found which can assist in taking a printed score and process it to create a digital representation. However, the majority were commercial applications which required purchasing and almost all were designed to be used under highly supervised conditions inside a \acrfull{GUI}, doing an initial conversion and then guiding the user through the process of validating the applications `best guess'.
+
+\subsection{Neuratron Photoscore}
+Neuratron Photoscore\footnote{http://www.neuratron.com/photoscore.htm} is one of the market leading packages, features tight integration with several composition tools like Sibelius and Finale, outputs to a range of formats (MusicXML etc). Designed to be run by the end user in supervised conditions, going over a scanned sheet and correcting errors as you go
+
+\subsection{Audiveris}
+``Audiveris is an open-source Optical Music Recognition software which processes the image of a music sheet to automatically provide symbolic music information in MusicXML standard.''\footnote{https://audiveris.kenai.com/}
+\newline
+At present it only supports high quality printed scores and operates by utilising a neural network which must be trained on samples by the end user.
+
+\subsection{Gamera}
+Gamera\footnote{http://gamera.informatik.hsnr.de} is primarily a structured document processing and symbol recognition tool \parencite{macmillan2002gamera} and was spun out of one of the authors' previous thesis which focussed on OMR \parencite{fujinaga1996adaptive}. Primarily used for academic purposes, it has some great projects, one of which specialises in supporting research into stave detection and removal \footnote{http://gamera.informatik.hsnr.de/addons/musicstaves/}.
+
+\subsection{Capella Scan}
+As with most of the other applications mentioned, Capella Scan\footnote{http://www.capella.de/us/index.cfm/products/capella-scan/info-capella-scan/} is primarily designed to convert old or dated music manuscripts into a more ``preservable'' digital format without needing to manually type all the music out again
+
+\todo[inline]{Bit more information on Capella Scan}
