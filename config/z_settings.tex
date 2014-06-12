@@ -87,9 +87,18 @@
 \makeglossaries
 
 %----------------------------------------------------------------------------------------
-% GENERAL SETTINGS
+% CAPTIONS AND FIGURES
 %----------------------------------------------------------------------------------------
 \newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1} (\nameref*{#1})}}
+
+% for figures: caption label is italic, the caption text is bold / italic
+\captionsetup[figure]{singlelinecheck=on,justification=raggedright}
+
+% for subfigures: caption label is bold, the caption text normal.
+% justification is raggedright (i.e. left aligned)
+% singlelinecheck=off means that the justification setting is used even when the caption is only a single line long. 
+% if singlelinecheck=on, then caption is always centered when the caption is only one line.
+\captionsetup[subfigure]{singlelinecheck=on,justification=raggedright}
 
 %----------------------------------------------------------------------------------------
 % IMPORTS
