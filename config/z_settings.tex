@@ -2,7 +2,7 @@
 % INITIAL CONFIG
 %----------------------------------------------------------------------------------------
 
-\documentclass[12pt]{report}
+\documentclass[12pt,twoside]{report}
 
 
 %----------------------------------------------------------------------------------------
@@ -10,7 +10,8 @@
 %----------------------------------------------------------------------------------------
 
 \usepackage{footnote}
-\usepackage[margin=1.1in]{geometry}          % For margins
+%top=2cm, bottom=2cm, outer=1cm, inner=2.1cm, headsep=14pt
+\usepackage[top=1.2in,bottom=1in,outer=0.8in,inner=1.2in,headsep=26pt]{geometry}          % For margins
 \usepackage{graphicx}                        % For picture includes
 \usepackage{xcolor}
 \usepackage{float}                           % Used to set option H in figures
@@ -39,6 +40,10 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{pgfplots}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{12pt}
+\pagestyle{fancy}
 
 % \RequirePackage[l2tabu, orthodox]{nag}       % Nags you if your syntax is wrong
 
