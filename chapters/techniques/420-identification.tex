@@ -1,8 +1,8 @@
 \section{Identification}
-
+\label{sec:identification}
 \subsection{Segmentation}
 
-\todo[inline,color=red]{Techniques - Segmentation: Downsampling}
+\todo[inline,color=red]{Identification - Segmentation}
 
 Why won't projection segmentation work for us? Want to be able to isolate stems and beams, projection segmentation only gives vertical sections
 
@@ -20,7 +20,7 @@ Why won't projection segmentation work for us? Want to be able to isolate stems 
 
 Moments, Centroids, Height etc
 
-\subsubsection{Run Length Encoding}
+\subsubsection{Run Length Encoding}\label{sec:identification-rle}
 To improve the speed of my application, I utilised \acrfull{RLE} (covered in \cref{sec:tb-rle}) to improve storage and retrieval times during feature extraction and classification by up to 97\% (\cref{table:rle-improvement}).
 
 \begin{table}[h]
@@ -49,7 +49,7 @@ In order to maximise the accuracy of my classifications, I ran multiple experime
 
 For the K Nearest Neighbour algorithm, I tried two different feature vectors, the first was using the statistical properties outlined in \cref{sec:statistical-properties} and the second was a downsampled binary image flattened into a 1D array. 
 
-My initial attempt at classification using statistical properties wasn't all that successful as you can see from the confusion matrix and accuracy scores in \cref{fig:knn-stats}.
+An initial attempt at classification using statistical properties and a KNN classifier wasn't all that successful as you can see from the confusion matrix and accuracy scores in \cref{fig:knn-stats}. Most components were incorrectly classified as crotchet heads though I was unable to come up with a good explanation as to why.
 
 \begin{figure}
   \centering
@@ -96,6 +96,7 @@ My initial attempt at classification using statistical properties wasn't all tha
   \end{subtable}
   
   \caption{KNN classifier results using statistical features}
+  \label{fig:knn-stats}
 \end{figure}
 
 For the downsampled image features, I ran a series of trials for different dimensions from 10px to 100px in both width and height (in 10px increments), averaging 3 repeats per dimension (each with a different training/testing split) and then generating a matrix of scores (which can be seen in full in \cref{table:height-width-matrix}).
@@ -178,10 +179,10 @@ Initial results on attempting to distinguish between all components were positiv
     \end{tabularx}
   \end{subtable}
   \caption{Accuracy achieved using a KNN classifier trained on downsampled 20x50px images}
-  \label{table:knn-naive-matrix}
+  \label{table:confusion-matrix-knn-img-all}
 \end{figure}
 
-We can see from \cref{table:knn-naive-matrix} that a few components are confused more than others, for example \emph{stems} and \emph{barlines}. To mitigate this, we can employ the use of hierarchical classification. Instead of trying to classify every single component at once, we can instead perform an initial `high level' classification, followed by further secondary classifications. The best example of this is a note. Instead of trying to separate a note straight away into heads stems and beams, it's sufficient to simply classify it as a `note\_complex' entity and perform more detailed classification of components later.
+We can see that a few components in \cref{table:confusion-matrix-knn-img-all} are confused more than others, for example \emph{stems} and \emph{barlines}. To mitigate this, we can employ the use of hierarchical classification. Instead of trying to classify every single component at once, we can instead perform an initial `high level' classification, followed by further secondary classifications. The best example of this is a note. Instead of trying to separate a note straight away into heads stems and beams, it's sufficient to simply classify it as a `note\_complex' entity and perform more detailed classification of components later.
 
 Using a two-stage classifier much more satisfactory results were achieved, with an initial classification accuracy of 98.5\% (\cref{fig:knn-level1}) and a secondary classification accuracy of 100\% (\cref{fig:knn-level2})!
 
@@ -326,7 +327,7 @@ As more potential classification were added, unfortunately the accuracy just dec
 
 For note heads and accidentals, it's important to know exactly where the centre of the note lies in order to correctly identify it's position on the stave. Doing this roughly is usually sufficient for OMR, however, since we would like to be able to feed back to the student if they aren't putting their notes in the right place \todo{Reference note position criteria} we need to be as accurate as possible.
 
-Once the position has been determined, we simply calculate the difference between that and the y coordinate of the various pitched components on the stave, assigning the pitch which is closest using \cref{alg:note-assignment}
+Once the position has been determined, we can calculate the difference between that and the y coordinate of the various pitched components on the stave, assigning the pitch which is closest using \cref{alg:note-assignment}.
 
 \begin{algorithm}[H]
 \caption{Assigning a pitch to a component}
@@ -421,7 +422,7 @@ The first experiment I ran was to perform watershed segmentation by computing a 
 
 However, this method relies on the assumption that the peaks and consequent watershed segmentation works entirely as planned, in reality things aren't always so simple an occasionally the regions merge incorrectly.
 
-A better solution was discovered which was to utilise dilations to expand the drawn image (and consequently shrink the flat's `head' region) evenly until a distinct island region is formed (\cref{fig:flat-dilation}). Once that happens the vertical centre of the `head' can be established in the same way as outlined previously, using the centroid.
+A better solution was discovered by way of dilations. This involves expanding the drawn image (and consequently shrinking the flat's `head' region) evenly until a distinct island region is formed (\cref{fig:flat-dilation}). Once that happens the vertical centre of the `head' can be established in the same way as outlined previously, using the centroid.
 
 \begin{figure}[H]
     \centering

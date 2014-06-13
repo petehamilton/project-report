@@ -1,7 +1,7 @@
-\section{Medium Selection}
+\section{Input Medium Selection}
 \label{sec:medium-selection}
 
-The first step in this project was to establish the best method for a student to interact with the application. As seen in \cref{sec:prior-research} a lot of different mediums for OMR have been tried over the years, however which one would be most suitable for student use wouldn't necessarily correlate with which was best for quality of scanning, speed of analysis etc.
+The first step in this project was to establish the best method for a student to interact with the application. As seen in \cref{sec:prior-research} a lot of different mediums for OMR have been tried over the years, however which one would be most suitable for a student to use wouldn't necessarily correlate with which was best for quality of scanning, speed of analysis etc.
 
 \subsection{Flat Bed Scanner}
 
@@ -11,18 +11,37 @@ The application would process the sheet using traditional OMR techniques and the
 
 \subsection{Photograph/Camera}
 
+\todo[inline,color=red]{Implementation - Photo/Camera}
+
 Total free for all, colours and light levels vary, extraction from background, resolution variable, noise variable
 
-Project 8 Final Report
+Reference `Project 8 Final Report'
 
 \subsection{Gestures}
+\todo[inline,color=red]{Implementation - Gestures}
 
 Use gestures combined with classification (see book and some papers).
 Good for classifying individual entities but more like the old palm tablets, usually one note at a time
 
-
 \subsection{Tablet Input}
+\todo[inline,color=red]{Implementation - Tablet Input}
 
-Finger difficult, stylus better, not always available
+Finger or stylus work well tends to depend on the child, finger often felt more natural
 
-\subsection{Comparison Matrix}
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{.4\linewidth}
+        \centering
+        \includegraphics[height=6cm]{gfx/photos/user-finger.jpg}
+        \caption{Using their finger}
+    \end{subfigure}
+    \begin{subfigure}[b]{.4\linewidth}
+        \centering
+        \includegraphics[height=6cm]{gfx/photos/user-stylus.jpg}
+        \caption{Using a stylus}
+    \end{subfigure}
+
+    \caption{Examples of a student trying different tablet input methods}
+\end{figure}
+
+Chose this method in the end
