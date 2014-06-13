@@ -43,7 +43,7 @@ To improve the speed of my application, I utilised \acrfull{RLE} (covered in \cr
 
 Classifiers are created by taking a sets of previously labelled samples and building a model which attempts to provide the most accurate relation between the samples and their labels. This allows new samples to be classified using the model to apply the most likely (and hopefully correct) label.
 
-In order to maximise the accuracy of my classifications, I ran multiple experiments on several different classifiers before deciding on which one I would apply in my application.
+In order to maximise the accuracy of my classifications, I ran multiple experiments on different classifiers before deciding on which one I would apply in my application.
 
 \subsubsection{K Nearest Neighbour}
 
@@ -267,6 +267,57 @@ Using a two-stage classifier much more satisfactory results were achieved, with 
   
   \caption{2nd level KNN Classifier Results}
   \label{fig:knn-level2}
+\end{figure}
+
+
+\subsubsection{Neural Net}
+
+Although neural networks are also common in OMR, I was unfortunately unable to extract any great results from them during my experiments. The best classification result I got was by using Hierarchical Classification, where the network achieved an accuracy of 80.38\% for the 1st level classifier as seen in \cref{fig:nn-classification-data}. I used trained the network using Backwards Propogation and used two hidden sigmoidal layers of 25 nodes each.
+As more potential classification were added, unfortunately the accuracy just decreased and so I opted to go with the KNN classifier.
+
+\begin{figure}[H]
+  \centering
+  
+  \vspace{0.4cm}
+  
+  \begin{subtable}[b]{   \linewidth}
+    \begin{tabularx}{\textwidth}{r|XXXXXXXXXXXXXXX}
+    & \rot{crotchetrest} & \rot{semibreve} & \rot{dot} & \rot{flat} & \rot{digit\_2} & \rot{barline} & \rot{trebleclef} & \rot{sharp} & \rot{quaverrest} & \rot{digit\_3} & \rot{note\_complex} & \rot{natural} & \rot{digit\_4} & \rot{bassclef} & \rot{minimsemibreverest} \\
+    \midrule
+    crotchetrest       & 29 &  0 &  1 &  0  & 1 &  0 &  3 &  3 &  0 &  0 &   5  &  1  &  1  &  1  &  0 \\               
+    semibreve          &  0 & 45 &  0 &  0  & 0 &  0 &  0 &  0 &  0 &  0 &   1  &  0  &  0  &  0  &  0 \\            
+    dot                &  0 &  1 & 43 &  0  & 0 &  0 &  0 &  0 &  0 &  0 &   0  &  1  &  0  &  1  &  0 \\      
+    flat               &  0 &  0 &  0 & 43  & 0 &  0 &  0 &  3 &  0 &  0 &   8  &  1  &  1  &  0  &  0 \\       
+    digit\_2            &  0 &  0 &  1 &  0  & 5 &  0 &  0 &  0 &  0 &  0 &   4  &  0  &  0  &  0  &  0 \\          
+    barline            &  0 &  0 & 10 &  0  & 0 & 28 &  2 &  1 &  0 &  0 &   0  &  0  &  2  &  0  &  0 \\          
+    trebleclef         &  1 &  0 &  0 &  1  & 0 &  2 & 29 &  3 &  0 &  0 &   0  &  0  &  1  &  0  &  0 \\             
+    sharp              &  1 &  0 &  2 &  0  & 0 &  1 &  1 & 46 &  0 &  0 &   0  &  0  &  1  &  0  &  0 \\        
+    quaverrest         &  0 &  0 &  0 &  0  & 0 &  0 &  0 &  0 & 32 &  1 &   1  &  1  &  0  &  0  &  0 \\             
+    digit\_3            &  0 &  0 &  0 &  0  & 0 &  0 &  2 &  1 &  0 &  0 &   3  &  0  &  0  &  0  &  0 \\          
+    note\_complex       &  0 &  0 &  0 &  0  & 1 &  0 &  1 &  0 &  3 &  0 & 102  &  1  &  0  &  0  &  0 \\               
+    natural            &  0 &  0 &  0 &  0  & 0 &  0 &  2 &  1 &  0 &  0 &   1  & 31  &  0  &  0  &  0 \\          
+    digit\_4            &  1 &  1 &  0 &  0  & 0 &  2 &  3 &  4 &  0 &  0 &   4  &  0  & 10  &  0  &  0 \\          
+    bassclef           &  0 &  0 &  0 &  0  & 0 &  0 &  0 &  0 &  1 &  0 &   4  &  0  &  0  & 28  &  0 \\           
+    minimsemibreverest &  0 &  0 &  9 &  0  & 0 &  0 &  0 &  0 &  0 &  0 &   0  &  0  &  0  &  0  &  0 \\                    
+    \end{tabularx}
+  \end{subtable}
+  
+  \vspace{0.8cm}
+  
+  \begin{subtable}[b]{.4\linewidth}
+    \begin{tabularx}{\linewidth}{lll}
+      \toprule
+      Accuracy & Precision & Recall \\
+      \midrule
+      0.804 & 0.797 & 0.804 \\
+      \bottomrule
+    \end{tabularx}
+  \end{subtable}
+  
+  \vspace{0.4cm}
+  
+  \caption{1st level Neural Network Classifier Results}
+  \label{fig:nn-classification-data}
 \end{figure}
 
 
