@@ -12,13 +12,13 @@
 \usepackage{footnote}
 \usepackage[margin=1.1in]{geometry}          % For margins
 \usepackage{graphicx}                        % For picture includes
+\usepackage{xcolor}
 \usepackage{float}                           % Used to set option H in figures
 \usepackage{wrapfig}                         % To wrap figures with text
 \usepackage{url}                             % URL in references
 \usepackage{float}                           % For figure placing
 \usepackage{amsfonts}                        % For fancy mathmode stuff (mathbb etc)
 \usepackage{amsmath}                         % For useful math stuff like cases, align* etc
-%\usepackage{subfigure}                       % For subfigures and captions
 \usepackage{subcaption}                      % For subfigures and captions
 \usepackage[parfill]{parskip}                % For new line instead of para indents
 \usepackage{enumitem}                        % To do nested enumerations
@@ -34,8 +34,10 @@
 \usepackage[british]{babel}                  % No idea
 \usepackage{tabularx}
 \usepackage{tikz}
-\usepackage{xcolor}
-\usepackage[ruled, vlined, algoruled]{algorithm2e}
+%\usepackage[ruled, vlined, algoruled]{algorithm2e}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pgfplots}
 
 % \RequirePackage[l2tabu, orthodox]{nag}       % Nags you if your syntax is wrong
 
@@ -89,8 +91,6 @@
 %----------------------------------------------------------------------------------------
 % CAPTIONS AND FIGURES
 %----------------------------------------------------------------------------------------
-\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1} (\nameref*{#1})}}
-
 % for figures: caption label is italic, the caption text is bold / italic
 \captionsetup[figure]{singlelinecheck=on,justification=raggedright}
 

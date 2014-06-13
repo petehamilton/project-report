@@ -75,16 +75,14 @@ We now have a skeleton line \cref{eqn:l-skeleton} and a best fit line \cref{eqn:
     L_{\text{ref}}(x) = (b_0, b_1, b_2, \ldots, b_n)
 \end{equation}
 \begin{equation} \label{eqn:l-residuals}
-    R(x) = (r_0, r_1, r_2, \ldots, r_n), r_i = a_i - b_i)
+    R(x) = L_{\text{skeleton}}(x) - L_{\text{ref}}(x) = (r_0, r_1, r_2, \ldots, r_n)
 \end{equation}
-
-
-After experimenting with using the standard deviation \cref{eqn:sd} of the residuals as the straightness measure the results turned out to be positive upon visual inspection. As you can see in \cref{fig:stem-straightness-ranking} when ranked according to their `straightness' measure, the stems do indeed appear to be ordered according to what one would visually define as being `straight'.
 
 \begin{equation} \label{eqn:sd}
-\sigma = \sqrt{\frac{\sum\limits_{i=1}^{n}\left(r_{i} - \bar{r}\right)^{2}}{n-1}}
+\text{Straightness} = \sigma = \sqrt{\frac{\sum\limits_{i=1}^{n}\left(r_{i} - \bar{r}\right)^{2}}{n-1}}
 \end{equation}
 
+After experimenting with using the standard deviation \cref{eqn:sd} of the residuals as the straightness measure the results turned out to be positive upon visual inspection. As you can see in \cref{fig:stem-straightness-ranking} when ranked according to their `straightness' measure, the stems do indeed appear to be ordered according to what one would visually define as being `straight'.
 
 \input{chapters/techniques/stem-straightness-figure.tex}
 
@@ -131,21 +129,35 @@ $$
 
 The case where a stem has the same $y$ coordinate as it's head isn't possible due to the way stems are extracted from a note complex as for this to happen a stem would need to be extracted \emph{out} of a note head. Since note heads are removed in order to identify stems as in \todo[color=blue]{REFERENCE: Extracting Stems}, this is impossible.
 
-\begin{table}[h]
+\begin{figure}[h!]
+    \centering
+    \includegraphics[height=6cm]{gfx/techniques/scoring/note-stem-up/4247.png}
+    \quad
+    \includegraphics[height=6cm]{gfx/techniques/scoring/note-stem-up/6028.png}
+    \quad
+    \includegraphics[height=6cm]{gfx/techniques/scoring/note-stem-up/6042.png}
+    \quad
+    \includegraphics[height=6cm]{gfx/techniques/scoring/note-stem-up/6111.png}
 
-    \begin{tabularx}{\textwidth}{ X l l l l }
-    \toprule
-    Component & Stem Y   & Head Y   & Predicted Direction & True Direction \\
-    \midrule
-    \bottomrule
-    \end{tabularx}
+    \caption{Identifying upward stems, the red line represents the stem y  coordinate and the blue represents the head's y coordinate}
+    \label{fig:downward-stem-identification}
+\end{figure}
 
-    \label{table:stem-direction-results}
-    \caption{Results of the stem direction classification heuristic}
-\end{table}
-\todo[inline,color=purple]{Stem Direction: Results Table (Showing stems and classification of up/down)}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[height=6cm]{gfx/techniques/scoring/note-stem-down/1747.png}
+    \quad
+    \includegraphics[height=6cm]{gfx/techniques/scoring/note-stem-down/2996.png}
+    \quad
+    \includegraphics[height=6cm]{gfx/techniques/scoring/note-stem-down/5327.png}
+    \quad
+    \includegraphics[height=6cm]{gfx/techniques/scoring/note-stem-down/5376.png}
+    \quad
+    \includegraphics[height=6cm]{gfx/techniques/scoring/note-stem-down/6090.png}
 
-
+    \caption{Identifying downward stems, the red line represents the stem y  coordinate and the blue represents the head's y coordinate}
+    \label{fig:downward-stem-identification}
+\end{figure}
 
 \subsection{Stem Side}
 To establish the stem side which I will refer to as $S_s$, we do a similar operation to in determining the direction, however, since it is perfectly feasible that the stem and head have the same x coordinate, we can't just use the x coordinate directly.
