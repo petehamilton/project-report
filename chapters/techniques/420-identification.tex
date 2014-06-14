@@ -49,7 +49,7 @@ In order to maximise the accuracy of my classifications, I ran multiple experime
 
 For the K Nearest Neighbour algorithm, I tried two different feature vectors, the first was using the statistical properties outlined in \cref{sec:statistical-properties} and the second was a downsampled binary image flattened into a 1D array. 
 
-An initial attempt at classification using statistical properties and a KNN classifier wasn't all that successful as you can see from the confusion matrix and accuracy scores in \cref{fig:knn-stats}. Most components were incorrectly classified as crotchet heads though I was unable to come up with a good explanation as to why.
+An initial attempt at classification using statistical properties and a KNN classifier wasn't all that successful as you can see from the confusion matrix and accuracy scores in \cref{fig:knn-stats}. Most components were incorrectly classified as crotchet heads though I was unable to come up with a good explanation as to why and it's something which it would be interesting to investigate further in future.
 
 \begin{figure}
   \centering
@@ -274,7 +274,9 @@ Using a two-stage classifier much more satisfactory results were achieved, with 
 \subsubsection{Neural Net}
 
 Although neural networks are also common in OMR, I was unfortunately unable to extract any great results from them during my experiments. The best classification result I got was by using Hierarchical Classification, where the network achieved an accuracy of 80.38\% for the 1st level classifier as seen in \cref{fig:nn-classification-data}. I used trained the network using Backwards Propogation and used two hidden sigmoidal layers of 25 nodes each.
-As more potential classification were added, unfortunately the accuracy just decreased and so I opted to go with the KNN classifier.
+As more potential classes were added, unfortunately the accuracy just decreased and so I chose to use KNN as my classification technique.
+
+It should be noted, however, that since I didn't have the opportunity to study this material in class having not done any of the more advanced machine learning courses, it is quite possible that there were flaws in my implementation, indeed many people have great success using neural networks for this and similar applications, achieving high accuracy rates and it's something which is maybe worth coming back to again in future.
 
 \begin{figure}[H]
   \centering
@@ -282,6 +284,7 @@ As more potential classification were added, unfortunately the accuracy just dec
   \vspace{0.4cm}
   
   \begin{subtable}[b]{   \linewidth}
+    \small
     \begin{tabularx}{\textwidth}{r|XXXXXXXXXXXXXXX}
     & \rot{crotchetrest} & \rot{semibreve} & \rot{dot} & \rot{flat} & \rot{digit\_2} & \rot{barline} & \rot{trebleclef} & \rot{sharp} & \rot{quaverrest} & \rot{digit\_3} & \rot{note\_complex} & \rot{natural} & \rot{digit\_4} & \rot{bassclef} & \rot{minimsemibreverest} \\
     \midrule
@@ -420,9 +423,7 @@ The first experiment I ran was to perform watershed segmentation by computing a 
   \label{fig:flats-centre-watershed}
 \end{figure}
 
-However, this method relies on the assumption that the peaks and consequent watershed segmentation works entirely as planned, in reality things aren't always so simple an occasionally the regions merge incorrectly.
-
-A better solution was discovered by way of dilations. This involves expanding the drawn image (and consequently shrinking the flat's `head' region) evenly until a distinct island region is formed (\cref{fig:flat-dilation}). Once that happens the vertical centre of the `head' can be established in the same way as outlined previously, using the centroid.
+An alternative solution uses dilations. This involves expanding the drawn image (and consequently shrinking the flat's `head' region) evenly until a distinct island region is formed (\cref{fig:flat-dilation}). Once that happens the vertical centre of the `head' can be established in the same way as outlined previously, using the centroid.
 
 \begin{figure}[H]
     \centering
@@ -486,5 +487,32 @@ For note heads, it was discovered that the centroid was a good representation of
 
 \subsection{Duration}
 \label{sec:duration-identification}
-\todo[inline,color=red]{Identification - Duration of notes}
 
+There are two main steps to the process for calculating note duration. The first is the extraction of the fundamental note value, is it a semibreve, minim, crotchet, quaver or semiquaver? For a  semibreve, the note value will always be four, however for other notes, things are not so straightforward.
+
+We first examine each note individually to ascertain it's the components of which it is comprised and assign it note a base value. For example we are particularly interested in the note head (is it solid or hollow) and any tails or beaming. An outline of this heuristic can be seen in \cref{fig:note-duration-flow-chart}.
+
+The number of tails is fairly straightforward as they are attached to isolate notes, in a complex beam such as that in \cref{fig:complex-beam-stablish} however, we need to have some way to work out which notes have which values. To do this, a section the width of $\text{Stave Space} / 2$ is examined either side of the note's stem \todo{How did/do we handle angled stems here?}. The beam is analysed in these segments for the maximum number of vertical black runs which represents the number beams.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{gfx/implementation/beam-identification.png}
+  \caption{Calculating the number of beams to get note values. Blue areas show the regions scanned and green lines represent the maximum count of vertical black runs found}
+  \label{fig:complex-beam-establish}
+\end{figure}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{gfx/implementation/duration-diagram.png}
+  \caption{Flow chart for establishing base note duration}
+  \label{fig:note-duration-flow-chart}
+\end{figure}
+
+Note that with regards to tails and beaming, since every additional beam or tail present for the note divides it's value by two (examples can be seen in \todo{reference note lengths from background}) we can generalise this section of the heuristic to deal with any number of beams and tails.
+
+Once the base value has been obtained, we perform a final check of the area surrounding the note centre for any `modifier' dots. These extend the duration of the note by half, so for example, a dotted crotchet would last 1.5 beats as opposed to 1 beat without the dot. The region searched equates to half a staff space down and either side of the note as shown in \cref{fig:identify-dot}, anything outside of this region is ignored.
+
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{gfx/implementation/dot-identification.png}
+  \caption{Searching for dots which would modify a note's length. Blue areas are the searched space for each note}
+  \label{fig:identify-dot}
+\end{figure}

@@ -1,26 +1,144 @@
-\section{Scoring}
+\section{Scoring and Feedback}
 \label{sec:scoring}
+
+\subsection{Pitched Notes and Accidentals}
+\label{sec:pitched-notes-accidentals}
+
+\subsubsection{Position}
+
+For pitched notes and accidentals, we compare their vertical centres as calculated in the identification (\cref{sec:identification}) stages to positions of the surrounding stave lines and spaces.
+
+We designate the attempted stave position as being the one which is closest to this center (the same position which was used for calculating pitch) and then measure the distance from it. If the distance is greater than a given threshold (obtained experimentally) we then designate this a potentially ambiguous entity.
+
 \subsection{Key Signatures}
-\todo[inline,color=red]{Scoring Techniques - Key Signatures}
 
-- Identify all sharps
+A key signature consists of several sharps or flats which are required to be in a certain order and position on the stave.
 
-- Based on number of sharps, calculate what the key signature should be
+Before we perform any analysis, we need a reference copy of what we expect the accidentals in the key signature to look like. We therefore count the number of drawn accidentals and then produce the set of accidentals we would expect to see for comparison. Once this has been done there are several analysis methods we can use to further assess the key signature which are summarised in \cref{table:key-signature-errors}.
 
-- Look for incorrect sharps
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.6}
+    \begin{tabularx}{\textwidth}{ lX }
+        \toprule
+        Mistake & Feedback \\
+        \midrule
+        Mixed Accidentals & Incorrect \\
+        Wrong Octave & Which sharps were affected and whether they're an octave too high or too low \\
+        Incorrect Order & Which sharps are in the wrong place and where they should be \\
+        Incorrect Sharps & Which sharps are wrong and what they should be \\
+        \bottomrule
+    \end{tabularx}
 
-- Look for sharps an octave too high/low
+    \label{table:key-signature-errors}
+    \caption{Mistakes we need to look for in key signatures}
+\end{table}
 
-- Look for correct sharps but in the wrong order
+\subsubsection{Mixed Accidentals} 
+
+Key signatures (of the type we're concerned with in the project) may contain only sharps or flats, not a combination of both. If a key signature is detected to contain both sharps and flats such as in \cref{fig:mixed-accidentals-bad}, the fact that this has been done is noted, but at this point no further analysis is done.
+
+\begin{figure}[hbt]
+  \missingfigure{Sharps and Flats Mixed}
+  \caption{}
+  \label{fig:mixed-accidentals-bad}
+\end{figure}
+
+\subsubsection{Wrong Octaves}
+
+Sometimes the student gets the right accidental, but just in the wrong octave, for example the case identified by a teacher in \cref{fig:right-accidental-wrong-octave}. This can be identified by checking to see if the actual note (C, D, E) the drawn accidental rather than a specific pitch (C4, D4, E4) matches that of the expected accidental.
+
+\begin{figure}[hbt]
+  \missingfigure{Right accidental wrong octave teacher example}
+  \caption{}
+  \label{fig:right-accidental-wrong-octave}
+\end{figure}
+
+\subsubsection{Out of Order}
+
+Sometimes a key signature contains all the sharps required, but not in the right order as seen in \cref{fig:right-accidentals-wrong-ordering}. This case can be established by taking the number of accidentals drawn, establishing what would be the correct accidentals for that case and comparing the list of pitches to an ordered list of the drawn pitches. If they match, the student has mis-ordered some of the accidentals so we note which ones are out of order and where they should be.
+
+\begin{figure}[hbt]
+  \missingfigure{Right accidentals wrong order example}
+  \caption{}
+  \label{fig:right-accidentals-wrong-ordering}
+\end{figure}
+
+\subsubsection{Incorrect Sharps}
+
 
 \subsection{Beats and Timing}
-\todo[inline,color=red]{Scoring Techniques - Beats and Timing}
 
-- Identify bar lines (if any)
+There are really only two things we need to check for when scoring beats and timing, outlined in \cref{table:bar-beat-errors}.
 
-- Identify note lengths (look for note heads, stems and quaver tails using heuristics)
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.6}
+    \begin{tabularx}{\textwidth}{ lX }
+        \toprule
+        Mistake & Feedback to relay \\
+        \midrule
+        Too few beats in a bar & Which bar, how many beats we count and how many we expect based on the time signature \\
+        Too many beats in a bar & Which bar, how many beats we count and how many we expect based on the time signature \\
+        \bottomrule
+    \end{tabularx}
 
-\subsection{Stem Straightness}
+    \label{table:bar-beat-errors}
+    \caption{Mistakes we need to look for in beats per bar}
+\end{table}
+
+Regardless of which mistake we're checking for the algorithm is essentially the same and can be checked at the same time as demonstrated in \cref{alg:bar-beat-check}
+
+\begin{algorithm}[H]
+  \caption{Searching for incorrect beats per bar}
+  \label{alg:bar-beat-check}
+  
+  \begin{algorithmic}
+    \Procedure{CheckBars}{$bars$}
+        \For {each bar in stave.bars}
+          \State expectedBeats = \Call{GetExpectedBeatsInBar}{bar}
+          \State actualBeats = \Call{GetActualBeatsInBar}{bar}
+          \If{actualBeats $>$ expectedBeats}
+            \State{Log the mistake}
+          \ElsIf{actualBeats $<$ expectedBeats}
+            \State{Log the mistake}
+          \EndIf
+    	\EndFor
+    \EndProcedure
+    \Statex
+    \Procedure{GetActualBeatsInBar}{$bar$}
+        \State totalBeats = 0
+        \For {each note in bar.notes}
+          \State totalBeats += \Call{GetNoteLength}{note}
+        \EndFor
+        
+    	\Return totalBeats
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\subsection{Stems}
+
+Stems are a very common component of manuscript and as such will be drawn regularly. It's important to have detailed checking to weed out any bad habits early and so we check for the all the potential mistakes in \cref{table-stem-mistakes}.
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.6}
+    \begin{tabularx}{\textwidth}{ lX }
+        \toprule
+        Mistake & Feedback \\
+        \midrule
+        Straightness & Whether it's just a bit uneven or really wonky \\
+        Angle & Whether the stem was leaning just a little bit or severely \\
+        Direction & Which direction the stem should have been pointing \\
+        Side & Which side the stem should have been on \\
+        Length & Whether it was too long or too short\\
+        Direction & Which way the stem should have gone\\
+        \bottomrule
+    \end{tabularx}
+
+    \label{table:stem-mistakes}
+    \caption{Mistakes we need to look for in note stems}
+\end{table}
+
+\subsubsection{Straightness}
 
 Given a drawn note stem, we wish to be able to determine a measure of `straightness' which we can threshold to discern a badly drawn stem shown in \cref{fig:wonky-stems} from a straight one  as shown in \cref{fig:straight-stems}.
 
@@ -100,7 +218,7 @@ After experimenting with using the standard deviation \cref{eqn:sd} of the resid
 
 \input{chapters/techniques/stem-straightness-figure.tex}
 
-\subsection{Stem Angle}
+\subsubsection{Angle}
 
 In order to determine the angle of a stem, we first need establish the line of best fit which most accurately reflects the direction of the stem, we can then examine this line $y = mx + c$ and compute $\arctan(m)$ to get the angle relative to vertical.
 
@@ -125,7 +243,7 @@ In order to determine the angle of a stem, we first need establish the line of b
 \input{chapters/techniques/stem-angle-figure.tex}
 
 
-\subsection{Stem Direction}
+\subsubsection{Direction}
 
 To establish the stem direction which I will refer to as $S_d$, the vertical position (y coordinates) of the head and the stem are compared.
 
@@ -173,7 +291,7 @@ The case where a stem has the same $y$ coordinate as it's head isn't possible du
     \label{fig:downward-stem-identification}
 \end{figure}
 
-\subsection{Stem Side}
+\subsubsection{Side}
 To establish the stem side which I will refer to as $S_s$, we do a similar operation to in determining the direction, however, since it is perfectly feasible that the stem and head have the same x coordinate, we can't just use the x coordinate directly.
 
 Instead, we compare the x coordinate of the stem $x_{\text{stem}}$ to the true centre \todo{Better definition later please} of the note head $cx_{\text{head}}$
@@ -195,7 +313,7 @@ S_{s} (S_\text{xoff}) =
 \right.
 $$
 
-\subsection{Stem Length}
+\subsubsection{Length}
 
 Stem length may seem like a simple case of measuring the length of the extracted stem, but it's actually a little more complicated. In order to get the best results, we need to take into account the fact that the stem has been extracted from the note head and that this separation point could occur anywhere from near the bottom to the top as shown in \cref{fig:stem-intersection}.
 
@@ -210,7 +328,9 @@ Similarly to the straightness and angular measures, we can establish the raw len
 
 If we define the correct length $L_E$ for a stem as outlined in \todo{REFERENCE where I talk about correct stem length} then the length score is therefore just $L_E - L_A$ where smaller values mean the stem is closer to the expected length.
 
-\subsection{Quaver Tail Side}
+\subsection{Quaver Tail}
+
+\subsubsection{Side}
 
 \todo[inline]{Quaver tail side needs a little more detail, this feels a bit 'late in the evening' weak. Also, MORE MATHS}
 
