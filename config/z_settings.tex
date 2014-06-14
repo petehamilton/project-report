@@ -30,7 +30,6 @@
 \usepackage{titlesec}                        % Formatting paragraphs as sections
 \usepackage{fixltx2e}                        % Fixes some LaTeX stuff
 \usepackage[colorlinks=false]{hyperref}       % Hyperlink References
-\usepackage[capitalise]{cleveref}            % Clever Referencing
 \usepackage{listings}                        % Code listings
 \usepackage{longtable}                       % Don't break table across pages
 \usepackage[british]{babel}                  % No idea
@@ -41,10 +40,38 @@
 \usepackage{algpseudocode}
 \usepackage{pgfplots}
 \usepackage{fancyhdr}
+%\usepackage{morefloats}                      % More floats allowed :)
+\usepackage[capitalise]{cleveref}            % Clever Referencing
 \setlength{\headheight}{12pt}
 \pagestyle{fancy}
 
 % \RequirePackage[l2tabu, orthodox]{nag}       % Nags you if your syntax is wrong
+
+%----------------------------------------------------------------------------------------
+% HEADERS
+%----------------------------------------------------------------------------------------
+\fancyhf{}
+
+\fancyhf[HLE]{\rightmark}
+\fancyhf[HRO]{\leftmark}
+\fancyhf[FLE,FRO]{\thepage}
+
+\fancypagestyle{plain}{ %
+  \fancyhf{} % remove everything
+  \renewcommand{\headrulewidth}{0pt} % remove lines as well
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[LO,RE]{\thepage}
+}
+
+%----------------------------------------------------------------------------------------
+% REFERENCES
+%----------------------------------------------------------------------------------------
+\crefname{chapter}{Chapter}{Chapters}
+\crefname{section}{Section}{Sections}
+\crefname{subsection}{Section}{Sections}
+\crefname{subsubsection}{Section}{Sections}
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
 
 %----------------------------------------------------------------------------------------
 % TODOs
@@ -70,6 +97,7 @@
 % BETTER TABLES
 %----------------------------------------------------------------------------------------
 \renewcommand{\arraystretch}{1.2}
+
 
 %----------------------------------------------------------------------------------------
 % FONT
@@ -105,6 +133,10 @@
 % if singlelinecheck=on, then caption is always centered when the caption is only one line.
 \captionsetup[subfigure]{singlelinecheck=on,justification=raggedright}
 
+%----------------------------------------------------------------------------------------
+% MISC
+%----------------------------------------------------------------------------------------
+\raggedbottom
 %----------------------------------------------------------------------------------------
 % IMPORTS
 %----------------------------------------------------------------------------------------

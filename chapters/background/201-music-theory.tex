@@ -6,212 +6,197 @@ For early grades of music theory, the criteria by which students need to adhere 
 
 The following is a guide to the manuscript entities that a student aiming to take their grade 1 - 3 theory exams would most likely have to know about and/or write down, along with the relevant criteria for what constitutes acceptable and unacceptable manuscript, most of the examples below are taken from or based on the official documentation in \parencite{taylor2008music}
 
-\todo[inline, color=red]{CURRENTLY SPLITTING THIS INTO TWO SECTIONS, first an overview of JUST music theory, THEN a section on things which students regularly get wrong, backed up by examples from the books and the data gathered from teachers like in \cref{fig:teacher-example-quaver-wrong-side}}
+\subsection{The Staff}
 
-\subsection{Notes on the stave}
+A staff is comprised of five horizontal parallel staff lines separating four staff spaces, together they form a framework within which music elements are placed.
 
-\subsubsection{Staves and Staff Lines}
-\todo[inline,color=red]{Background - Music Stave}
-\label{sec:music-theory-stave}
+The lines are numbered from bottom (\emph{first line}) to top \emph{fifth line} and spaces are labelled in a similar fashion. Which staff positions represent which note depends on the clef (\cref{music-theroy-clefs}) and it can also be used for un-tuned percussion, although for the time being that remains outside the scope of this project.
 
-\subsubsection{Semibreve}
-
-The semibreve is the easiest note to draw and is simply an oval outline, however, the rules which govern it's placement are quite specific as outlined in Figures \cref{fig:SemibreveOnLine} \& \cref{fig:SemibreveOnSpace}
-
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/semibreve-on-line.png}
+\begin{figure}[H]
   \centering
-  \caption{If it is drawn on the line, the line must go exactly through the middle of the semibreve}
-  \label{fig:SemibreveOnLine}
+  \missingfigure{Stave w/ 5 staff lines}
+  \caption{An example of a standard stave with 5 staff line}
 \end{figure}
 
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/semibreve-on-space.png}
+\subsection{Bar Lines}
+
+Aside from the stave, bar lines are one of the most important parts of the score. If you think of a piece of music from beginning to end, bar lines divide the music up into smaller units of time called \emph{measures} or \emph{bars}.
+
+There are multiple types of bar lines, some of which are shown in \cref{fig:bar-line-types} but the most important one is the single bar line which separates the bars.
+
+\begin{figure}[H]
   \centering
-  \caption{If it is drawn in the space, it should also only cover half the space on either side}
-  \label{fig:SemibreveOnSpace}
+
+  \begin{subfigure}[b]{.3\linewidth}
+      \centering
+      \missingfigure{Single bar line}
+      \label{fig:single-bar-line}
+  \end{subfigure}
+  \begin{subfigure}[b]{.3\linewidth}
+      \centering
+      \missingfigure{Double bar line}
+      \label{fig:double-bar-line}
+  \end{subfigure}
+  \begin{subfigure}[b]{.3\linewidth}
+      \centering
+      \missingfigure{Bar line with a repeat}
+      \label{fig:repeat-bar-line}
+  \end{subfigure}
+
+  \caption{An example of single (\cref{fig:single-bar-line}), double (\cref{fig:double-bar-line}) and repeated bar lines (\cref{fig:repeat-bar-line})}
+  \label{fig:bar-line-types}
 \end{figure}
 
-\subsubsection{Ledger Lines}
+\subsection{Notes and Rests}
 
-Notes can be drawn higher or lower than the five stave lines by drawing another line or lines above or below the stave.
+\subsubsection{Notes}
+\label{sec:music-theory-notes}
+Notes are used represent duration (differentiated by their shape) and pitch (differentiated by where they're placed on the stave) of musical sounds. Most notes are comprised of a note head and a stem but may also have beams or tails in the case of notes shorter than a crotchet.
 
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/ledger-boundaries.png}
+Note that there are multiple variations in how note lengths are named and different papers refer to notes using the British and American versions. I will be proudly brandishing the traditional british version throughout this project but for reference I have put both naming styles in \Cref{table:note-lengths}.
+
+\subsubsection{Rests}
+\label{sec:music-theory-rests}
+
+Rests correspond directly to notes as you can see from \cref{table:note-lengths} but unlike notes, rests can only indicate duration and do not have pitch. They're located centred around the central (3rd) staff line and each length is represented with a different symbol or a relative location to the staff line.
+
+\subsubsection{Duration}
+\label{sec:music-theory-duration}
+
+The note \emph{length} or \emph{value} or \emph{duration} (number of beats a note lasts for) is determined by multiple features.
+
+A semibreve lasts 4 beats, minims 2 and crotchets 1 beat. Further divisions for quavers and semiquavers are notated by the number of tails (in the case of single, isolated notes) or the number of beams (in the case of beamed notes), both of which are located on the note stem furthest from the note head.
+
+In general, for multiple notes with a value less than 1 the convention is to beam them together and since multiple beams can be used in place of tails you are not limited to beaming only notes of the same duration
+
+There also exist duration dots which are single dots placed to the right of a note head or rest. These indicate that the duration of the dotted note is equal to 1.5 $\times$ the length of the original note.
+
+An overview of the various note lengths
+
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.8}
+    \centering
+    \begin{tabularx}{\textwidth}{ llll }
+        \toprule
+
+        Name & Name (American) & Note Symbol & Rest Symbol \\
+        \midrule
+        Semibreve & Whole Note & & \\
+        Minim & Half Note & & \\
+        Crotchet & Quarter Note & & \\
+        Quaver & Eighth Note & & \\
+        Semiquaver & Sixteenth Note & & \\
+
+        \bottomrule
+    \end{tabularx}
+    \caption{An overview of note and rest durations}
+    \label{table:note-lengths}
+\end{table}
+
+\subsubsection{Pitch}
+\label{sec:music-theory-pitch}
+
+The absolute pitch of a note is determined by it's vertical position on the stave relative to the staff lines taking into account the clef (\cref{sec:music-theory-clefs}), the key signature (\cref{sec:music-theory-key-signatures}) and any applicable accidentals (\cref{sec:music-theory-accidentals}).
+
+Pitch is notated by letter and number corresponding to the note itself and the octave. For example, the central C on the piano (the first ledger line on a treble clef) is noted by C4 and the next C one octave above it is notated by C5. A sequence of notes is shown labelled in \cref{fig:music-theory-pitch-labels}. For notes with sharps or naturals applied, typically an additional lowercase character (s for Sharp and b for Flat) is added as shown in \cref{fig:music-theory-pitch-labels-accidentals}
+
+\begin{figure}[H]
   \centering
-  \caption{Each note must have it's own line restricted to the boundaries of the note}
-  \label{fig:LedgerBoundaries}
-\end{figure}
-
-
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/ledger-above.png}
-  \centering
-  \caption{Lines should not be drawn over notes just above the stave, or below a note just under the stave}
-  \label{fig:LedgerAbove}
-\end{figure}
-
-
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/ledger-slope.png}
-  \centering
-  \caption{The lines you draw through notes should not slope up or down, but should be exactly horizontal}
-  \label{fig:LedgerSlope}
-\end{figure}
-
-\subsection{Stems}
-
-The stem of a note should go up on the right and down on the left. Which version to use depends on which line the head of the note is placed upon.
-
-The stems of the notes on the top two lines should go down
-The stems of the notes on the bottom two lines should go up
-The stems of the notes on the middle line can go either up \emph{or} down.
-
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/stems-chromatic.png}
-  \centering
-  \caption{Examples of note stem direction}
-  \label{fig:StemsChromatic}
-\end{figure}
-
-How the stems are drawn is quite important as they must not be too long or too short and should be vertically straight.
-
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/stems-good-bad.png}
-  \centering
-  \caption{Examples of good and badly drawn note stems}
-  \label{fig:StemsGoodBad}
-\end{figure}
-
-Quavers and eighth notes have small tails on them, typically in printed music they're curved but for handwritten notation straight lines are perfectly acceptable.
-
-\begin{figure}[h!]
-  \includegraphics[width=0.4\linewidth]{gfx/basic/stems-curved.png}
-  \centering
-  \caption{Examples of straight and curved note stems}
-  \label{fig:StemsStraightCurved}
-\end{figure}
-
-\subsection{Clefs}
-
-\subsubsection{Treble Cleff}
-
-The treble clef is one of the more difficult symbols to master, but has a fairly straightforward technique. You start with a loop around the \emph{G} line (second from the bottom) and then follow through with the loops.
-
-\begin{figure}[h!]
-  \includegraphics[width=0.3\linewidth]{gfx/basic/treble-clef.png}
-  \centering
-  \label{fig:TrebleClef}
-\end{figure}
-
-\subsubsection{Bass Clef}
-
-The bass clef has two different variations, both with two dots to the right, either side of the \emph{F} line (second from the top) around which the core of the clef is centered. The left variation is by far the most common.
-
-\begin{figure}[h!]
-  \includegraphics[width=0.5\linewidth]{gfx/basic/bass-clef.png}
-  \centering
-  \caption{Two versions of the Bass Clef}
-  \label{fig:BassClef}
-\end{figure}
-
-\subsection{Beaming}
-
-Notes with tails are often joined together, known as \emph{beaming}. For example, you can beam the following notes together:
-
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/beaming.png}
-  \centering
-  \caption{Notes and their beamed equivalents}
-  \label{fig:NotesBeamedEquiv}
+  \missingfigure{Pitch of notes C4 D4 etc}
+  \caption{Pitch labelling for notes}
+  \label{fig:music-theory-pitch-labels}
 \end{figure}
 
 
-\subsection{Rests}
-
-\begin{enumerate}
-\item The semibreve rest hangs below a line (usually the fourth) and is depicted by a rectangle which fills half the line space.
-\item The minim rest is depicted similarly, but above the line (usually the third)
-\end{enumerate}
-
-\begin{figure}[h!]
-  \includegraphics[width=0.7\linewidth]{gfx/basic/semibreve-minim-rest.png}
+\begin{figure}[H]
   \centering
-  \caption{Examples of the semibreve rest (left) and minim rest (right)}
-  \label{fig:RestMinimSemibreve}
+  \missingfigure{Pitch of notes C4 D4 with accidentals}
+  \caption{Pitch labelling for notes with accidentals applied}
+  \label{fig:music-theory-pitch-labels-accidentals}
 \end{figure}
 
-You can draw a crochet one of two ways and although the first is harder to draw, it is the most commonly used, so is the preferred version when learning to write music. This, and examples of a quaver and semiquaver rest can be seen in Figure \cref{fig:RestCrochetQS}
-
-\begin{figure}[h!]
-  \includegraphics[width=0.5\linewidth]{gfx/basic/rests.png}
-  \centering
-  \caption{Examples of crochet, quaver and semiquaver rests}
-  \label{fig:RestCrochetQS}
-\end{figure}
-
-\subsection {Ties}
-
-A tie joins notes which sound the same and turns them into one sound. For example:
-
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/ties.png}
-  \centering
-  \caption{Example of tied notes}
-  \label{fig:TiedNotes}
-\end{figure}
-
-You can join any number of notes in this way, but they must be the same notes and they must be next to each other, the tie goes from the head of the first note to the head of the next.
-
-\subsection{Dotted Notes}
-
-Dotted notes are very simple to draw and their purpose is even simpler. They make any dotted note equal to 1.5 $\times$ the length of the same note without the dot.
-
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{gfx/basic/dotted-notes.png}
-  \centering
-  \caption{Dotted Notes}
-  \label{fig:DottedNotes}
-\end{figure}
 
 \subsection{Accidentals}
+\label{sec:music-theory-accidentals}
+When placed on staff lines or spaces, accidentals modify the note which they precede unless cancelled out by another accidental (often a natural). There are three types of accidental: sharps, flats and naturals, which are explained in \cref{table:note-accidentals}
 
-When placed on staff lines or spaces, accidentals modify the note which they precede. They must lie evenly across a line or a space because as with previous notation, bad placement leads to ambiguity an lost marks
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.8}
+    \centering
+    \begin{tabularx}{\textwidth}{ llX }
+        \toprule
 
-\begin{enumerate}
-\item Sharps modify a note by adding a semitone to it's original value
-\item Flats modify a note by subtracting a semitone to it's original value
-\item Naturals modify a note by removing the influence of any previous sharps or flats.
-\end{enumerate}
+        Name & Symbol & Description \\
+        \midrule
+        Sharp & & Raise the pitch of a note by one semitone\\
+        Natural & & Cancels any previous sharp or flat which might have applied to a note, usually from the key signature \\
+        Flat & & Lowers the pitch of a note by one semitone \\
+        \bottomrule
+    \end{tabularx}
+    \caption{An overview of note and rest durations}
+    \label{table:note-accidentals}
+\end{table}
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\linewidth]{gfx/basic/accidentals.png}
-  \caption{Examples of accidentals}
-  \label{fig:Accidentals}
-\end{figure}
+\subsection{Clefs}
+\label{sec:music-theory-clefs}
+
+A clef is generally the first entity on a staff and defines the pitch range for the music, some of the most common clefs are listed below but for the scope of this project we will focus primarily on treble clef and bass clef.
+
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.8}
+    \centering
+    \begin{tabularx}{\textwidth}{ l l }
+        \toprule
+        Name & Symbol \\
+        \midrule
+
+        \bottomrule
+    \end{tabularx}
+    \caption{An overview of note and rest durations}
+    \label{table:clefs}
+\end{table}
+
+\subsection{Key Signatures}
+\label{sec:music-theory-key-signatures}
+
+Key signatures are found at the beginning of a stave next to the clef and are applicable to all musical notes which come after them, essentially setting the accidentals for the foreseeable future so we don't have to add them before every single note.
+
+The key itself is defined by the number of sharps or flats in the signature and these follow a rigid structure and are added in a specific order left to right as shown in \cref{table:key-signatures} Sharps and flats are never combined in a key signature.
+
+\todo[inline,color=red]{Key Signature Images}
+
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.8}
+    \centering
+    \begin{tabularx}{\textwidth}{ l l l XXXXXXX }
+        \toprule
+        Key & In Treble Clef & In Bass Clef & \multicolumn{7}{c}{Notes} \\
+        \midrule
+
+        \bottomrule
+    \end{tabularx}
+    \caption{An overview of note and rest durations}
+    \label{table:key-signatures}
+\end{table}
 
 
-\section{Common Manuscript Mistakes}
-\todo[inline,color=red]{Most of the screenshots from before will go here, and the example for the music theory overview will be replaced with actual manuscript notation examples or printed examples}
 
-\todo[inline,color=red]{Talk more about the teacher sheets like \cref{fig:teacher-sheet} and refer to them in scoring section}
+\subsection{Time Signatures}
+\label{sec:music-theory-time-signatures}
 
-\begin{figure}[H]
-  \rot{\includegraphics[width=.45\linewidth]{gfx/photos/teacher-sheet-1.jpg}}
-  \rot{\includegraphics[width=.45\linewidth]{gfx/photos/teacher-sheet-2.jpg}}
-  \caption{Examples of teacher-annotated manuscript}
-  \label{fig:teacher-sheet}
-\end{figure}
+Time signatures can be found at the beginning of the stave or the start of a bar and sets the number of beats per bar as well as which note value is used for a beat for the music which follows. They can be split into several subcategories depending on the rhythm as shown in \cref{table:time-signatures}.
 
-Quaver tails are given as an example till I move everything else down.
+\todo[inline,color=red]{Time Signature Examples}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.8}
+    \centering
+    \begin{tabularx}{.8\textwidth}{ l l l }
+        \toprule
+        Type & Time Signature & Description \\
+        \midrule
+        \bottomrule
+    \end{tabularx}
+    \caption{An overview of note and rest durations}
+    \label{table:time-signatures}
+\end{table}
 
-\subsection{Quavers}
-
-\subsubsection{Quaver Tail Side}
-
-\begin{figure}[H]
-  \includegraphics[width=\linewidth]{gfx/photos/teacher-bad-quavertail-side.jpg}
-  \caption{Teacher's annotation of a bad quaver tail side}
-  \label{fig:teacher-example-quaver-wrong-side}
-\end{figure}

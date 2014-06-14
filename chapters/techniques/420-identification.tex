@@ -23,7 +23,7 @@ Moments, Centroids, Height etc
 \subsubsection{Run Length Encoding}\label{sec:identification-rle}
 To improve the speed of my application, I utilised \acrfull{RLE} (covered in \cref{sec:tb-rle}) to improve storage and retrieval times during feature extraction and classification by up to 97\% (\cref{table:rle-improvement}).
 
-\begin{table}[h]
+\begin{table}[H]
 
     \begin{tabularx}{\textwidth}{ X X X X }
     \toprule
@@ -34,8 +34,8 @@ To improve the speed of my application, I utilised \acrfull{RLE} (covered in \cr
     \bottomrule
     \end{tabularx}
 
-    \label{table:rle-improvement}
     \caption{Improvements after implementing RLE, tested on a sample set of 3000 components}
+    \label{table:rle-improvement}
 \end{table}
 
 \subsection{Classification}
@@ -47,7 +47,7 @@ In order to maximise the accuracy of my classifications, I ran multiple experime
 
 \subsubsection{K Nearest Neighbour}
 
-For the K Nearest Neighbour algorithm, I tried two different feature vectors, the first was using the statistical properties outlined in \cref{sec:statistical-properties} and the second was a downsampled binary image flattened into a 1D array. 
+For the K Nearest Neighbour algorithm, I tried two different feature vectors, the first was using the statistical properties outlined in \cref{sec:statistical-properties} and the second was a downsampled binary image flattened into a 1D array.
 
 An initial attempt at classification using statistical properties and a KNN classifier wasn't all that successful as you can see from the confusion matrix and accuracy scores in \cref{fig:knn-stats}. Most components were incorrectly classified as crotchet heads though I was unable to come up with a good explanation as to why and it's something which it would be interesting to investigate further in future.
 
@@ -94,7 +94,7 @@ An initial attempt at classification using statistical properties and a KNN clas
       \bottomrule
     \end{tabularx}
   \end{subtable}
-  
+
   \caption{KNN classifier results using statistical features}
   \label{fig:knn-stats}
 \end{figure}
@@ -132,8 +132,8 @@ The top ten experimental accuracies from the tested dimensions are listed in \cr
     \bottomrule
     \end{tabularx}
 
-    \label{table:knn-width-height-top}
     \caption{Top 10 accuracy scores for different width and height combinations, the selection dimensions used in the classifier are highlighted and the full results can be found in \cref{table:height-width-matrix}}
+    \label{table:knn-width-height-top}
 \end{table}
 
 Initial results on attempting to distinguish between all components were positive and I was able to achieve around 93\% accuracy as seen in \cref{table:confusion-matrix-knn-img-all}.
@@ -188,9 +188,9 @@ Using a two-stage classifier much more satisfactory results were achieved, with 
 
 \begin{figure}[H]
   \centering
-  
+
   \vspace{0.4cm}
-  
+
   \begin{subtable}[b]{\linewidth}
     \centering
     \small
@@ -216,9 +216,9 @@ Using a two-stage classifier much more satisfactory results were achieved, with 
     minimsemibreverest & 0 & 0 & 0 & 0 & 0 & 3 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 3 \\
     \end{tabularx}
   \end{subtable}
-  
+
   \vspace{0.8cm}
-  
+
   \begin{subtable}[b]{.4\linewidth}
     \begin{tabularx}{\linewidth}{lll}
       \toprule
@@ -228,18 +228,18 @@ Using a two-stage classifier much more satisfactory results were achieved, with 
       \bottomrule
     \end{tabularx}
   \end{subtable}
-  
+
   \vspace{0.4cm}
-  
+
   \caption{1st level KNN Classifier Results}
   \label{fig:knn-level1}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  
+
   \vspace{0.4cm}
-  
+
   \begin{subtable}[b]{.4\linewidth}
     \begin{tabularx}{\textwidth}{r|XXXXX}
          & \rot{minimhead}  & \rot{crotchethead}  & \rot{quavertailup}  & \rot{quavertaildown}  & \rot{stem} \\
@@ -251,9 +251,9 @@ Using a two-stage classifier much more satisfactory results were achieved, with 
     stem & 0 & 0 & 0 & 0 & 93 \\
     \end{tabularx}
   \end{subtable}
-  
+
   \vspace{0.8cm}
-  
+
   \begin{subtable}[b]{.4\linewidth}
     \begin{tabularx}{\linewidth}{lll}
       \toprule
@@ -263,9 +263,9 @@ Using a two-stage classifier much more satisfactory results were achieved, with 
       \bottomrule
     \end{tabularx}
   \end{subtable}
-  
+
   \vspace{0.4cm}
-  
+
   \caption{2nd level KNN Classifier Results}
   \label{fig:knn-level2}
 \end{figure}
@@ -280,34 +280,34 @@ It should be noted, however, that since I didn't have the opportunity to study t
 
 \begin{figure}[H]
   \centering
-  
+
   \vspace{0.4cm}
-  
+
   \begin{subtable}[b]{   \linewidth}
     \small
     \begin{tabularx}{\textwidth}{r|XXXXXXXXXXXXXXX}
     & \rot{crotchetrest} & \rot{semibreve} & \rot{dot} & \rot{flat} & \rot{digit\_2} & \rot{barline} & \rot{trebleclef} & \rot{sharp} & \rot{quaverrest} & \rot{digit\_3} & \rot{note\_complex} & \rot{natural} & \rot{digit\_4} & \rot{bassclef} & \rot{minimsemibreverest} \\
     \midrule
-    crotchetrest       & 29 &  0 &  1 &  0  & 1 &  0 &  3 &  3 &  0 &  0 &   5  &  1  &  1  &  1  &  0 \\               
-    semibreve          &  0 & 45 &  0 &  0  & 0 &  0 &  0 &  0 &  0 &  0 &   1  &  0  &  0  &  0  &  0 \\            
-    dot                &  0 &  1 & 43 &  0  & 0 &  0 &  0 &  0 &  0 &  0 &   0  &  1  &  0  &  1  &  0 \\      
-    flat               &  0 &  0 &  0 & 43  & 0 &  0 &  0 &  3 &  0 &  0 &   8  &  1  &  1  &  0  &  0 \\       
-    digit\_2            &  0 &  0 &  1 &  0  & 5 &  0 &  0 &  0 &  0 &  0 &   4  &  0  &  0  &  0  &  0 \\          
-    barline            &  0 &  0 & 10 &  0  & 0 & 28 &  2 &  1 &  0 &  0 &   0  &  0  &  2  &  0  &  0 \\          
-    trebleclef         &  1 &  0 &  0 &  1  & 0 &  2 & 29 &  3 &  0 &  0 &   0  &  0  &  1  &  0  &  0 \\             
-    sharp              &  1 &  0 &  2 &  0  & 0 &  1 &  1 & 46 &  0 &  0 &   0  &  0  &  1  &  0  &  0 \\        
-    quaverrest         &  0 &  0 &  0 &  0  & 0 &  0 &  0 &  0 & 32 &  1 &   1  &  1  &  0  &  0  &  0 \\             
-    digit\_3            &  0 &  0 &  0 &  0  & 0 &  0 &  2 &  1 &  0 &  0 &   3  &  0  &  0  &  0  &  0 \\          
-    note\_complex       &  0 &  0 &  0 &  0  & 1 &  0 &  1 &  0 &  3 &  0 & 102  &  1  &  0  &  0  &  0 \\               
-    natural            &  0 &  0 &  0 &  0  & 0 &  0 &  2 &  1 &  0 &  0 &   1  & 31  &  0  &  0  &  0 \\          
-    digit\_4            &  1 &  1 &  0 &  0  & 0 &  2 &  3 &  4 &  0 &  0 &   4  &  0  & 10  &  0  &  0 \\          
-    bassclef           &  0 &  0 &  0 &  0  & 0 &  0 &  0 &  0 &  1 &  0 &   4  &  0  &  0  & 28  &  0 \\           
-    minimsemibreverest &  0 &  0 &  9 &  0  & 0 &  0 &  0 &  0 &  0 &  0 &   0  &  0  &  0  &  0  &  0 \\                    
+    crotchetrest       & 29 &  0 &  1 &  0  & 1 &  0 &  3 &  3 &  0 &  0 &   5  &  1  &  1  &  1  &  0 \\
+    semibreve          &  0 & 45 &  0 &  0  & 0 &  0 &  0 &  0 &  0 &  0 &   1  &  0  &  0  &  0  &  0 \\
+    dot                &  0 &  1 & 43 &  0  & 0 &  0 &  0 &  0 &  0 &  0 &   0  &  1  &  0  &  1  &  0 \\
+    flat               &  0 &  0 &  0 & 43  & 0 &  0 &  0 &  3 &  0 &  0 &   8  &  1  &  1  &  0  &  0 \\
+    digit\_2            &  0 &  0 &  1 &  0  & 5 &  0 &  0 &  0 &  0 &  0 &   4  &  0  &  0  &  0  &  0 \\
+    barline            &  0 &  0 & 10 &  0  & 0 & 28 &  2 &  1 &  0 &  0 &   0  &  0  &  2  &  0  &  0 \\
+    trebleclef         &  1 &  0 &  0 &  1  & 0 &  2 & 29 &  3 &  0 &  0 &   0  &  0  &  1  &  0  &  0 \\
+    sharp              &  1 &  0 &  2 &  0  & 0 &  1 &  1 & 46 &  0 &  0 &   0  &  0  &  1  &  0  &  0 \\
+    quaverrest         &  0 &  0 &  0 &  0  & 0 &  0 &  0 &  0 & 32 &  1 &   1  &  1  &  0  &  0  &  0 \\
+    digit\_3            &  0 &  0 &  0 &  0  & 0 &  0 &  2 &  1 &  0 &  0 &   3  &  0  &  0  &  0  &  0 \\
+    note\_complex       &  0 &  0 &  0 &  0  & 1 &  0 &  1 &  0 &  3 &  0 & 102  &  1  &  0  &  0  &  0 \\
+    natural            &  0 &  0 &  0 &  0  & 0 &  0 &  2 &  1 &  0 &  0 &   1  & 31  &  0  &  0  &  0 \\
+    digit\_4            &  1 &  1 &  0 &  0  & 0 &  2 &  3 &  4 &  0 &  0 &   4  &  0  & 10  &  0  &  0 \\
+    bassclef           &  0 &  0 &  0 &  0  & 0 &  0 &  0 &  0 &  1 &  0 &   4  &  0  &  0  & 28  &  0 \\
+    minimsemibreverest &  0 &  0 &  9 &  0  & 0 &  0 &  0 &  0 &  0 &  0 &   0  &  0  &  0  &  0  &  0 \\
     \end{tabularx}
   \end{subtable}
-  
+
   \vspace{0.8cm}
-  
+
   \begin{subtable}[b]{.4\linewidth}
     \begin{tabularx}{\linewidth}{lll}
       \toprule
@@ -317,13 +317,12 @@ It should be noted, however, that since I didn't have the opportunity to study t
       \bottomrule
     \end{tabularx}
   \end{subtable}
-  
+
   \vspace{0.4cm}
-  
+
   \caption{1st level Neural Network Classifier Results}
   \label{fig:nn-classification-data}
 \end{figure}
-
 
 \subsection{Pitch}
 \label{sec:pitch-identification}
@@ -352,7 +351,7 @@ Once the position has been determined, we can calculate the difference between t
 \end{algorithmic}
 \end{algorithm}
 
-For a rough estimate of note head position, the simplest method is to simply use a known position such as $1/2$ or $1/3$ along the vertical axis and use that as an estimate for the centre. Indeed that's often what is done in traditional OMR. \todo{Reference for dividing in half to get centre}. \todo{I know one of the papers uses 1/3 for flats}. However we can get a more accurate position using alternative techniques as 
+For a rough estimate of note head position, the simplest method is to simply use a known position such as $1/2$ or $1/3$ along the vertical axis and use that as an estimate for the centre. Indeed that's often what is done in traditional OMR. \todo{Reference for dividing in half to get centre}. \todo{I know one of the papers uses 1/3 for flats}. However we can get a more accurate position using alternative techniques as
 
 
 \subsubsection{Sharp Centres}
@@ -469,7 +468,7 @@ For note heads, it was discovered that the centroid was a good representation of
         \includegraphics[width=\linewidth]{gfx/techniques/scoring/note-head/6192-centroid-centre.png}
         \caption{Inconsistent Crotchet Head}
     \end{subfigure}
-    
+
     \begin{subfigure}[b]{.3\linewidth}
         \centering
         \includegraphics[width=\linewidth]{gfx/techniques/scoring/note-head/1818-centroid-centre.png}

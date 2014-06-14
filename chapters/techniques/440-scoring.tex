@@ -16,28 +16,28 @@ A key signature consists of several sharps or flats which are required to be in 
 
 Before we perform any analysis, we need a reference copy of what we expect the accidentals in the key signature to look like. We therefore count the number of drawn accidentals and then produce the set of accidentals we would expect to see for comparison. Once this has been done there are several analysis methods we can use to further assess the key signature which are summarised in \cref{table:key-signature-errors}.
 
-\begin{table}[h]
+\begin{table}[H]
     \renewcommand{\arraystretch}{1.6}
     \begin{tabularx}{\textwidth}{ lX }
         \toprule
         Mistake & Feedback \\
         \midrule
-        Mixed Accidentals & Incorrect \\
+        Mixed Accidentals & Incorrect because sharps can't be mixed \\
         Wrong Octave & Which sharps were affected and whether they're an octave too high or too low \\
         Incorrect Order & Which sharps are in the wrong place and where they should be \\
         Incorrect Sharps & Which sharps are wrong and what they should be \\
         \bottomrule
     \end{tabularx}
 
-    \label{table:key-signature-errors}
     \caption{Mistakes we need to look for in key signatures}
+    \label{table:key-signature-errors}
 \end{table}
 
-\subsubsection{Mixed Accidentals} 
+\subsubsection{Mixed Accidentals}
 
 Key signatures (of the type we're concerned with in the project) may contain only sharps or flats, not a combination of both. If a key signature is detected to contain both sharps and flats such as in \cref{fig:mixed-accidentals-bad}, the fact that this has been done is noted, but at this point no further analysis is done.
 
-\begin{figure}[hbt]
+\begin{figure}[H]
   \missingfigure{Sharps and Flats Mixed}
   \caption{}
   \label{fig:mixed-accidentals-bad}
@@ -47,7 +47,7 @@ Key signatures (of the type we're concerned with in the project) may contain onl
 
 Sometimes the student gets the right accidental, but just in the wrong octave, for example the case identified by a teacher in \cref{fig:right-accidental-wrong-octave}. This can be identified by checking to see if the actual note (C, D, E) the drawn accidental rather than a specific pitch (C4, D4, E4) matches that of the expected accidental.
 
-\begin{figure}[hbt]
+\begin{figure}[H]
   \missingfigure{Right accidental wrong octave teacher example}
   \caption{}
   \label{fig:right-accidental-wrong-octave}
@@ -57,7 +57,7 @@ Sometimes the student gets the right accidental, but just in the wrong octave, f
 
 Sometimes a key signature contains all the sharps required, but not in the right order as seen in \cref{fig:right-accidentals-wrong-ordering}. This case can be established by taking the number of accidentals drawn, establishing what would be the correct accidentals for that case and comparing the list of pitches to an ordered list of the drawn pitches. If they match, the student has mis-ordered some of the accidentals so we note which ones are out of order and where they should be.
 
-\begin{figure}[hbt]
+\begin{figure}[H]
   \missingfigure{Right accidentals wrong order example}
   \caption{}
   \label{fig:right-accidentals-wrong-ordering}
@@ -70,7 +70,7 @@ Sometimes a key signature contains all the sharps required, but not in the right
 
 There are really only two things we need to check for when scoring beats and timing, outlined in \cref{table:bar-beat-errors}.
 
-\begin{table}[h]
+\begin{table}[H]
     \renewcommand{\arraystretch}{1.6}
     \begin{tabularx}{\textwidth}{ lX }
         \toprule
@@ -81,8 +81,8 @@ There are really only two things we need to check for when scoring beats and tim
         \bottomrule
     \end{tabularx}
 
-    \label{table:bar-beat-errors}
     \caption{Mistakes we need to look for in beats per bar}
+    \label{table:bar-beat-errors}
 \end{table}
 
 Regardless of which mistake we're checking for the algorithm is essentially the same and can be checked at the same time as demonstrated in \cref{alg:bar-beat-check}
@@ -90,7 +90,7 @@ Regardless of which mistake we're checking for the algorithm is essentially the 
 \begin{algorithm}[H]
   \caption{Searching for incorrect beats per bar}
   \label{alg:bar-beat-check}
-  
+
   \begin{algorithmic}
     \Procedure{CheckBars}{$bars$}
         \For {each bar in stave.bars}
@@ -109,7 +109,7 @@ Regardless of which mistake we're checking for the algorithm is essentially the 
         \For {each note in bar.notes}
           \State totalBeats += \Call{GetNoteLength}{note}
         \EndFor
-        
+
     	\Return totalBeats
     \EndProcedure
   \end{algorithmic}
@@ -119,7 +119,7 @@ Regardless of which mistake we're checking for the algorithm is essentially the 
 
 Stems are a very common component of manuscript and as such will be drawn regularly. It's important to have detailed checking to weed out any bad habits early and so we check for the all the potential mistakes in \cref{table-stem-mistakes}.
 
-\begin{table}[h]
+\begin{table}[H]
     \renewcommand{\arraystretch}{1.6}
     \begin{tabularx}{\textwidth}{ lX }
         \toprule
@@ -134,8 +134,8 @@ Stems are a very common component of manuscript and as such will be drawn regula
         \bottomrule
     \end{tabularx}
 
-    \label{table:stem-mistakes}
     \caption{Mistakes we need to look for in note stems}
+    \label{table:stem-mistakes}
 \end{table}
 
 \subsubsection{Straightness}
@@ -351,7 +351,7 @@ To determine on which side a quaver tail lies, left (\cref{fig:quaver-tail-left}
       \caption{A right sided quaver tail}
       \label{fig:quaver-tail-right}
     \end{subfigure}
-    
+
 \end{figure}
 
 After taking a vertical projection of the quaver tail, the maximum peak in the projection is taken and by establishing on which side of the centre the peak lies, this told us which side the `flick' of the quaver is on.
@@ -376,11 +376,11 @@ Another method I investigated was to divide the image into two horizontally, the
       \caption{Identifying a left sided tail}
       \label{fig:quaver-tail-average-position-left}
     \end{subfigure}
-    
+
       \caption{Calculating the quaver tail position with pixel averages}
       \label{fig:quaver-tail-average-position}
 \end{figure}
 
 \subsection{Note Heads}
-\todo[inline,color=red]{Scoring Techniques - Note Head - Filled Percentage (e.g scruffy crotchets)} 
+\todo[inline,color=red]{Scoring Techniques - Note Head - Filled Percentage (e.g scruffy crotchets)}
 \todo[inline,color=red]{Scoring Techniques - Note Head - Gaps/broken circles}

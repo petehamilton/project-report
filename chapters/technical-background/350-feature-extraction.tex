@@ -6,7 +6,7 @@
 Height and width are fairly self explanatory
 
 \subsection{Vertical and Horizontal Holes}
-Average vertical and horizontal holes 
+Average vertical and horizontal holes
 \todo[inline,color=red]{Raw Moments - Scikit Image References}
 
 \subsection{Raw Moments}
@@ -31,7 +31,7 @@ Can be used to calculate the centroid and area
 
 For a two dimensional binary image a run of pixels can be represented by it's row, column, value and run length \parencite[p. 27-28]{burger2009principles} as seen in \cref{table:rle-2d}
 
-\begin{table}[h]
+\begin{table}[H]
 
     \begin{tabularx}{\textwidth}{ X | X }
         \toprule
@@ -53,12 +53,12 @@ For a two dimensional binary image a run of pixels can be represented by it's ro
     \bottomrule
     \end{tabularx}
 
-    \label{table:rle-2d}
     \caption{2D Greyscale Image}
+    \label{table:rle-2d}
 \end{table}
 
 
-\begin{table}[h]
+\begin{table}[H]
     \begin{tabularx}{\textwidth}{ X | X }
         \toprule
         Example & RLE $(\textbf{value}, \textbf{length})$\\
@@ -75,11 +75,11 @@ For a two dimensional binary image a run of pixels can be represented by it's ro
     \bottomrule
     \end{tabularx}
 
-    \label{table:rle-1d}
     \caption{1D Flattened Greyscale Image}
+    \label{table:rle-1d}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[H]
     \begin{tabularx}{\textwidth}{ X | X }
         \toprule
         Example & RLE $\langle \textbf{value}, \textbf{length} \rangle$\\
@@ -92,8 +92,8 @@ For a two dimensional binary image a run of pixels can be represented by it's ro
     \bottomrule
     \end{tabularx}
 
-    \label{table:rle-1d-binary}
     \caption{1D Flattened Binary Image}
+    \label{table:rle-1d-binary}
 \end{table}
 
 If you then reshape this 2D image into a one dimensional array (retrieving and reshaping it to it's 2D representation later), you can remove 50\% of the compressed data (row and column) as seen in \cref{table:rle-1d}
