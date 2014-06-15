@@ -20,24 +20,6 @@ Why won't projection segmentation work for us? Want to be able to isolate stems 
 
 Moments, Centroids, Height etc
 
-\subsubsection{Run Length Encoding}\label{sec:identification-rle}
-To improve the speed of my application, I utilised \acrfull{RLE} (covered in \cref{sec:tb-rle}) to improve storage and retrieval times during feature extraction and classification by up to 97\% (\cref{table:rle-improvement}).
-
-\begin{table}[H]
-
-    \begin{tabularx}{\textwidth}{ X X X X }
-    \toprule
-    Metric                  & Without RLE   & With RLE   & Improvement \\
-    \midrule
-    Storage Required        & 759 MB        & 22 MB      & 91.7\%      \\
-    Total Retrieval Time    & 1639 ms       & 42 ms      & 97.4\% \\
-    \bottomrule
-    \end{tabularx}
-
-    \caption{Improvements after implementing RLE, tested on a sample set of 3000 components}
-    \label{table:rle-improvement}
-\end{table}
-
 \subsection{Classification}
 \label{sec:implementation-classification}
 
@@ -47,8 +29,9 @@ In order to maximise the accuracy of my classifications, I ran multiple experime
 
 \subsubsection{K Nearest Neighbour}
 
-For the K Nearest Neighbour algorithm, I tried two different feature vectors, the first was using the statistical properties outlined in \cref{sec:statistical-properties} and the second was a downsampled binary image flattened into a 1D array.
+For the K Nearest Neighbour algorithm, I tried two different feature vectors, the first was using the statistical properties outlined in \cref{sec:statistical-properties} and the second was a resampled binary image flattened into a 1D array.
 
+\label{sec:knn-stats}
 An initial attempt at classification using statistical properties and a KNN classifier wasn't all that successful as you can see from the confusion matrix and accuracy scores in \cref{fig:knn-stats}. Most components were incorrectly classified as crotchet heads though I was unable to come up with a good explanation as to why and it's something which it would be interesting to investigate further in future.
 
 \begin{figure}
@@ -99,18 +82,18 @@ An initial attempt at classification using statistical properties and a KNN clas
   \label{fig:knn-stats}
 \end{figure}
 
-For the downsampled image features, I ran a series of trials for different dimensions from 10px to 100px in both width and height (in 10px increments), averaging 3 repeats per dimension (each with a different training/testing split) and then generating a matrix of scores (which can be seen in full in \cref{table:height-width-matrix}).
+For the resampled image features, I ran a series of trials for different dimensions from 10px to 100px in both width and height (in 10px increments), averaging 3 repeats per dimension (each with a different training/testing split) and then generating a matrix of scores (which can be seen in full in \cref{table:height-width-matrix}).
 
 Since most objects on a stave have a more vertical aspect ratio, I first graphed the average and maximum of the scores for each different height across all widths to see if there were any trends such as taller images producing higher accuracy.
 
-The results can be seen in \cref{fig:height-downsample} and it seemed that in general, very short images ($\leq 20\text{px}$) gave worse results than tall ones but there wasn't anything conclusive and the gains from very tall images as opposed to fairly small images were minimal. Since there wasn't a height which clearly stood out, an analysis of the full matrix was done to find the highest scoring height and width combinations.
+The results can be seen in \cref{fig:height-resample} and it seemed that in general, very short images ($\leq 20\text{px}$) gave worse results than tall ones but there wasn't anything conclusive and the gains from very tall images as opposed to fairly small images were minimal. Since there wasn't a height which clearly stood out, an analysis of the full matrix was done to find the highest scoring height and width combinations.
 
-The top ten experimental accuracies from the tested dimensions are listed in \cref{table:knn-width-height-top} and I eventually selected $20\times50\text{px}$ as my downsampled dimension, the reason being that although larger dimensions did technically produce better accuracies, they were only \emph{slightly} better and would have resulted in many more pixels in the feature vector, slowing down the process of building a classifier and testing samples.
+The top ten experimental accuracies from the tested dimensions are listed in \cref{table:knn-width-height-top} and I eventually selected $20\times50\text{px}$ as my resampled dimension, the reason being that although larger dimensions did technically produce better accuracies, they were only \emph{slightly} better and would have resulted in many more pixels in the feature vector, slowing down the process of building a classifier and testing samples.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{gfx/techniques/downsampling-height-vs-accuracy.png}
-  \caption{The effect of downsampled image height on accuracy}
-  \label{fig:height-downsample}
+  \caption{The effect of resampled image height on accuracy}
+  \label{fig:height-resample}
 \end{figure}
 
 \begin{table}[H]
@@ -178,7 +161,7 @@ Initial results on attempting to distinguish between all components were positiv
       \bottomrule
     \end{tabularx}
   \end{subtable}
-  \caption{Accuracy achieved using a KNN classifier trained on downsampled 20x50px images}
+  \caption{Accuracy achieved using a KNN classifier trained on resampled 20x50px images}
   \label{table:confusion-matrix-knn-img-all}
 \end{figure}
 
@@ -327,7 +310,7 @@ It should be noted, however, that since I didn't have the opportunity to study t
 \subsection{Pitch}
 \label{sec:pitch-identification}
 
-For note heads and accidentals, it's important to know exactly where the centre of the note lies in order to correctly identify it's position on the stave. Doing this roughly is usually sufficient for OMR, however, since we would like to be able to feed back to the student if they aren't putting their notes in the right place \todo{Reference note position criteria} we need to be as accurate as possible.
+For note heads and accidentals, it's important to know exactly where the centre of the note lies in order to correctly identify it's position on the stave. Doing this roughly is usually sufficient for OMR, however, since we would like to be able to feed back to the student if they aren't putting their notes in the right place \todo[inline]{Reference note position criteria} we need to be as accurate as possible.
 
 Once the position has been determined, we can calculate the difference between that and the y coordinate of the various pitched components on the stave, assigning the pitch which is closest using \cref{alg:note-assignment}.
 
@@ -351,7 +334,7 @@ Once the position has been determined, we can calculate the difference between t
 \end{algorithmic}
 \end{algorithm}
 
-For a rough estimate of note head position, the simplest method is to simply use a known position such as $1/2$ or $1/3$ along the vertical axis and use that as an estimate for the centre. Indeed that's often what is done in traditional OMR. \todo{Reference for dividing in half to get centre}. \todo{I know one of the papers uses 1/3 for flats}. However we can get a more accurate position using alternative techniques as
+For a rough estimate of note head position, the simplest method is to simply use a known position such as $1/2$ or $1/3$ along the vertical axis and use that as an estimate for the centre. Indeed that's often what is done in traditional OMR. \todo[inline]{Reference for dividing in half to get centre}. \todo[inline]{I know one of the papers uses 1/3 for flats}. However we can get a more accurate position using alternative techniques as
 
 
 \subsubsection{Sharp Centres}
@@ -491,7 +474,7 @@ There are two main steps to the process for calculating note duration. The first
 
 We first examine each note individually to ascertain it's the components of which it is comprised and assign it note a base value. For example we are particularly interested in the note head (is it solid or hollow) and any tails or beaming. An outline of this heuristic can be seen in \cref{fig:note-duration-flow-chart}.
 
-The number of tails is fairly straightforward as they are attached to isolate notes, in a complex beam such as that in \cref{fig:complex-beam-stablish} however, we need to have some way to work out which notes have which values. To do this, a section the width of $\text{Stave Space} / 2$ is examined either side of the note's stem \todo{How did/do we handle angled stems here?}. The beam is analysed in these segments for the maximum number of vertical black runs which represents the number beams.
+The number of tails is fairly straightforward as they are attached to isolate notes, in a complex beam such as that in \cref{fig:complex-beam-stablish} however, we need to have some way to work out which notes have which values. To do this, a section the width of $\text{Stave Space} / 2$ is examined either side of the note's stem \todo[inline]{How did/do we handle angled stems here?}. The beam is analysed in these segments for the maximum number of vertical black runs which represents the number beams.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{gfx/implementation/beam-identification.png}
@@ -505,7 +488,7 @@ The number of tails is fairly straightforward as they are attached to isolate no
   \label{fig:note-duration-flow-chart}
 \end{figure}
 
-Note that with regards to tails and beaming, since every additional beam or tail present for the note divides it's value by two (examples can be seen in \todo{reference note lengths from background}) we can generalise this section of the heuristic to deal with any number of beams and tails.
+Note that with regards to tails and beaming, since every additional beam or tail present for the note divides it's value by two (examples can be seen in \todo[inline]{reference note lengths from background}) we can generalise this section of the heuristic to deal with any number of beams and tails.
 
 Once the base value has been obtained, we perform a final check of the area surrounding the note centre for any `modifier' dots. These extend the duration of the note by half, so for example, a dotted crotchet would last 1.5 beats as opposed to 1 beat without the dot. The region searched equates to half a staff space down and either side of the note as shown in \cref{fig:identify-dot}, anything outside of this region is ignored.
 

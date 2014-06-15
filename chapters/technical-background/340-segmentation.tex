@@ -2,7 +2,7 @@
 
 Segmentation is the challenge of taking a given image or scene and extracting individual objects or `components'.
 
-Typically this can be a complex problem to tackle as stafflines connect almost all components together and must therefore first be removed. Also some musical entities are themselves comprised of multiple other entities. Good examples are the bass clef which is comprised of two dots placed above each other to the right of the curve and dotted notes , both of which can be seen in \todo[inline]{Examples of multi-component musical entities}.
+Typically this can be a complex problem to tackle as stafflines connect almost all components together and must therefore first be removed. Also some musical entities are themselves comprised of multiple other entities. Good examples are the bass clef which is comprised of two dots placed above each other to the right of the curve (\cref{sec:music-theory-clefs}) and dotted notes (\cref{table:note-lengths}).
 
 Particularly in this project, we also need to be able to break down the musical entities further into stems and note heads and so separating these from each other present another problem which we must take into account.
 
@@ -27,7 +27,7 @@ Regions for 4-neighbour and 8-neighbour connected pixels are outlined in \cref{f
     \end{subfigure}
 
     \vspace*{0.5in}
-    
+
     \begin{subfigure}[b]{.4\linewidth}
         \centering
         \input{gfx/background-omr/connected-component/neighbour-4.tikz}
@@ -157,7 +157,7 @@ second_pass():
     \end{subfigure}
 
     \vspace*{0.5in}
-    
+
     \begin{subfigure}[b]{.6\linewidth}
         \centering
         \input{gfx/background-omr/connected-component/iterative-pass-4.tikz}
@@ -172,7 +172,7 @@ second_pass():
 \subsection{Projections}
 \label{sec:projections}
 
-Projections are regularly used in OMR during the preprocessing stage to detect and remove staff lines \parencite{rossant2002global}, but can also be used during the segmentation stage
+Projections are regularly used in OMR during the preprocessing stage to detect and remove staff lines \parencite{rossant2002global}, but can also be used during the segmentation stage. An example section of score is shown in \cref{fig:stave-projection} along with it's horizontal and vertical projections.
 
 The technique essentially involves projecting the manuscript in the x and y axes, collecting the pixels in either individual pixel lines or buckets in order to help establish information about the image.
 
@@ -181,26 +181,24 @@ Mathematically, if the image is represented as a 1 bit (2 colour) image $I(x_{\t
 The horizontal and vertical projections can then be defined as:
 
 
-\begin{equation} \label{eq:hproj}
-  \text{Proj}_{\text{horizontal}}(y) = \sum_{j = 0}^{x_\text{max}} p_{jy}
-\end{equation}
+\begin{lequation} \label{eq:hproj}
+  P_{\text{horizontal}}(y) = \sum_{j = 0}^{x_\text{max}} p_{jy}
+\end{lequation}
 
-\begin{equation} \label{eq:vproj}
-  \text{Proj}_{\text{vertical}}(x) = \sum_{j = 0}^{y_\text{max}} p_{xj}
-\end{equation}
+\begin{lequation} \label{eq:vproj}
+  P_{\text{vertical}}(x) = \sum_{j = 0}^{y_\text{max}} p_{xj}
+\end{lequation}
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{gfx/background-omr/projection.png}
   \caption{Horizontal and Vertical Projections of handwritten music excerpt}
   \label{fig:stave-projection}
 \end{figure}
 
-An example section of score is shown in \cref{fig:stave-projection} along with it's horizontal and vertical projections.
-
 
 \subsection{Template Matching}
-
+\label{sec:template-matching}
 Image segmentation using template matching is uncommon but not unheard of, it receives particular attention in the segmentation phase in \cite{rossant2002global}. Different templates of reference components can be matched to the score, where a high correlation score in a certain position acts as both segmentation and classification.
 
 In testing, I was able to reproduce this effect by extracting components like the note head from the whole note as seen in Figure \cref{fig:templatematch}. However, as noted by \citeauthor{rossant2002global} this method is highly dependent on the font used in a printed score so for the purposes of handling handwritten notation it's unlikely to yield great results. Indeed, in preliminary testing, getting regular correct matches in a handwritten score proved troublesome.
@@ -212,13 +210,18 @@ In testing, I was able to reproduce this effect by extracting components like th
   \label{fig:templatematch}
 \end{figure}
 
-More formally, for the example in \cref{templatematch}, template matching involves analysing each pixel in an image (or a region of an image) and comparing it to a reference pixel in a template image. The score for two $n \times m$ images $x$ and $y$ can be generated using:
+More formally, for the example in \cref{fig:templatematch}, template matching involves analysing each pixel in an image (or a region of an image) and comparing it to a reference pixel in a template image. The score for two $n \times m$ images $x$ and $y$ can be generated using \cref{eqn:ssd}.
 
-$$SSD_{xy} = \sum_{i = 0}^m \sum_{j = 0}^n (x(i, j) - y(i, j))^2$$
+\begin{lequation}\label{eqn:ssd}
+  SSD_{xy} = \sum_{i = 0}^m \sum_{j = 0}^n (x(i, j) - y(i, j))^2
+\end{lequation}
 
-In the example I gave previously, we're only looking for a subsection or a partial template so if image $x$ is $m \times n$ and image $y$ is $a \times b$in size where $m \le a \land n \le b$, we can search each possible position $(k, l)$ for $y$ in $x$ with:
 
-$$SSD_{xy}(k, l) = \sum_{i = 0}^m \sum_{j = 0}^n (x(i + k, j + l) - y(i, j))^2$$
+In the example given above, we're only looking for a subsection or a partial template so if image $x$ is $m \times n$ and image $y$ is $a \times b$ in size where $m \le a \land n \le b$, we can search each possible position $(k, l)$ for $y$ in $x$ with \cref{eqn:ssd-template}.
+
+\begin{lequation}\label{eqn:ssd-template}
+SSD_{xy}(k, l) = \sum_{i = k}^{m + k} \sum_{j = l}^{n + l} (x(i, j + l) - y(i, j))^2
+\end{lequation}
 
 and whichever positioning gives us the highest score is likely to be the best match.
 
@@ -228,8 +231,6 @@ There are two regular types of error that can cause issues during segmentation, 
 
 \subsubsection{Touching Objects}
 
-Touching objects are usually identifiable via a vertical projection profile \todo{reference projections} but can cause issues when segmenting components using \todo{Ref connected component} connected component analysis as it causes what were intended to be two separate objects to appear as one.
+Touching objects are where what were intended to be two separate objects actually touch and this can cause issues when segmenting components using connected component analysis \cref{sec:connected-component-analysis}. 
 
-\todo[inline]{Examples of touching objects}
-
-In a printed score, you can use \todo{ref template matching} template matching in order to separate the components but when they are handwritten, it's more likely I will have to rely on using projections to find the point of minimal intersection \todo{Reference to where I do split\_x and split\_y}
+In a printed score, you can use \cref{sec:template-matching} template matching in order to separate the components but when they are handwritten, it's more likely we will have to rely on using vertical and horizontal projections to find the point of minimal intersection as in \cite{fujinaga1996adaptive}.

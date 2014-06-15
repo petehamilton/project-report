@@ -1,29 +1,58 @@
 \section{Classification}
 
 \subsection{Normalized Cross Correlation}
-\todo[inline,color=red]{Classification - Normalized Cross Correlation}
+
+Normalized cross correlation enables (in the context of this application) a pixel-wise comparison of two images, resulting in a score between $[-1, 1]$ where 1 indicates a perfect match \eg the images are the same and $-1$ indicates the images are precisely the opposite of each other. The overall effect is to penalise the score for each pixel which is different in one image than the other. The normalisation is designed to help in images where the brightness and light levels vary but it works fine on binary images too.
+
+An NCC score between two binary images $F$ and $G$ of the same dimension can be calculated by using \cref{eqn:ncc}.
+
+\begin{lequation}\label{eqn:ncc}
+  \frac{1}{N} \sum_{x,y} \frac{\left( f(x,y) - \bar{f}\right)\left( g(x,y) - \bar{g}\right)}{\sigma_{f} \sigma_{g}}
+\end{lequation}
+
+Where $N = w \times h$ (the number of pixels in the image), $f(x,y)$ and $g(x, y)$ represent the pixel in row y column x for the respective images, $\bar{f}, \bar{g}$ represent the average pixel values for each image and $\sigma_{f},  \sigma_{g}$ are the standard deviations of the two images. 
 
 \subsection{Nearest Neighbour}
 
-The \acrfull{KNN} algorithm is an example of instance based learning and theoretically doesn't require supervision or training.
-
-KNN classification works by extracting a set of features for each sample and using this `feature vector' to represent each sample in a multidimensional vector space.
+The \acrfull{KNN} algorithm is an example of instance based learning and works by extracting a set of features for each sample and using this `feature vector' to represent each sample in a multidimensional vector space.
 
 Once this space has been generated, new samples may be classified by generating their feature vector and calculating the $k$ closest or `most similar' samples in the model by way of a distance calculation. By considering the $k$ closest samples, a consensus can be reached and the new sample is classified according to the label with the greatest majority in the $k$ nearest neighbours as seen in \cref{fig:knn-example}.
 
  \begin{figure}[h!]
    \centering
-%   \includegraphics[draft, width=\linewidth]{gfx/background-omr/knn-example.png}
-    \missingfigure{Add a KNN Example Image}
-   \caption{KNN example using musical symbols}
+   \includegraphics{gfx/techniques/knn-entities.png}
+   \caption{KNN example using musical symbols and a K value of 3. The new symbol being classified is highlighted blue and the three closest three entities in green. In this case, the sample would be classified as a treble clef}
    \label{fig:knn-example}
  \end{figure}
 
 The two most critical aspects of the KNN classifier are the distance method used and the number of neighbours considered. In order to maximise the accuracy of the classifier I perform several experiments to this effect in \cref{sec:implementation-classification}
 
-\subsection{Modified Nearest Neighbour}
-\todo[inline,color=red]{Classification - Modified Nearest Neighbour}
+\subsection{KNN Editing}
 
-To save space, improve accuracy etc, note the issues I had with storage space, speed of classifier generation.
+Although KNN can produce good results, the need to store all the data makes it less attractive. To reduce the data needed in classifiers you can use an edited KNN algorithm where the idea is to try and remove ``poor" samples which not only reduces the storage requirements but should also improve the accuracy of the classifier.
 
-Just do wilson and wilson iterative
+\subsubsection{Wilson Editing}
+I originally came across the idea of edited KNN classifiers in \cite{fujinaga1996adaptive} in which he outlines the original KNN editing techniques from earlier work by \cite{wilson1972asymptotic}, (the algorithm for this editing technique is outlined in \cref{alg:knn-edit}). You can further extend the algorithm to multiple iterations (referred to by most as the multi-editing algorithm), repeating the process until no more poor samples are removed, at which point you save the model for use in classification, hopefully at a reduced dataset size.
+
+\begin{algorithm}[H]
+  \caption{KNN editing algorithm}
+  \label{alg:knn-edit}
+
+  \begin{algorithmic}
+    \Procedure{EditModel}{model}
+        \State trainingSamples = \Call{GetSamples}{model}
+        \For {each sample in trainingSamples}
+          \State classification = \Call{model.classify}{sample}
+          \If{classification $\neq$ sample.classification}
+            \Call{removeSample}{sample}
+          \EndIf
+    	\EndFor
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Genetic Algorithms}
+
+Although I actually decided not to employ the use of genetic algorithms in this project , they came up repeatedly in more recent research and so I felt it was worth a brief mention. Genetic algorithms for feature selection is nothing new, indeed it's used in \cite{fujinaga1996adaptive} for selecting which features to use in a classifier, a traditionally tricky problem when you have lots of features and need to work out which ones actually produce the best division of classes (though there are other techniques to do this too like PCA\footnote{Principal Component Analysis is used to find the dimension/variable in a feature vector which provides the highest variance possible. Features which provide small variance are of little help in a classification problem}), however in \ref{kuncheva1995editing} it is used specifically in editing a KNN classifier. The results suggested that it might perform comparably to wilson's technique and that it generally performed better than just using a random sample training set but that relative to multi-editing technique the authors state that they two could not be compared due to an inability to properly evaulate the power of the multi-edit algorithm.
+
+It seems that right now, early investigations are being performed into whether genetic algorithms can be used to improve KNN classifiers but as of right now you can't say that they perform much better than existing techniques.

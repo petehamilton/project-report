@@ -72,30 +72,50 @@ In initial experiments with simple manuscript entities, this worked well, howeve
       \caption{Drawing with incremental rendering, not that after a similar high density region of points, the curve outwards still appears smooth}
       \label{fig:drawing-lag-smooth}
     \end{subfigure}
-    
+
   \label{Drawing Lag}
-    
+
 \end{figure}
 
-To counteract this, I modified the code such that it renders new line segments on the fly, rather than re-rendering all the lines every time a new point is added. Although this requires some more logic to render the line segment, this was more than compensated for by the increase in the smoothness of the drawing experience and the resulting image (\cref{fig:drawing-lag-smooth}).
+To counteract this, I modified the code such that it renders new line segments on the fly, rather than re-rendering all the lines every time a new point is added. Although this requires some more logic to render the line segment, but overall the experience turned out much smoother as the small increase in the length of the code path had much less impact than re-rendering the drawing every time (\cref{fig:drawing-lag-smooth}).
 
 \section{Data Storage and Retrieval}
 
-\subsubsection{Stave Drawing}
-Initially I planned to store the data gathered in \cref{sec:capturing-strokes} as serialized JSON in the database. When image processing was required, I could then simply re-render the canvas server-side when performing the various image processing techniques outlined in \cref{sec:techniques}. However, after some initial experimentation I felt that sending the canvas data directly to the server as a compressed blob exactly as it was rendered in the browser was a better implementation.
+\subsection{Stave Drawing}
+I store the data gathered in \cref{sec:capturing-strokes} in two ways.
 
-Firstly, there is no better representation of the user's drawing than a precise pixel for pixel representation. However I re-render the lines server-side, making the output exactly mirror that of the user's drawing would be hard to get right.
+Firstly, I store the serialized JSON of the stroke data in the database. This enables potential later on to experiment more with gesture based segmentation and recognition \todo[inline]{Reference Gesture based recognition}, showing a student corrections by transforming points in the strokes as opposed to transformations on the image. It also facilitates some great UI features like playing back the drawing for the tutor so they can see exactly how the student approached the problem and more ideas I express in \cref{sec:future-work}.
 
-Also, since the image processing techniques I employ require actual image data as opposed to lines and points, we don't have to re-render the drawing every time image processing is required, we can simply load the data directly from the database.
-
-Finally, since the user interface involves showing previous drawings to the user, streaming the captured canvas directly from disk eliminates another section of the application which would require re-rendering of the image.
+Secondly, I store the entire rendered canvas in the cloud using an Amazon S3 bucket, as a 'reference copy' in case I need to check the JSON against the original image at a later date or re-analyse images after updating my classifiers, features or analysis techniques.
 
 \todo[inline]{Should I show my database schema here?}
 
-\subsubsection{Components}
+\subsection{Components}
 
 Once components have been extracted from the drawing using the techniques outlined in \cref{sec:identification}, I store both their features and \acrfull{RLE} representation of the whole component in the database for retrieval later during any further image processing.
 
-Although 3000 components uses around 1GB in data when raw, using compression we are able to lower this considerably as shown in \ref{sec:identification-rle}.
+Although 3000 components uses around 1GB in data when raw, using compression we are able to lower this considerably using run length encoding as shown in \ref{table:rle-improvement}.
+
+\begin{table}[H]
+
+    \begin{tabularx}{\textwidth}{ X X X X }
+    \toprule
+    Metric                  & Without RLE   & With RLE   & Improvement \\
+    \midrule
+    Storage Required        & 759 MB        & 22 MB      & 91.7\%      \\
+    Total Retrieval Time    & 1639 ms       & 42 ms      & 97.4\% \\
+    \bottomrule
+    \end{tabularx}
+
+    \caption{To improve the speed of my application, I utilised \acrfull{RLE} (covered in \cref{sec:tb-rle}) to improve storage and retrieval times during feature extraction and classification by up to 97\% (\cref{table:rle-improvement}).}
+    \label{table:rle-improvement}
+\end{table}
+
+\subsection{Database Schema}
+
+\subsection{Entity Relationship Diagram}
+
+
+
 
 

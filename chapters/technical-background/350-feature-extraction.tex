@@ -1,28 +1,58 @@
 \section{Component Features}
 
 \subsection{Basic Features}
-\todo[inline,color=red]{Basic Features - Scikit Image References}
 
-Height and width are fairly self explanatory
+Some basic features extracted from a component are:
+
+\begin{enumerate}
+  \item X Position
+  \item Y Position
+  \item Height
+  \item Width
+  \item 
+\end{enumerate}
+
+In some cases, x and y position on the staff are used in classification but for my purposed I have decided to perform classification assuming no prior knowledge. There might be exercises or free-drawing where a child doesn't want to have to follow the rules which apply to a normal score of music but rather draw specific components.
 
 \subsection{Vertical and Horizontal Holes}
-Average vertical and horizontal holes
-\todo[inline,color=red]{Raw Moments - Scikit Image References}
 
-\subsection{Raw Moments}
-\todo[inline,color=red]{Raw Moments - Scikit Image References}
+The average number of vertical and horizontal holes is used by \cite{fujinaga1996adaptive} and are topological properties in that they're generally scale invariant and as defined by \cite{burger2009principles} ``do not describe the shape of a region in continuous terms; instead, they capture its structural properties".
 
-Can be used to calculate the centroid and area
+Average vertical and horizontal holes can be calculated by analysing the columns and rows respectively and counting the number of segments which do not have a solid pixel in (the runs of 0s). For example, for average horizontal holes we would count the number of white segments per row and total them up, averaging by the number of rows. Similarly with columns for vertical holes.
 
-% http://en.wikipedia.org/wiki/Image_moments#Raw_moments
-%Area (for binary images) or sum of grey level (for greytone images): M00
-% Centroid: { x, y } = {M10/M00, M01/M00 }
+\subsection{Moments}
 
-\subsection{Normalised Central Moments}
-\todo[inline,color=red]{Normalised Central Moments - Scikit Image References}
+I use low level moments in this project to extract information like region area and centroid coordinates, however I wasn't able to get to grips with some of the higher order moments used by \cite{fujinaga1996adaptive,arabelo} to represent rotation, skew and other properties which may go some way to explaining my failed classifier in \cref{fig:knn-stats} (\cref{sec:knn-stats}) as my implementation may have simply been wrong. Since I achieved good classification results I was content to admit my shortcomings and stick to using a downsampled after that.
 
-\subsection{Downsampled Image}
-\todo[inline,color=red]{Techniques - Features: Downsampled Image}
+\subsubsection{Ordinary Definition}
+
+As in \cite{burger2009principles} a moment of the order $p, q$ for an image or region $I(x,y)$ can be defined by \cref{eqn:general-moment}.
+
+\begin{equation}\label{eqn:general-moment}
+  m_{pq} = \sum_{x, y \in \mathbb{R}} I(x,y) \dot x^p y^q
+\end{equation}
+
+Since we're dealing with binary regions, we will only be considering the pixels of value 1, therefore since other pixels in $I(x,y)$ will be 0 we can simplify the general equation to \cref{eqn:general-moment-simple}.
+
+\begin{equation}\label{eqn:general-moment-simple}
+  m_{pq} = \sum_{x, y \in \mathbb{R}} x^p y^q
+\end{equation}
+
+\subsubsection{Zeroth Order Moments}
+
+Zeroth order moments can be used to calculate the area of a binary region. The zero moment can be calculated using \cref{eqn:0-moment}
+
+\begin{equation}\label{eqn:0-moment}
+  m_{0} = \sum_{x, y \in \mathbb{R}} x^0 y^0 = \sum_{x, y \in \mathbb{R}} 1
+\end{equation}
+
+\subsubsection{First Order Moments}
+
+The first order moments $m{01}$ and $m_{10}$ are use to obtain the centre of mass of a component at $(\bar{x}, \bar{y})$.
+
+\begin{equation}\label{eqn:1-moment-mass}
+\bar{x} = \frac{m_{10}}{m_{00}}, \bar{y} = \frac{m_{01}}{m_{00}}
+\end{equation}
 
 \subsection{Run Length Encoding}
 \label{sec:tb-rle}

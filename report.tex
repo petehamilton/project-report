@@ -6,17 +6,21 @@
 
 \listoftodos
 
+\onehalfspacing
+
 \input{chapters/000-title-page}
 \input{chapters/001-abstract}
 \input{chapters/002-dedication}
 \input{chapters/003-declaration}
 \input{chapters/004-acknowledgements}
 
+\begingroup
+\hypersetup{linkcolor=black}
 \tableofcontents
+\endgroup
 
 \pagebreak
 
-\onehalfspacing
 
 \input{chapters/100-introduction.tex}
 \input{chapters/200-background.tex}
@@ -25,6 +29,8 @@
 \input{chapters/480-implementation.tex}
 \input{chapters/500-evaluation.tex}
 \input{chapters/600-conclusions.tex}
+\input{chapters/650-future.tex}
+\input{chapters/700-developer-guide.tex}
 
 \chapter{Appendices}
 \input{chapters/appendices/height-width-matrix.tex}

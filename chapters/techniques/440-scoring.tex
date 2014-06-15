@@ -25,7 +25,7 @@ Before we perform any analysis, we need a reference copy of what we expect the a
         Mixed Accidentals & Incorrect because sharps can't be mixed \\
         Wrong Octave & Which sharps were affected and whether they're an octave too high or too low \\
         Incorrect Order & Which sharps are in the wrong place and where they should be \\
-        Incorrect Sharps & Which sharps are wrong and what they should be \\
+        Incorrect Accidentals & Which accidentals are wrong and what they should be \\
         \bottomrule
     \end{tabularx}
 
@@ -130,7 +130,6 @@ Stems are a very common component of manuscript and as such will be drawn regula
         Direction & Which direction the stem should have been pointing \\
         Side & Which side the stem should have been on \\
         Length & Whether it was too long or too short\\
-        Direction & Which way the stem should have gone\\
         \bottomrule
     \end{tabularx}
 
@@ -200,19 +199,19 @@ To do this, we take the original stem (\cref{fig:straight-skeleton-original}) an
 
 We now have a skeleton line \cref{eqn:l-skeleton} and a best fit line \cref{eqn:l-ref} we can calculate the difference at each point \cref{eqn:l-residuals}.
 
-\begin{equation} \label{eqn:l-skeleton}
+\begin{lequation} \label{eqn:l-skeleton}
     L_{\text{skeleton}}(x) = (a_0, a_1, a_2, \ldots, a_n)
-\end{equation}
-\begin{equation} \label{eqn:l-ref}
+\end{lequation}
+\begin{lequation} \label{eqn:l-ref}
     L_{\text{ref}}(x) = (b_0, b_1, b_2, \ldots, b_n)
-\end{equation}
-\begin{equation} \label{eqn:l-residuals}
+\end{lequation}
+\begin{lequation} \label{eqn:l-residuals}
     R(x) = L_{\text{skeleton}}(x) - L_{\text{ref}}(x) = (r_0, r_1, r_2, \ldots, r_n)
-\end{equation}
+\end{lequation}
 
-\begin{equation} \label{eqn:sd}
+\begin{lequation} \label{eqn:sd}
 \text{Straightness} = \sigma = \sqrt{\frac{\sum\limits_{i=1}^{n}\left(r_{i} - \bar{r}\right)^{2}}{n-1}}
-\end{equation}
+\end{lequation}
 
 After experimenting with using the standard deviation \cref{eqn:sd} of the residuals as the straightness measure the results turned out to be positive upon visual inspection. As you can see in \cref{fig:stem-straightness-ranking} when ranked according to their `straightness' measure, the stems do indeed appear to be ordered according to what one would visually define as being `straight'.
 
@@ -294,7 +293,7 @@ The case where a stem has the same $y$ coordinate as it's head isn't possible du
 \subsubsection{Side}
 To establish the stem side which I will refer to as $S_s$, we do a similar operation to in determining the direction, however, since it is perfectly feasible that the stem and head have the same x coordinate, we can't just use the x coordinate directly.
 
-Instead, we compare the x coordinate of the stem $x_{\text{stem}}$ to the true centre \todo{Better definition later please} of the note head $cx_{\text{head}}$
+Instead, we compare the x coordinate of the stem $x_{\text{stem}}$ to the true centre \todo[inline]{Better definition later please} of the note head $cx_{\text{head}}$
 
 Again, given that the coordinate axes start from the top left, we can now establish the stem x offset
 
@@ -326,7 +325,7 @@ Stem length may seem like a simple case of measuring the length of the extracted
 
 Similarly to the straightness and angular measures, we can establish the raw length $L_R$ by drawing a line through the perceived centre of the stem and measuring it's length using simple trigonometry. However, although it might seem counterintuitive to not use this as a measure of length, in reality a better measure of whether the stem is `too long' is to measure the distance between the stave line/space above stem's associated notehead and the y coordinate of the stem.
 
-If we define the correct length $L_E$ for a stem as outlined in \todo{REFERENCE where I talk about correct stem length} then the length score is therefore just $L_E - L_A$ where smaller values mean the stem is closer to the expected length.
+If we define the correct length $L_E$ for a stem as outlined in \todo[inline]{REFERENCE where I talk about correct stem length} then the length score is therefore just $L_E - L_A$ where smaller values mean the stem is closer to the expected length.
 
 \subsection{Quaver Tail}
 
@@ -351,7 +350,8 @@ To determine on which side a quaver tail lies, left (\cref{fig:quaver-tail-left}
       \caption{A right sided quaver tail}
       \label{fig:quaver-tail-right}
     \end{subfigure}
-
+    
+    \caption{Quaver tail sides}
 \end{figure}
 
 After taking a vertical projection of the quaver tail, the maximum peak in the projection is taken and by establishing on which side of the centre the peak lies, this told us which side the `flick' of the quaver is on.
@@ -377,7 +377,7 @@ Another method I investigated was to divide the image into two horizontally, the
       \label{fig:quaver-tail-average-position-left}
     \end{subfigure}
 
-      \caption{Calculating the quaver tail position with pixel averages}
+      \caption{Calculating the quaver tail side with pixel averages}
       \label{fig:quaver-tail-average-position}
 \end{figure}
 
