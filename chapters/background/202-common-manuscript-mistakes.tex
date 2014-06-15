@@ -38,35 +38,34 @@ Evaluation of my application against this data is outlined in \todo[inline]{REFE
 Once this data was collected I had a sample of \todo[inline]{COUNT HOW MANY STUDENT SAMPLES I HAD} marked samples \todo[inline,color=blue]{Put this full dataset at the end?} and I was able to extract some of the recurring issues which I've summarised in \cref{table:teacher-feedback-summary}. I present what is by no means an exhaustive list below and later on in \cref{sec:scoring} I go over how I actually identify, score and provide feedback to the student for a number of these mistakes.
 
 \begin{table}[H]
-    \renewcommand{\arraystretch}{1.8}
     \centering
     \begin{tabularx}{\textwidth}{ llll }
         \toprule
 
         Element & Issue & Description & Analysis \\
         \midrule
-        Note Head       & Scale                  & \cref{sec:tf-note-head-size}              & \\
-        Note Head       & Broken Lines           & \cref{sec:tf-note-head-broken}            & \\
-        Note Head       & Angled                 & \cref{sec:tf-note-head-angled}            & \\
-        Note Head       & Messy                  & \cref{sec:tf-note-head-messy}             & \\
-        Stem            & Length                 & \cref{sec:tf-stem-length}                 & \\
-        Stem            & Straightness           & \cref{sec:tf-stem-straightness}           & \\
-        Stem            & Direction              & \cref{sec:tf-stem-direction}              & \\
-        Stem            & Side                   & \cref{sec:tf-stem-side}                   & \\
-        Stem            & Angle                  & \cref{sec:tf-stem-angle}                  & \\
-        Quaver Tail     & Side                   & \cref{sec:tf-quaver-tail-side}            & \\
-        Treble Clef     & Position               & \cref{sec:tf-treble-clef-location}        & \\
-        Bass Clef       & Position               & \cref{sec:tf-bass-clef-location}          & \\
-        Bass Clef       & Direction              & \cref{sec:tf-bass-clef-direction}         & \\
-        Minim Rest      & Position               & \cref{sec:tf-minim-rest}                  & \\
-        Sharp           & Ambiguous Position     & \cref{sec:tf-sharp-ambiguous}             & \\
-        Key Signature   & Mixed Accidentals      & \cref{sec:tf-keysig-mixed}                & \\
-        Key Signature   & Incorrect Octave       & \cref{sec:tf-keysig-octave}               & \\
-        Key Signature   & Incorrect Ordering     & \cref{sec:tf-keysig-order}                & \\
-        Key Signature   & Incorrect Accidentals  & \cref{sec:tf-keysig-incorrect}            & \\
-        Beats \& Timing & Too Many Beats         & \cref{sec:tf-beats-too-many}              & \\
-        Beats \& Timing & Too Few Beats          & \cref{sec:tf-beats-too-few}               & \\
-        Beats \& Timing & Wrong Time Signature   & \cref{sec:tf-beats-wrong-time-signature}  & \\
+        Note Head       & Scale                  & \cref{sec:tf-note-head-size}              & \cref{sec:scoring-note-head-size} \\
+        Note Head       & Broken Lines           & \cref{sec:tf-note-head-broken}            & \cref{sec:scoring-note-head-broken} \\
+        Note Head       & Angled                 & \cref{sec:tf-note-head-angled}            & FUTURE \\
+        Note Head       & Messy                  & \cref{sec:tf-note-head-messy}             & \cref{sec:scoring-note-head-messy} \\
+        Stem            & Length                 & \cref{sec:tf-stem-length}                 & \cref{sec:scoring-stem-length} \\
+        Stem            & Straightness           & \cref{sec:tf-stem-straightness}           & \cref{sec:scoring-stem-straightness} \\
+        Stem            & Direction              & \cref{sec:tf-stem-direction}              & \cref{sec:scoring-stem-direction} \\
+        Stem            & Side                   & \cref{sec:tf-stem-side}                   & \cref{sec:scoring-stem-side} \\
+        Stem            & Angle                  & \cref{sec:tf-stem-angle}                  & \cref{sec:scoring-stem-angle} \\
+        Quaver Tail     & Side                   & \cref{sec:tf-quaver-tail-side}            & \cref{sec:scoring-quaver-tail-side} \\
+        Treble Clef     & Position               & \cref{sec:tf-treble-clef-location}        & FUTURE \\
+        Bass Clef       & Position               & \cref{sec:tf-bass-clef-location}          & FUTURE \\
+        Bass Clef       & Direction              & \cref{sec:tf-bass-clef-direction}         & FUTURE \\
+        Minim Rest      & Position               & \cref{sec:tf-minim-rest}                  & FUTURE \\
+        Accidental      & Ambiguous Position     & \cref{sec:tf-accidental-ambiguous}        & \cref{sec:scoring-position} \\
+        Key Signature   & Mixed Accidentals      & \cref{sec:tf-keysig-mixed}                & \cref{sec:tf-keysig-mixed} \\
+        Key Signature   & Incorrect Octave       & \cref{sec:tf-keysig-octave}               & \cref{sec:tf-keysig-octave} \\
+        Key Signature   & Incorrect Ordering     & \cref{sec:tf-keysig-order}                & \cref{sec:tf-keysig-order} \\
+        Key Signature   & Incorrect Accidentals  & \cref{sec:tf-keysig-incorrect}            & \cref{sec:tf-keysig-incorrect} \\
+        Beats \& Timing & Too Many Beats         & \cref{sec:tf-beats-too-many}              & \cref{sec:sec:scoring-beats}\\
+        Beats \& Timing & Too Few Beats          & \cref{sec:tf-beats-too-few}               & \cref{sec:sec:scoring-beats}\\
+        Beats \& Timing & Wrong Time Signature   & \cref{sec:tf-beats-wrong-time-signature}  & FUTURE \\
 
         \bottomrule
     \end{tabularx}

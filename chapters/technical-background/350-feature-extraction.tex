@@ -28,31 +28,31 @@ I use low level moments in this project to extract information like region area 
 
 As in \cite{burger2009principles} a moment of the order $p, q$ for an image or region $I(x,y)$ can be defined by \cref{eqn:general-moment}.
 
-\begin{equation}\label{eqn:general-moment}
-  m_{pq} = \sum_{x, y \in \mathbb{R}} I(x,y) \dot x^p y^q
-\end{equation}
+\begin{lequation}\label{eqn:general-moment}
+  m_{pq} = \sum_{x, y \in \mathbb{R}} I(x,y) \cdot x^p y^q
+\end{lequation}
 
-Since we're dealing with binary regions, we will only be considering the pixels of value 1, therefore since other pixels in $I(x,y)$ will be 0 we can simplify the general equation to \cref{eqn:general-moment-simple}.
+When dealing with binary regions (which may or may not be the case since resampling via linear interpolation produces non-binary values), you only consider the pixels of value 1 and so can simplify \cref{eqn:general-moment} to \cref{eqn:general-moment-simple}.
 
-\begin{equation}\label{eqn:general-moment-simple}
+\begin{lequation}\label{eqn:general-moment-simple}
   m_{pq} = \sum_{x, y \in \mathbb{R}} x^p y^q
-\end{equation}
+\end{lequation}
 
 \subsubsection{Zeroth Order Moments}
 
-Zeroth order moments can be used to calculate the area of a binary region. The zero moment can be calculated using \cref{eqn:0-moment}
+Zeroth order moments can be used to calculate the total sum of grey area of a region. The zero moment can be calculated using \cref{eqn:0-moment} and we can see the result is intuitive - the area 
 
-\begin{equation}\label{eqn:0-moment}
-  m_{0} = \sum_{x, y \in \mathbb{R}} x^0 y^0 = \sum_{x, y \in \mathbb{R}} 1
-\end{equation}
+\begin{lequation}\label{eqn:0-moment}
+  \text{area} = m_{00} = \sum_{x, y \in \mathbb{R}} x^0 y^0 = \sum_{x, y \in \mathbb{R}} 1
+\end{lequation}
 
 \subsubsection{First Order Moments}
 
 The first order moments $m{01}$ and $m_{10}$ are use to obtain the centre of mass of a component at $(\bar{x}, \bar{y})$.
 
-\begin{equation}\label{eqn:1-moment-mass}
+\begin{lequation}\label{eqn:1-moment-mass}
 \bar{x} = \frac{m_{10}}{m_{00}}, \bar{y} = \frac{m_{01}}{m_{00}}
-\end{equation}
+\end{lequation}
 
 \subsection{Run Length Encoding}
 \label{sec:tb-rle}
