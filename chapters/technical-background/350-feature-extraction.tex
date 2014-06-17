@@ -1,5 +1,5 @@
 \section{Component Features}
-
+\label{sec:component-features}
 \subsection{Basic Features}
 
 Some basic features extracted from a component are:
@@ -9,10 +9,13 @@ Some basic features extracted from a component are:
   \item Y Position
   \item Height
   \item Width
-  \item 
+  \item Centroid X
+  \item Centroid Y
 \end{enumerate}
 
-In some cases, x and y position on the staff are used in classification but for my purposed I have decided to perform classification assuming no prior knowledge. There might be exercises or free-drawing where a child doesn't want to have to follow the rules which apply to a normal score of music but rather draw specific components.
+\todo[inline, color=red]{List all basic features used}
+
+In some cases, x and y position on the staff are used in classification but for th purposes of the current project I have decided to perform classification assuming no prior knowledge. There might be exercises or free-drawing where a child doesn't want to have to follow the rules which apply to a normal score of music but rather to draw specific symbols.
 
 \subsection{Vertical and Horizontal Holes}
 
@@ -22,7 +25,9 @@ Average vertical and horizontal holes can be calculated by analysing the columns
 
 \subsection{Moments}
 
-I use low level moments in this project to extract information like region area and centroid coordinates, however I wasn't able to get to grips with some of the higher order moments used by \cite{fujinaga1996adaptive,arabelo} to represent rotation, skew and other properties which may go some way to explaining my failed classifier in \cref{fig:knn-stats} (\cref{sec:knn-stats}) as my implementation may have simply been wrong. Since I achieved good classification results I was content to admit my shortcomings and stick to using a downsampled after that.
+In this project the concept of low level moments is used to extract information like region area and centroid coordinates, however I wasn't able to get to grips with some of the higher order moments used by \cite{fujinaga1996adaptive,rebelo2011method} and others to represent rotation, skew and other properties which may go some way to explaining my failed classifier in \cref{fig:knn-stats}. It may be that my implementation was simply wrong, however since I was able to achieve good classification results using a resampled and flattened image, I decided that at least for the initial project iterations I would stick to that.
+
+as my implementation may have simply been wrong. Since I achieved good classification results I was content to admit my shortcomings and stick to using a downsampled after that.
 
 \subsubsection{Ordinary Definition}
 
@@ -32,7 +37,7 @@ As in \cite{burger2009principles} a moment of the order $p, q$ for an image or r
   m_{pq} = \sum_{x, y \in \mathbb{R}} I(x,y) \cdot x^p y^q
 \end{lequation}
 
-When dealing with binary regions (which may or may not be the case since resampling via linear interpolation produces non-binary values), you only consider the pixels of value 1 and so can simplify \cref{eqn:general-moment} to \cref{eqn:general-moment-simple}.
+When dealing with binary regions, since we only consider the pixels of value 1 we can simplify \cref{eqn:general-moment} to \cref{eqn:general-moment-simple}.
 
 \begin{lequation}\label{eqn:general-moment-simple}
   m_{pq} = \sum_{x, y \in \mathbb{R}} x^p y^q
@@ -40,7 +45,7 @@ When dealing with binary regions (which may or may not be the case since resampl
 
 \subsubsection{Zeroth Order Moments}
 
-Zeroth order moments can be used to calculate the total sum of grey area of a region. The zero moment can be calculated using \cref{eqn:0-moment} and we can see the result is intuitive - the area 
+Zeroth order moments can be used to calculate the total sum of grey area of a region. The zeroth moment can be calculated using \cref{eqn:0-moment} and we can see the result is intuitive - the area is simply the count of the black pixels.
 
 \begin{lequation}\label{eqn:0-moment}
   \text{area} = m_{00} = \sum_{x, y \in \mathbb{R}} x^0 y^0 = \sum_{x, y \in \mathbb{R}} 1
@@ -128,4 +133,4 @@ For a two dimensional binary image a run of pixels can be represented by it's ro
 
 If you then reshape this 2D image into a one dimensional array (retrieving and reshaping it to it's 2D representation later), you can remove 50\% of the compressed data (row and column) as seen in \cref{table:rle-1d}
 
-If we are using binary data we can simplify this further, simply tracking the initial bit, then recording runs of alternating values as seen in \cref{table-1d-binary}, we can simplify this further with the additional assumption \parencite{fujinaga1996adaptive} that the sequence will start with a 0, removing the need for the initial bit. If the sequence begins with a 1 we just start with an entry of length 0. Since a lot of musical entities don't touch the top left corner, this is the implementation I have used.
+If we are using binary data we can simplify this further, simply tracking the initial bit, then recording runs of alternating values as seen in \cref{rle-1d-binary}. We can simplify this further with the additional assumption \parencite{fujinaga1996adaptive} that the sequence will start with a 0, removing the need for the initial bit. If the sequence begins with a 1 we just start with an entry of length 0. Since based on my research a lot of musical entities don't touch the top left pixel of an image (meaning it's value it almost always 0), this is the implementation I have used.

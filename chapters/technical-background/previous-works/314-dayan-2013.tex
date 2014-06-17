@@ -1,10 +1,12 @@
 \subsection{\cite{benoptical}}
 
+An interesting component of the work by Ben-Dayan and Giloh was their experiments with stem, note head and symbol detection during the segmentation phases.
+
 \subsubsection{Stem Detection}
 
-For stem detection, since handwritten stems are unlikely to be perfectly straight, the authors use vertical projections combined with a high pass filter to establish likely stems, represented by peaks in the vertical projection.
+For stem detection, since handwritten stems are unlikely to be perfectly straight, the authors use vertical projections combined with a high pass filter to establish likely stems. These are represented by peaks in the vertical projection.
 
-A bounding box is then generated and the note is split into an upper and lower region, the upper and lower parts being used in note head and beam detection later.
+A bounding box is then generated and the note is split into an upper and lower region; the upper and lower parts being used in note head and beam detection later.
 
 \subsubsection{Note Head and Features Detection}
 

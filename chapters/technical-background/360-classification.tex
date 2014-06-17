@@ -1,17 +1,5 @@
 \section{Classification}
 
-\subsection{Normalized Cross Correlation}
-
-Normalized cross correlation enables (in the context of this application) a pixel-wise comparison of two images, resulting in a score between $[-1, 1]$ where 1 indicates a perfect match \eg the images are the same and $-1$ indicates the images are precisely the opposite of each other. The overall effect is to penalise the score for each pixel which is different in one image than the other. The normalisation is designed to help in images where the brightness and light levels vary but it works fine on binary images too.
-
-An NCC score between two binary images $F$ and $G$ of the same dimension can be calculated by using \cref{eqn:ncc}.
-
-\begin{lequation}\label{eqn:ncc}
-  \frac{1}{N} \sum_{x,y} \frac{\left( f(x,y) - \bar{f}\right)\left( g(x,y) - \bar{g}\right)}{\sigma_{f} \sigma_{g}}
-\end{lequation}
-
-Where $N = w \times h$ (the number of pixels in the image), $f(x,y)$ and $g(x, y)$ represent the pixel in row y column x for the respective images, $\bar{f}, \bar{g}$ represent the average pixel values for each image and $\sigma_{f},  \sigma_{g}$ are the standard deviations of the two images. 
-
 \subsection{Nearest Neighbour}
 
 The \acrfull{KNN} algorithm is an example of instance based learning and works by extracting a set of features for each sample and using this `feature vector' to represent each sample in a multidimensional vector space.
@@ -25,7 +13,7 @@ Once this space has been generated, new samples may be classified by generating 
    \label{fig:knn-example}
  \end{figure}
 
-The two most critical aspects of the KNN classifier are the distance method used and the number of neighbours considered. In order to maximise the accuracy of the classifier I perform several experiments to this effect in \cref{sec:implementation-classification}
+The two most critical aspects of the KNN classifier are the distance method used and the number of neighbours considered. In order to maximise the accuracy of the classifier, I performed several experiments to this effect in \cref{sec:implementation-classification}.
 
 \subsection{KNN Editing}
 
@@ -53,6 +41,4 @@ I originally came across the idea of edited KNN classifiers in \cite{fujinaga199
 
 \subsubsection{Genetic Algorithms}
 
-Although I actually decided not to employ the use of genetic algorithms in this project , they came up repeatedly in more recent research and so I felt it was worth a brief mention. Genetic algorithms for feature selection is nothing new, indeed it's used in \cite{fujinaga1996adaptive} for selecting which features to use in a classifier, a traditionally tricky problem when you have lots of features and need to work out which ones actually produce the best division of classes (though there are other techniques to do this too like PCA\footnote{Principal Component Analysis is used to find the dimension/variable in a feature vector which provides the highest variance possible. Features which provide small variance are of little help in a classification problem}), however in \ref{kuncheva1995editing} it is used specifically in editing a KNN classifier. The results suggested that it might perform comparably to wilson's technique and that it generally performed better than just using a random sample training set but that relative to multi-editing technique the authors state that they two could not be compared due to an inability to properly evaulate the power of the multi-edit algorithm.
-
-It seems that right now, early investigations are being performed into whether genetic algorithms can be used to improve KNN classifiers but as of right now you can't say that they perform much better than existing techniques.
+Although I decided not to actually employ the use of genetic algorithms in this project, they came up repeatedly in more recent research and so I felt it was worth mentioning. Genetic algorithms for feature selection is nothing new, indeed it's used in \cite{fujinaga1996adaptive} for selecting which features to use in a classifier; a traditionally tricky problem when you have lots of features (or indeed classifier variables such as the value of K in KNN classification) and need to work out which ones actually produce the best division of classes. Though there are other techniques to do this too like PCA\footnote{Principal Component Analysis is used to find the dimension/variable in a feature vector which provides the highest variance possible. Features which provide small variance are of little help in a classification problem}. However in \cite{kuncheva1995editing} it is used specifically in editing a KNN classifier. The results suggested that it might perform comparably to wilson's technique and that it generally performed better than just using a random sample training set but relative to multi-editing technique the authors state that the results from genetic algorithm and multi editing could not be compared due to an inability to properly evaluate the power of the multi-edit algorithm.

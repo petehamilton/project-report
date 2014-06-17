@@ -2,11 +2,12 @@
 
 Segmentation is the challenge of taking a given image or scene and extracting individual objects or `components'.
 
-Typically this can be a complex problem to tackle as stafflines connect almost all components together and must therefore first be removed. Also some musical entities are themselves comprised of multiple other entities. Good examples are the bass clef which is comprised of two dots placed above each other to the right of the curve (\cref{sec:music-theory-clefs}) and dotted notes (\cref{table:note-lengths}).
+Typically this can be a complex problem to tackle as stafflines connect almost all components together and must therefore first be removed. Also some musical entities are themselves comprised of multiple other entities. Good examples are the bass clef which is comprised of two dots placed above each other to the right of the curve (\cref{sec:music-theory-clefs}). Dotted notes would be another example (\cref{table:note-lengths}).
 
-Particularly in this project, we also need to be able to break down the musical entities further into stems and note heads and so separating these from each other present another problem which we must take into account.
+Particularly within the \noteED project, we also need to be able to break down the musical entities further into stems and note heads and so separating these from each other presents another problem which we must take into account.
 
 \subsection{Connected Component Analysis}
+\label{sec:connected-component-analysis}
 
 Connected component analysis is a technique used to establish distinct regions within an image. An individual pixel in a binary image can possess two forms of connectedness, \emph{4-neighbour} or \emph{8-neighbour}. It should be noted that this evaluation only takes place for pixels with a value of 1 or ``filled pixels''.
 
@@ -199,9 +200,11 @@ The horizontal and vertical projections can then be defined as:
 
 \subsection{Template Matching}
 \label{sec:template-matching}
-Image segmentation using template matching is uncommon but not unheard of, it receives particular attention in the segmentation phase in \cite{rossant2002global}. Different templates of reference components can be matched to the score, where a high correlation score in a certain position acts as both segmentation and classification.
+Image segmentation using template matching is not one of the main techniques used in segmentation due to it's sensitivity to distortions but it has been the focus of a few OMR related papers. It receives particular attention in the segmentation phase in \cite{rossant2002global} where different templates of reference components can be matched to the score, where a high correlation score in a certain position acts as both segmentation and classification.
 
 In testing, I was able to reproduce this effect by extracting components like the note head from the whole note as seen in Figure \cref{fig:templatematch}. However, as noted by \citeauthor{rossant2002global} this method is highly dependent on the font used in a printed score so for the purposes of handling handwritten notation it's unlikely to yield great results. Indeed, in preliminary testing, getting regular correct matches in a handwritten score proved troublesome.
+
+\todo[inline]{Examples of failed template matching?}
 
 \begin{figure}[h!]
   \includegraphics[width=0.6\linewidth]{gfx/template.png}
@@ -231,6 +234,6 @@ There are two regular types of error that can cause issues during segmentation, 
 
 \subsubsection{Touching Objects}
 
-Touching objects are where what were intended to be two separate objects actually touch and this can cause issues when segmenting components using connected component analysis \cref{sec:connected-component-analysis}. 
+Touching objects are where what was intended to be written as two separate objects actually touch and this can cause issues when segmenting components using connected component analysis \cref{sec:connected-component-analysis}. 
 
-In a printed score, you can use \cref{sec:template-matching} template matching in order to separate the components but when they are handwritten, it's more likely we will have to rely on using vertical and horizontal projections to find the point of minimal intersection as in \cite{fujinaga1996adaptive}.
+In a printed score, you can use template matching as outlined in \cref{sec:template-matching} in order to separate the components. When they are handwritten, it is more likely we will have to rely on using vertical and horizontal projections to find the point of minimal intersection as in \cite{fujinaga1996adaptive}.

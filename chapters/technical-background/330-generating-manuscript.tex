@@ -11,9 +11,9 @@ They're worth mentioning as they're the ``industry standards'' for musical notat
 \subsection{LilyPond}
 \label{sec:lilypond}
 
-LilyPond\footnote{http://www.lilypond.org/} is a music engraver and serves as a \enquote{modular, extensible and programmable compiler for producing high-quality music notation} \parencite{nienhuys2003lilypond}. Originally inspired by the efforts of projects like MusixTex\footnote{http://www.mab.jpn.org/musictex/musixtex\_e.html} which had aimed to \enquote{be able to typeset complex polyphonic, orchestral or instrumental music} \parencite{Taupin99musixtex–using} in the same way that it was already renowned for beautifully typeset text and maths. It's a widely adopted tool but it's flexibility with regard to formatting made it difficult to learn.
+LilyPond\footnote{http://www.lilypond.org/} is a music engraver and serves as a \enquote{modular, extensible and programmable compiler for producing high-quality music notation} \parencite{nienhuys2003lilypond}. Originally inspired by the efforts of projects like MusixTex\footnote{http://www.mab.jpn.org/musictex/musixtex\_e.html} which had aimed to \enquote{be able to typeset complex polyphonic, orchestral or instrumental music} \parencite{Taupin99musixtex–using} in the same way that it was already renowned for beautifully typeset text and maths. It's a widely adopted tool but its flexibility with regard to formatting makes it difficult to learn.
 
-The idea of Lilypond was that by entering or programmatically generating a formal representation of music which is designed to be easy to type, you can then use LilyPond to produce a manuscript engraving form that representation. They also support conversion from other popular text-based music formats such as MusicXML\footnote{Some good examples can be found at http://www.musicxml.com/tutorial/hello-world/}, or ABC\footnote{Standards can be found at http://abcnotation.com/}.
+The idea of Lilypond is that by entering or programmatically generating a formal representation of music which is designed to be easy to type, you can then use LilyPond to produce a manuscript engraving from that representation. Lilypond also supports conversion from other popular text-based music formats such as MusicXML\footnote{Some good examples can be found at http://www.musicxml.com/tutorial/hello-world/}, or ABC\footnote{Standards can be found at http://abcnotation.com/}.
 
 For example, given the following LilyPond syntax:
 
@@ -32,13 +32,13 @@ We can run LilyPond to produce the output you see in \cref{fig:lilypond-output}
   \label{fig:lilypond-output}
 \end{figure}
 
-Using Lilypond and some basic algorithms around music theory we could easily generate textual representations of exercises and generate the necessary images from them. It's also free and accessible meaning that I can easily install it on development machines and servers.
+Using LilyPond and some basic algorithms around music theory we could easily generate textual representations of exercises and generate the necessary images from them. It's also free and accessible meaning that it can be easily installed on development machines and servers.
 
 \subsection{VexFlow}
 
 Vexflow\footnote{https://github.com/0xfe/vexflow} is another music engraving application, but Vexflow is web based and makes use of HTML5 Canvas\footnote{https://developer.mozilla.org/en/docs/HTML/Canvas} and SVG\footnote{http://en.wikipedia.org/wiki/Scalable\_Vector\_Graphics} so it can be used to generate manuscripts on the fly in a browser.
 
-For example if you were to include the vexflow library and then write the javascript outlined in \cref{lst:vexflow} you will get the result in \cref{fig:vexflow-output}
+For example if you were to include the Vexflow library and then write the javascript outlined in \cref{lst:vexflow} you will get the result in \cref{fig:vexflow-output}
 
 \begin{figure}[h!]
   \begin{lstlisting}[language=JavaScript]
@@ -60,6 +60,6 @@ For example if you were to include the vexflow library and then write the javasc
   \label{fig:vexflow-output}
 \end{figure}
 
-An advantage vexflow has over \nameref{sec:lilypond} is that for use on the web, we would need to render the music remotely on the server with lilypond, then synchronously or asynchronously transport those resources (most likely images, which are expensive for web traffic) to the client. The downside of client side rendering is of course that for anything complex, since it increases the load on the end device, it's important to be aware on which devices the code will primarily be run to ensure a good user experience.
+An advantage Vexflow has over \nameref{sec:lilypond} is that with LilyPond, for use on the web, we would need to render the music remotely, then synchronously or asynchronously transport those resources (most likely images, which are expensive for web traffic) to the client. The downside of client side rendering is of course that for anything complex, since it increases the load on the end device, it's important to be aware on which devices the code will primarily be run to ensure a good user experience.
 
 
