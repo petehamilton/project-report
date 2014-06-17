@@ -3,7 +3,7 @@
 \input{chapters/implementation/410-architecture.tex}
 \input{chapters/implementation/415-input.tex}
 
-\section{Feedback}
+\section{Feedback}\label{sec:implementation-feedback}
 
 \subsection{Listing Mistakes}
 \label{sec:feedback-listing}
@@ -41,6 +41,9 @@
 - Child immediately got what they'd done wrong
 
 \subsection{Aggregation}
+
+Bringing it all together
+
 Given the large number of scoring results given for a manuscript drawing, some of the early testers suggested that a simple scoring system could be used like stars from 1 to 3 or 1 to 5.
 
 To produce a simple numeric score we must somehow aggregate the more detailed feedback. For example, by assigning weights to `musical correctness', `stems', `note heads' etc, we can produce a score in a reasonable range for overall feedback in a more simplistic form.
@@ -50,3 +53,17 @@ To produce a simple numeric score we must somehow aggregate the more detailed fe
   \caption{Child receiving simplified graphical feedback}
 \end{figure}
 \clearpage
+
+\section{Client Application}
+
+AngularJS framework, minimal data transfer using JSON, 
+
+\subsection{Admin Interface}
+Functional, regenerate classifiers, classify components, identify drawing mistakes for comparison to automation, look at all the drawing attempts
+
+\subsection{Student Interface}
+
+Easy to use, concept of lessons which only judge specific criteria, how feedback is integrated from \cref{sec:implementation-feedback}, can look at previous attempts
+
+\section{Server Application}
+Rails, makes calls to python, uses scikit-image, loads direct from postgres etc
