@@ -1,5 +1,10 @@
-\section{Scoring and Feedback}
-\label{sec:scoring}
+\section{Scoring and Feedback}\label{sec:scoring}
+
+In this section I cover some of the techniques used to score and evaluate the now-identified musical entities along with their components.
+
+Some of the rules and heuristics are very simple, but I mention them here for completeness.
+
+In general, I applied heuristics and thresholds based on dimensions and features of the musical score as well as using knowledge from the theory books \cref{sec:music-theory-workbooks} but in future it would be interesting to try and use the mistake data gathered in \cref{sec:teacher-data-gathering} and algorithms or machine learning to automatically adjust the thresholds either globally or maybe even on a per user level (for example, making judgement more lenient in the beginning and stricter as a student progresses, or vice-versa).
 
 \subsection{Pitched Notes and Accidentals}
 \label{sec:pitched-notes}
@@ -8,7 +13,7 @@
 
 For pitched notes and accidentals, we compare their vertical centres as calculated in the identification (\cref{sec:identification}) stages to positions of the surrounding stave lines and spaces.
 
-We designate the attempted stave position as being the one which is closest to this center (the same position which was used for calculating pitch) and then measure the distance from it. If the distance is greater than a given threshold (obtained experimentally) we then designate this a potentially ambiguous entity.
+We designate the attempted stave position as being the one which is closest to this center (the same position which was used for calculating pitch) and then measure the distance from it. If the distance is greater than a given threshold we then designate this a potentially ambiguous entity.
 
 \subsection{Key Signatures}
 
@@ -307,8 +312,6 @@ Similarly to the straightness and angular measures, we can establish the raw len
 
 \subsubsection{Side}\label{sec:scoring-quaver-tail-side}
 
-\todo[inline]{Quaver tail side needs a little more detail, this feels a bit `late in the evening' weak. Also, MORE MATHS}
-
 To determine on which side a quaver tail lies, left (\cref{fig:quaver-tail-left}) or right (\cref{fig:quaver-tail-right}), intially I attempted to utilise vertical projections, much as in segmentation (\cref{sec:projections}).
 
 \begin{figure}[h!]
@@ -332,9 +335,7 @@ To determine on which side a quaver tail lies, left (\cref{fig:quaver-tail-left}
 
 After taking a vertical projection of the quaver tail, the maximum peak in the projection is taken and by establishing on which side of the centre the peak lies, this told us which side the `flick' of the quaver is on.
 
-However, occasionally a quaver tail would be encountered where the distinction wasn't very clear \todo[color=purple]{Example of non-distinct quaver tail position}.
-
-Another method I investigated was to divide the image into two horizontally, then calculate the average black pixel column coordinate in each half as seen in \cref{fig:quaver-tail-average-position}. By working out which half has the highest average pixel position, we can then establish the side on which the tail lies.
+Another method I investigated was to divide the image into two horizontally, then calculate the average black pixel column coordinate in each half as seen in \cref{fig:quaver-tail-average-position}. By working out which half has the highest average pixel position, we can then establish the side on which the tail lies. In practice this proved the simpler method out of the two and the outcomes equally successful, when tested with the same sample data.
 
 % Generate the below with: python reporting_quavertail.py 3811
 \begin{figure}[h!]
@@ -342,15 +343,15 @@ Another method I investigated was to divide the image into two horizontally, the
 
     \begin{subfigure}[b]{.45\linewidth}
         \centering
-      \frame{\includegraphics[height=7cm]{gfx/techniques/quaver-pixel-average-right.png}}
-      \caption{Identifying a right sided tail}
-      \label{fig:quaver-tail-average-position-right}
-    \end{subfigure}
-    \begin{subfigure}[b]{.45\linewidth}
-        \centering
       \frame{\includegraphics[height=7cm]{gfx/techniques/quaver-pixel-average-left}}
       \caption{Identifying a left sided tail}
       \label{fig:quaver-tail-average-position-left}
+    \end{subfigure}
+    \begin{subfigure}[b]{.45\linewidth}
+        \centering
+      \frame{\includegraphics[height=7cm]{gfx/techniques/quaver-pixel-average-right.png}}
+      \caption{Identifying a right sided tail}
+      \label{fig:quaver-tail-average-position-right}
     \end{subfigure}
 
       \caption{Calculating the quaver tail side with pixel averages}
