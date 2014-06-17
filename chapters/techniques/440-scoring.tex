@@ -2,7 +2,7 @@
 \label{sec:scoring}
 
 \subsection{Pitched Notes and Accidentals}
-\label{sec:pitched-notes-accidentals}
+\label{sec:pitched-notes}
 
 \subsubsection{Position}\label{sec:scoring-position}
 
@@ -22,7 +22,6 @@ Before we perform any analysis, we need a reference copy of what we expect the a
         \toprule
         Mistake & Feedback \\
         \midrule
-        Mixed Accidentals & Incorrect because sharps can't be mixed \\
         Wrong Octave & Which sharps were affected and whether they're an octave too high or too low \\
         Incorrect Order & Which sharps are in the wrong place and where they should be \\
         Incorrect Accidentals & Which accidentals are wrong and what they should be \\
@@ -35,27 +34,15 @@ Before we perform any analysis, we need a reference copy of what we expect the a
 
 \subsubsection{Wrong Octaves}\label{sec:scoring-keysig-octave}
 
-Sometimes the student gets the right accidental, but just in the wrong octave, for example the case identified by a teacher in \cref{fig:right-accidental-wrong-octave}. This can be identified by checking to see if the actual note (C, D, E) the drawn accidental rather than a specific pitch (C4, D4, E4) matches that of the expected accidental.
-
-\begin{figure}[H]
-  \missingfigure{Right accidental wrong octave teacher example}
-  \caption{}
-  \label{fig:right-accidental-wrong-octave}
-\end{figure}
+Sometimes the student gets the right accidental, but just in the wrong octave, for example the case identified by a teacher in \cref{fig:tf-keysig-octave}. This can be identified by checking to see if the actual note (C, D, E) of the drawn accidental rather than a specific pitch (C4, D4, E4) matches that of the expected accidental.
 
 \subsubsection{Out of Order}\label{sec:scoring-keysig-order}
 
-Sometimes a key signature contains all the sharps required, but not in the right order as seen in \cref{fig:right-accidentals-wrong-ordering}. This case can be established by taking the number of accidentals drawn, establishing what would be the correct accidentals for that case and comparing the list of pitches to an ordered list of the drawn pitches. If they match, the student has mis-ordered some of the accidentals so we note which ones are out of order and where they should be.
-
-\begin{figure}[H]
-  \missingfigure{Right accidentals wrong order example}
-  \caption{}
-  \label{fig:right-accidentals-wrong-ordering}
-\end{figure}
+Sometimes a key signature contains all the sharps required, but not in the right order. This case can be established by taking the number of accidentals drawn, establishing what would be the correct accidentals for that key signature and comparing the list of pitches to an ordered list of the drawn pitches. If they match, the student has mis-ordered some of the accidentals so we note which ones are out of order and where they should be.
 
 \subsubsection{Incorrect Accidental}\label{sec:scoring-keysig-incorrect}
 
-In the case of an Incorrect Accidental, the other three conditions having been checked, the student will have got the right number of sharps/flats but not the right accidentals meaning it's not a permutation or ordering issue as in \cref{sec:scoring-keysig-order} and it's not that an accidental is in the wrong octave as the result of a clef mistake. Comparison with the correct reference example for the given number of accidentals enables us to identify specifically which accidentals are incorrect.
+In the case of an Incorrect Accidental, the other three conditions having been checked, the student will have got the right number of sharps/flats but not the right accidentals meaning it's not a permutation or ordering issue and it's not that an accidental is in the wrong octave as the result of a clef mistake. Comparison with the correct reference example for the given number of accidentals enables us to identify specifically which accidentals are incorrect.
 
 \subsection{Beats and Timing}\label{sec:scoring-beats}
 
@@ -249,7 +236,7 @@ S_{d} (y_{\text{stem}}, y_{\text{head}}) =
 \right.
 $$
 
-The case where a stem has the same $y$ coordinate as it's head isn't possible due to the way stems are extracted from a note complex as for this to happen a stem would need to be extracted \emph{out} of a note head. Since note heads are removed in order to identify stems as in \todo[color=blue]{REFERENCE: Extracting Stems}, this is impossible.
+The case where a stem has the same $y$ coordinate as it's head isn't possible due to the way stems are extracted from a note complex as for this to happen a stem would need to be extracted \emph{out} of a note head. Since note heads are removed in order to identify stems as in \cref{sec:stem-removal}, this is impossible.
 
 \begin{figure}[h!]
     \centering
@@ -284,7 +271,7 @@ The case where a stem has the same $y$ coordinate as it's head isn't possible du
 \subsubsection{Side}\label{sec:scoring-stem-side}
 To establish the stem side which I will refer to as $S_s$, we do a similar operation to in determining the direction, however, since it is perfectly feasible that the stem and head have the same x coordinate, we can't just use the x coordinate directly.
 
-Instead, we compare the x coordinate of the stem $x_{\text{stem}}$ to the true centre \todo[inline]{Better definition later please} of the note head $cx_{\text{head}}$
+Instead, we compare the x coordinate of the stem $x_{\text{stem}}$ to the centroid of the note head $cx_{\text{head}}$
 
 Again, given that the coordinate axes start from the top left, we can now establish the stem x offset
 
@@ -314,9 +301,7 @@ Stem length may seem like a simple case of measuring the length of the extracted
     \label{fig:stem-intersection}
 \end{figure}
 
-Similarly to the straightness and angular measures, we can establish the raw length $L_R$ by drawing a line through the perceived centre of the stem and measuring its length using simple trigonometry. However, although it might seem counterintuitive to not use this as a measure of length, in reality a better measure of whether the stem is `too long' is to measure the distance between the stave line/space above stem's associated notehead and the y coordinate of the stem.
-
-If we define the correct length $L_E$ for a stem as outlined in \todo[inline]{REFERENCE where I talk about correct stem length} then the length score is therefore just $L_E - L_A$ where smaller values mean the stem is closer to the expected length.
+Similarly to the straightness and angular measures, we can establish the raw length $L_R$ by drawing a line through the perceived centre of the stem and measuring its length using trigonometry. To be valid a stem it must lie between 2 and 3 stave spaces in length, any less and it's too short, any more, too long.
 
 \subsection{Quaver Tail}
 

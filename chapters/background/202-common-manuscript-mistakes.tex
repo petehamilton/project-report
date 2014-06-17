@@ -24,9 +24,7 @@ I therefore devised the following method for gathering data to form a `mistake d
   \item Collate and summarise the feedback
 \end{enumerate}
 
-To save time (and paper) the marking was done 3-UP on a portrait sheet of A4, an example of one of the tutor feedback sheets can be seen in \cref{fig:teacher-sheet}. It should be noted that in some of the feedback tutors refer to errors differently, for example by using `the stem is on the wrong side' to mean that either a note stem is up when it should be down or that it's on the right when it should be on the left.
-
-Evaluation of my application against this data is outlined in \todo{Reference Mistake Data Analysis} and below are some examples of specific mistakes which the application needs to be able to identify.
+To save time (and paper) the marking was done 3-UP on a portrait sheet of A4, an example of one of the tutor feedback sheets can be seen in \cref{fig:teacher-sheet}. It should be noted that in some of the feedback tutors refer to errors differently, for example by using `the stem is on the wrong side' to mean that either a note stem is up when it should be down or that it's on the right when it should be on the left. Below are annotated examples of the mistakes \noteED needs to be able to identify.
 
 \begin{figure}[H]
   \centering
@@ -44,7 +42,7 @@ Once this data was collected I had a sample of 83 attempts at various notation c
 
         Element & Issue & Description & Analysis \\
         \midrule
-        Note Head       & Ambiguous Position     & \cref{sec:tf-note-head-ambiguous}              & \cref{sec:scoring-note-head-ambiguous} \\
+        Note Head       & Ambiguous Position     & \cref{sec:tf-note-head-ambiguous}              & \cref{sec:scoring-position} \\
         Note Head       & Broken Lines           & \cref{sec:tf-note-head-broken}            & \cref{sec:scoring-note-head-broken} \\
         Note Head       & Angled                 & \cref{sec:tf-semibreve-angled}            & \cref{sec:scoring-semibreve-angled} \\
         Note Head       & Messy                  & \cref{sec:tf-note-head-messy}             & \cref{sec:scoring-note-head-messy} \\
@@ -54,18 +52,13 @@ Once this data was collected I had a sample of 83 attempts at various notation c
         Stem            & Side                   & \cref{sec:tf-stem-side}                   & \cref{sec:scoring-stem-side} \\
         Stem            & Angle                  & \cref{sec:tf-stem-angle}                  & \cref{sec:scoring-stem-angle} \\
         Quaver Tail     & Side                   & \cref{sec:tf-quaver-tail-side}            & \cref{sec:scoring-quaver-tail-side} \\
-        Treble Clef     & Position               & \cref{sec:tf-treble-clef-location}        & FUTURE \\
-        Bass Clef       & Position               & \cref{sec:tf-bass-clef-location}          & FUTURE \\
-        Minim Rest      & Position               & \cref{sec:tf-minim-rest}                  & FUTURE \\
-        Accidental      & Ambiguous Position     & \cref{sec:tf-accidental-ambiguous}        & \cref{sec:scoring-accidental-ambiguous} \\
-        Key Signature   & Incorrect Octave       & \cref{sec:tf-keysig-octave}               & \cref{sec:sec:scoring-keysig-octave} \\
-        Key Signature   & Incorrect Ordering     & \cref{sec:tf-keysig-order}                & \cref{sec:sec:scoring-keysig-order} \\
-        Key Signature   & Wrong Clef             & \cref{sec:tf-keysig-wrong-clef}           & \cref{sec:sec:scoring-keysig-wrong-clef} \\
-        Key Signature   & Incorrect Accidentals  & \cref{sec:tf-keysig-incorrect}            & \cref{sec:sec:scoring-keysig-incorrect} \\
-        Beats \& Timing & Too Many Beats         & \cref{sec:tf-beats-too-many}              & \cref{sec:sec:scoring-beats}\\
-        Beats \& Timing & Too Few Beats          & \cref{sec:tf-beats-too-few}               & \cref{sec:sec:scoring-beats}\\
-        Beats \& Timing & Wrong Time Signature   & \cref{sec:tf-beats-wrong-time-signature}  & FUTURE \\
-
+        Rest            & Position               & \cref{sec:tf-rest-position}               & \cref{sec:scoring-position} \\
+        Accidental      & Ambiguous Position     & \cref{sec:tf-accidental-ambiguous}        & \cref{sec:scoring-position} \\
+        Key Signature   & Incorrect Octave       & \cref{sec:tf-keysig-octave}               & \cref{sec:scoring-keysig-octave} \\
+        Key Signature   & Incorrect Ordering     & \cref{sec:tf-keysig-order}                & \cref{sec:scoring-keysig-order} \\
+        Key Signature   & Incorrect Accidentals  & \cref{sec:tf-keysig-incorrect}            & \cref{sec:scoring-keysig-incorrect} \\
+        Beats \& Timing & Too Many Beats         & \cref{sec:tf-beats-too-many}              & \cref{sec:scoring-beats}\\
+        Beats \& Timing & Too Few Beats          & \cref{sec:tf-beats-too-few}               & \cref{sec:scoring-beats}\\
         \bottomrule
     \end{tabularx}
     \caption{A brief summary of some mistakes which emerged from the preliminary data gathering. `FUTURE' indicates that analysis for the mistake hasn't yet been incorporated into the application}
@@ -77,120 +70,203 @@ Once this data was collected I had a sample of 83 attempts at various notation c
 
 The semibreve is the easiest note to draw and is simply an oval outline, however, the rules which govern it's placement are quite specific as outlined in Figures \cref{fig:semibreve-on-line} \& \cref{fig:semibreve-on-space}
 
-\begin{figure}[h!]
+\begin{figure}[width=.8\textwidth][h!]
   \includegraphics[width=\linewidth]{gfx/basic/semibreve-on-line.png}
   \centering
   \caption{If it is drawn on the line, the line must go exactly through the middle of the semibreve}
   \label{fig:semibreve-on-line}
 \end{figure}
 
+
+\subsubsection{Too Big/Small}\label{sec:tf-note-head-scale}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\linewidth]{gfx/teacher-notes/mistake-notehead-too-big.png}
+  \includegraphics[width=.4\linewidth]{gfx/teacher-notes/mistake-notehead-too-small.png}
+  \caption{Note heads should be one staff space in size and not extend beyond a pair of staff lines}
+  \label{fig:mistake-note-ambig}
+\end{figure}
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\linewidth]{gfx/basic/semibreve-on-space.png}
-  \caption{If it is drawn in the space, it should also only cover half the space on either side}
+  \caption{If it is drawn in the space, it should only cover half the space on either side}
   \label{fig:semibreve-on-space}
 \end{figure}
 
 Similar rules govern the placement of crotchet and minim heads as seen in \cref{fig:mistake-note-ambig}.
 
-\begin{figure}[hbt]
+\begin{figure}[H]
   \centering
-  \includegraphics[height=\linewidth]{gfx/teacher-notes/mistake-notehead-ambiguous.png}
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-notehead-ambiguous.png}
   \caption{And example of an `ambiguous' minim. It is placed both in a space and on a line}
   \label{fig:mistake-note-ambig}
 \end{figure}
 
 \subsubsection{Broken Note Heads}\label{sec:tf-note-head-broken}
 
-\begin{figure}[hbt]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{gfx/teacher-notes/mistake-notehead-broken.png}
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-notehead-broken.png}
   \caption{When writing semibreves and minims, it's important to form a full ellipse}
 \end{figure}
 
 \subsubsection{Messy Note Heads}\label{sec:tf-note-head-messy}
 
-\begin{figure}[hbt]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{gfx/teacher-notes/mistake-notehead-messy.png}
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-notehead-messy.png}
   \caption{Several children drew solid noteheads rather haphazardly, leaving gaps and giving a messy scribbled effect to the note head}
 \end{figure}
 
 \subsubsection{Angled Heads}\label{sec:tf-semibreve-angled}
-\todo[inline,color=red]{Manuscript Mistakes - Angled Semibreves}
 
-\begin{figure}[hbt]
+
+\begin{figure}[H]
   \centering
-  \includegraphics{gfx/basic/semibreve-on-space.png}
-  \caption{Examples of semibreves being marked incorrect due to their angle from the horizontal}
-  \label{fig:music-theory-semibreve-angled}
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-notehead-angled.png}
+  \caption{Semibreves are typically wider than minims so any deviation from horizontal appears more pronounced and should be avoided}
 \end{figure}
 
 \subsection{Note Stems}
 
 \subsubsection{Stem Angle}\label{sec:tf-stem-angle}
-\todo[inline,color=red]{Manuscript Mistakes - Stem Angle}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-stem-angle.png}
+  \caption{}
+\end{figure}
 
 \subsubsection{Stem Straightness}\label{sec:tf-stem-straightness}
-\todo[inline,color=red]{Manuscript Mistakes - Stem Wonky}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-stem-not-straight}
+  \caption{}
+\end{figure}
 
 \subsubsection{Stem Direction}\label{sec:tf-stem-direction}
-\todo[inline,color=red]{Manuscript Mistakes - Stem Direction}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-stem-wrong-direction.png}
+  \caption{}
+\end{figure}
 
 \subsubsection{Stem Side}\label{sec:tf-stem-side}
 \todo[inline,color=red]{Manuscript Mistakes - Stem Side}
 
 \subsubsection{Stem Length}\label{sec:tf-stem-length}
-\todo[inline,color=red]{Manuscript Mistakes - Stem Length}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\linewidth]{gfx/teacher-notes/mistake-stem-too-short}
+  \includegraphics[width=.4\linewidth]{gfx/teacher-notes/mistake-stem-too-long}
+  \caption{}
+\end{figure}
 
 \subsection{Quaver Tails}
 
 \subsubsection{Quaver Tail Side}\label{sec:tf-quaver-tail-side}
 
-\todo[inline,color=red]{Manuscript Mistakes - Quaver Tail Side}
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{gfx/photos/teacher-bad-quavertail-side.jpg}
-  \caption{Teacher's annotation of a bad quaver tail side}
-  \label{fig:teacher-example-quaver-wrong-side}
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-quaver-tail-wrong-side.png}
+  \caption{}
 \end{figure}
-
-\subsection{Clefs}
-
-\subsubsection{Treble Clef Location}\label{sec:tf-treble-clef-location}
-\todo[inline,color=red]{Manuscript Mistakes - Treble Clef Location}
-
-\subsubsection{Bass Clef Location}\label{sec:tf-bass-clef-location}
-\todo[inline,color=red]{Manuscript Mistakes - Bass Clef Location}
 
 \subsection{Rests}
 
-\subsubsection{Minim \& Semibreve Rests}\label{sec:tf-minim-rest}
-\todo[inline,color=red]{Manuscript Mistakes - Minim/Semibreve Rest not in right place too high/low}
+\subsubsection{Position}\label{sec:tf-rest-position}
+Most rests should be centred around the middle staff line. However minim and semibreve rules differ slightly. Minim rests are placed sitting on top of the middle line and semibreve rests are placed sitting below.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-rest-position.png}
+  \caption{}
+\end{figure}
+
+\subsection{Duration Dots}
+
+\subsubsection{Wrong Side}\label{sec:tf-dot-wrong-side}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-dot-wrong-side.png}
+  \caption{}
+\end{figure}
 
 \subsection{Accidentals}
-\subsubsection{Ambiguous Sharp Positions}\label{sec:tf-sharp-ambiguous}
+
+\subsubsection{Ambiguous}\label{sec:tf-accidental-ambiguous}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-accidental-ambiguous.png}
+  \caption{}
+\end{figure}
+
+\subsubsection{Wrong Side}\label{sec:tf-accidental-wrong-side}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-accidental-wrong-side.png}
+  \caption{}
+\end{figure}
+
+\subsubsection{Wrong Line}\label{sec:tf-accidental-wrong-line}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-accidental-wrong-line.png}
+  \caption{}
+\end{figure}
 
 \subsection{Key Signatures}
 
 \subsubsection{Wrong Octave}\label{sec:tf-keysig-octave}
-\todo[inline,color=red]{Manuscript Mistakes - Wrong Octave}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-accidental-wrong-octave.png}
+  \caption{}
+\end{figure}
 
 \subsubsection{Incorrect Order}\label{sec:tf-keysig-order}
-\todo[inline,color=red]{Manuscript Mistakes - Incorrect Order}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-keysig-order.png}
+  \caption{}
+\end{figure}
 
 \subsubsection{Incorrect Pitch}\label{sec:tf-keysig-incorrect}
-\todo[inline,color=red]{Manuscript Mistakes - Incorrect Accidentals}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-keysignature.png}
+  \caption{}
+\end{figure}
 
 \subsection{Beats and Timing}
 
 \subsubsection{Too Many Beats}\label{sec:tf-beats-too-many}
-\todo[inline,color=red]{Manuscript Mistakes - Too many beats in a bar}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-beats-too-many.png}
+  \caption{}
+\end{figure}
 
 \subsubsection{Too Few Beats}\label{sec:tf-beats-too-few}
-\todo[inline,color=red]{Manuscript Mistakes - Too few beats in a bar}
 
-\subsubsection{Wrong Time Signature}\label{sec:tf-beats-wrong-time-signature}
-\todo[inline,color=red]{Manuscript Mistakes - Wrong time signature?}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/teacher-notes/mistake-beats-too-few.png}
+  \caption{}
+\end{figure}
 
 
 
