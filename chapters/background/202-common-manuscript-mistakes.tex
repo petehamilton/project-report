@@ -1,21 +1,21 @@
-\section{Common Manuscript Mistakes}
+\section{Common Notation Mistakes}
+\label{sec:common-manuscript-mistakes}
+Notation follows a strict set of rules and conventions, however there are a \emph{lot} of them and as such it's perfectly natural that children struggle to remember them all, resulting in mistakes.
 
-Manuscript follows a strict set of rules and conventions, however there are a \emph{lot} of them and as such it's perfectly natural that children struggle to remember them all, resulting in mistakes.
+In order to focus the scope of this dissertation, I needed to establish exactly which mistakes were most likely to occur. In order to understand what these might be, I referred to two main sources.
 
-Since there's not a huge amount of point attempting to build a system to recognise something it will never come across,I needed to establish exactly which mistakes were actually likely to occur, for which I referred to two main sources.
+The first is Music Theory in Practice, \parencite{taylor2008music}  This book, written specifically to assist those teaching music theory, has some good examples of mistakes a student should avoid.
 
-The first is Music Theory in Practice, \parencite{taylor2008music} which was mentioned in \cref{sec:music-book-taylor2008}. It's a book specifically written to teach music theory and has some great examples of mistakes a student should avoid.
-
-My second source was real professional musicians and tutors but this involved a more hands on collection method which is covered in \cref{sec:teacher-data-gathering}.
+The second is consultation with professional musicians and teachers. This is covered further in \cref{sec:teacher-data-gathering}.
 
 \subsection{Gathering Professional Feedback}
 \label{sec:teacher-data-gathering}
 
 In order to build an application which can help to compensate for the absence of a tutor, we need to ensure that it can spot as many of the same mistakes as a tutor would.
 
-The most logical way to establish precisely what these mistakes are is (surprise surprise) to ask the tutors, however when I did this, several of them found it difficult to express the mistakes they had seen children make without a piece of music in front of them.
+The most logical way to establish precisely what these mistakes might be is to ask the tutors. When I did this, several of them found it difficult to express the mistakes they had seen children make without a piece of music in front of them.
 
-I therefore devised the following method for gathering mistake data:
+I therefore devised the following method for gathering data to form a `mistake database'.
 
 \begin{enumerate}
   \item Build the input section of the application such that a student can `free-draw' on a blank music staff.
@@ -26,7 +26,7 @@ I therefore devised the following method for gathering mistake data:
 
 To save time (and paper) the marking was done 3-UP on a portrait sheet of A4, an example of one of the tutor feedback sheets can be seen in \cref{fig:teacher-sheet}. It should be noted that in some of the feedback tutors refer to errors differently, for example by using `the stem is on the wrong side' to mean that either a note stem is up when it should be down or that it's on the right when it should be on the left.
 
-Evaluation of my application against this data is outlined in \todo[inline]{REFERENCE: where?} but for now I will just show specific examples which represent particular mistakes.
+Evaluation of my application against this data is outlined in \todo{Reference Mistake Data Analysis} and below are some examples of specific mistakes which the application needs to be able to identify.
 
 \begin{figure}[H]
   \centering
@@ -35,7 +35,7 @@ Evaluation of my application against this data is outlined in \todo[inline]{REFE
   \label{fig:teacher-sheet}
 \end{figure}
 
-Once this data was collected I had a sample of \todo[inline]{COUNT HOW MANY STUDENT SAMPLES I HAD} marked samples \todo[inline,color=blue]{Put this full dataset at the end?} and I was able to extract some of the recurring issues which I've summarised in \cref{table:teacher-feedback-summary}. I present what is by no means an exhaustive list below and later on in \cref{sec:scoring} I go over how I actually identify, score and provide feedback to the student for a number of these mistakes.
+Once this data was collected I had a sample of 83 attempts at various notation challenges, of which a number were annotated. I was then able to extract some of the recurring issues which \noteED should aim to recognise which I've summarised in \cref{table:teacher-feedback-summary}. I present what is by no means an exhaustive list below and later on in \cref{sec:scoring} I go over how I actually identify, score and provide feedback to the student for these mistakes.
 
 \begin{table}[H]
     \centering
@@ -44,9 +44,9 @@ Once this data was collected I had a sample of \todo[inline]{COUNT HOW MANY STUD
 
         Element & Issue & Description & Analysis \\
         \midrule
-        Note Head       & Scale                  & \cref{sec:tf-note-head-size}              & \cref{sec:scoring-note-head-size} \\
+        Note Head       & Ambiguous Position     & \cref{sec:tf-note-head-ambiguous}              & \cref{sec:scoring-note-head-ambiguous} \\
         Note Head       & Broken Lines           & \cref{sec:tf-note-head-broken}            & \cref{sec:scoring-note-head-broken} \\
-        Note Head       & Angled                 & \cref{sec:tf-note-head-angled}            & FUTURE \\
+        Note Head       & Angled                 & \cref{sec:tf-semibreve-angled}            & \cref{sec:scoring-semibreve-angled} \\
         Note Head       & Messy                  & \cref{sec:tf-note-head-messy}             & \cref{sec:scoring-note-head-messy} \\
         Stem            & Length                 & \cref{sec:tf-stem-length}                 & \cref{sec:scoring-stem-length} \\
         Stem            & Straightness           & \cref{sec:tf-stem-straightness}           & \cref{sec:scoring-stem-straightness} \\
@@ -56,13 +56,12 @@ Once this data was collected I had a sample of \todo[inline]{COUNT HOW MANY STUD
         Quaver Tail     & Side                   & \cref{sec:tf-quaver-tail-side}            & \cref{sec:scoring-quaver-tail-side} \\
         Treble Clef     & Position               & \cref{sec:tf-treble-clef-location}        & FUTURE \\
         Bass Clef       & Position               & \cref{sec:tf-bass-clef-location}          & FUTURE \\
-        Bass Clef       & Direction              & \cref{sec:tf-bass-clef-direction}         & FUTURE \\
         Minim Rest      & Position               & \cref{sec:tf-minim-rest}                  & FUTURE \\
-        Accidental      & Ambiguous Position     & \cref{sec:tf-accidental-ambiguous}        & \cref{sec:scoring-position} \\
-        Key Signature   & Mixed Accidentals      & \cref{sec:tf-keysig-mixed}                & \cref{sec:tf-keysig-mixed} \\
-        Key Signature   & Incorrect Octave       & \cref{sec:tf-keysig-octave}               & \cref{sec:tf-keysig-octave} \\
-        Key Signature   & Incorrect Ordering     & \cref{sec:tf-keysig-order}                & \cref{sec:tf-keysig-order} \\
-        Key Signature   & Incorrect Accidentals  & \cref{sec:tf-keysig-incorrect}            & \cref{sec:tf-keysig-incorrect} \\
+        Accidental      & Ambiguous Position     & \cref{sec:tf-accidental-ambiguous}        & \cref{sec:scoring-accidental-ambiguous} \\
+        Key Signature   & Incorrect Octave       & \cref{sec:tf-keysig-octave}               & \cref{sec:sec:scoring-keysig-octave} \\
+        Key Signature   & Incorrect Ordering     & \cref{sec:tf-keysig-order}                & \cref{sec:sec:scoring-keysig-order} \\
+        Key Signature   & Wrong Clef             & \cref{sec:tf-keysig-wrong-clef}           & \cref{sec:sec:scoring-keysig-wrong-clef} \\
+        Key Signature   & Incorrect Accidentals  & \cref{sec:tf-keysig-incorrect}            & \cref{sec:sec:scoring-keysig-incorrect} \\
         Beats \& Timing & Too Many Beats         & \cref{sec:tf-beats-too-many}              & \cref{sec:sec:scoring-beats}\\
         Beats \& Timing & Too Few Beats          & \cref{sec:tf-beats-too-few}               & \cref{sec:sec:scoring-beats}\\
         Beats \& Timing & Wrong Time Signature   & \cref{sec:tf-beats-wrong-time-signature}  & FUTURE \\
@@ -70,24 +69,62 @@ Once this data was collected I had a sample of \todo[inline]{COUNT HOW MANY STUD
         \bottomrule
     \end{tabularx}
     \caption{A brief summary of some mistakes which emerged from the preliminary data gathering. `FUTURE' indicates that analysis for the mistake hasn't yet been incorporated into the application}
-    \label{table:note-lengths}
+    \label{table:teacher-feedback-summary}
 \end{table}
 
-
 \subsection{Note Heads}
-\subsubsection{Note Head Size}\label{sec:tf-note-head-size}
-\todo[inline,color=red]{Manuscript Mistakes - Note Head Size, outside lines, space}
+\subsubsection{Ambiguous Position}\label{sec:tf-note-head-ambiguous}
+
+The semibreve is the easiest note to draw and is simply an oval outline, however, the rules which govern it's placement are quite specific as outlined in Figures \cref{fig:semibreve-on-line} \& \cref{fig:semibreve-on-space}
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{gfx/basic/semibreve-on-line.png}
+  \centering
+  \caption{If it is drawn on the line, the line must go exactly through the middle of the semibreve}
+  \label{fig:semibreve-on-line}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{gfx/basic/semibreve-on-space.png}
+  \caption{If it is drawn in the space, it should also only cover half the space on either side}
+  \label{fig:semibreve-on-space}
+\end{figure}
+
+Similar rules govern the placement of crotchet and minim heads as seen in \cref{fig:mistake-note-ambig}.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[height=\linewidth]{gfx/teacher-notes/mistake-notehead-ambiguous.png}
+  \caption{And example of an `ambiguous' minim. It is placed both in a space and on a line}
+  \label{fig:mistake-note-ambig}
+\end{figure}
 
 \subsubsection{Broken Note Heads}\label{sec:tf-note-head-broken}
-\todo[inline,color=red]{Manuscript Mistakes - Broken Minims/Semibreves}
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=\linewidth]{gfx/teacher-notes/mistake-notehead-broken.png}
+  \caption{When writing semibreves and minims, it's important to form a full ellipse}
+\end{figure}
 
 \subsubsection{Messy Note Heads}\label{sec:tf-note-head-messy}
-\todo[inline,color=red]{Manuscript Mistakes - Messy Crotchet Heads}
 
-\subsubsection{Angled Heads}\label{sec:tf-note-head-angled}
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=\linewidth]{gfx/teacher-notes/mistake-notehead-messy.png}
+  \caption{Several children drew solid noteheads rather haphazardly, leaving gaps and giving a messy scribbled effect to the note head}
+\end{figure}
+
+\subsubsection{Angled Heads}\label{sec:tf-semibreve-angled}
 \todo[inline,color=red]{Manuscript Mistakes - Angled Semibreves}
 
-
+\begin{figure}[hbt]
+  \centering
+  \includegraphics{gfx/basic/semibreve-on-space.png}
+  \caption{Examples of semibreves being marked incorrect due to their angle from the horizontal}
+  \label{fig:music-theory-semibreve-angled}
+\end{figure}
 
 \subsection{Note Stems}
 
@@ -125,9 +162,6 @@ Once this data was collected I had a sample of \todo[inline]{COUNT HOW MANY STUD
 \subsubsection{Bass Clef Location}\label{sec:tf-bass-clef-location}
 \todo[inline,color=red]{Manuscript Mistakes - Bass Clef Location}
 
-\subsubsection{Bass Clef Direction}\label{sec:tf-bass-clef-direction}
-\todo[inline,color=red]{Manuscript Mistakes - Bass Clef Horizontal Direction}
-
 \subsection{Rests}
 
 \subsubsection{Minim \& Semibreve Rests}\label{sec:tf-minim-rest}
@@ -137,10 +171,8 @@ Once this data was collected I had a sample of \todo[inline]{COUNT HOW MANY STUD
 \subsubsection{Ambiguous Sharp Positions}\label{sec:tf-sharp-ambiguous}
 
 \subsection{Key Signatures}
-\subsubsection{Mixed Accidentals}\label{sec:tf-keysig-mixed}
-\todo[inline,color=red]{Manuscript Mistakes - Mixed Accidentals}
 
-\subsubsection{Swrong Octave}\label{sec:tf-keysig-octave}
+\subsubsection{Wrong Octave}\label{sec:tf-keysig-octave}
 \todo[inline,color=red]{Manuscript Mistakes - Wrong Octave}
 
 \subsubsection{Incorrect Order}\label{sec:tf-keysig-order}

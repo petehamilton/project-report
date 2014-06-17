@@ -10,25 +10,30 @@ The first step in this project was to establish the best method for a student to
 The most simple of all the input methods, this would involve a student writing on a sheet of manuscript paper, then using a flat bed scanner (the type commonly found as a standalone device and in multi-function printers) to input the sheet into the computer. This method allows for a scan with high and consistent light levels (minimising noise and light-dependent artefacts), minimal distortion due to paper curvature (as the scanner usually flattens the sheet) and a high resolution end image, typically 300-600dpi.
 
 The application would process the sheet using traditional OMR techniques and then provide feedback to the student. This technique would therefore require ownership of both a scanner and a computer on which to install and run the application. Alternatively, the student could upload the scanned image to a web based service for analysis, removing the need to install software.
+%
+%\subsubsection{Photograph/Camera}
+%
+%\todo[inline,color=red]{Implementation - Photo/Camera}
+%
+%Total free for all, colours and light levels vary, extraction from background, resolution variable, noise variable
+%
+%Reference `Project 8 Final Report'
 
-\subsubsection{Photograph/Camera}
+\subsubsection{Gestures}\label{sec:gestures}
 
-\todo[inline,color=red]{Implementation - Photo/Camera}
+Taking input on a tablet enables the capturing of individual strokes. I decided to leverage more traditional OMR techniques by first rendering the strokes as an image but there is potential for future research to see if using statistical features of the strokes themselves in a similar way to the methods described by \cite{taubman2005musichand} and \cite{george2003online}. I also looked as character recognition using multi-stroke gestures and \$ N-Stroke recognisers and variations such as \$ N-Protractor in \cite{anthony2012n}.
 
-Total free for all, colours and light levels vary, extraction from background, resolution variable, noise variable
+My main reason for not investigating gesture based recognition further at present is that the recognition techniques seemed to rely on users having a consistent stroke structure for the different note entities. The most promising work is that of \cite{taubman2005musichand} but even then, the project used a very rigid structure of which entities were expected to be drawn in which order.
 
-Reference `Project 8 Final Report'
-
-\subsubsection{Gestures}
-\todo[inline,color=red]{Implementation - Gestures}
-
-Use gestures combined with classification (see book and some papers).
-Good for classifying individual entities but more like the old palm tablets, usually one note at a time
+There also seemed to be a small number of users in the \cite{taubman2005musichand} study and the author notes that user testing and experiments on the transferability of models between users was not done. Sadly I can't preform a lengthly calibration stage where I can trust the user's input which makes a per-user model difficult.
 
 \subsubsection{Tablet Input}
-\todo[inline,color=red]{Implementation - Tablet Input}
 
-Finger or stylus work well tends to depend on the child, finger often felt more natural
+Although I decided not to use tablet gestures directly, I did opt to use a tablet as my primary method of input.
+
+In testing it proved a fairly natural experience for the children who trailed \noteED using the freedrawing environment. Interestingly both finger and stylus work well as input methods and although I didn't gather data on the quality of drawing versus the input method, there were no immediate differences of problems encountered by using one over the other for children.
+
+Interesting, adults seemed to prefer the stylus, my hypothesis for this (which was then confirmed in further conversation) was that since adults have larger fingers, it's harder for them to accurately track the point at which their line is being drawn on the canvas.
 
 \begin{figure}[h!]
     \centering
@@ -46,8 +51,7 @@ Finger or stylus work well tends to depend on the child, finger often felt more 
     \caption{Examples of a student trying different tablet input methods}
 \end{figure}
 
-Chose this method in the end
-
+It was also suggested to me that if the application could be accessed through a web browser and scale according to the browser, many schools now have smartboards\footnote{http://smarttech.com/Home+Page/Solutions/Education+Solutions/Products+for+education} which are in effect large tablets.
 
 \subsection{Capturing Strokes}
 \label{sec:capturing-strokes}
@@ -77,18 +81,16 @@ In initial experiments with simple manuscript entities, this worked well, howeve
 
 \end{figure}
 
-To counteract this, I modified the code such that it renders new line segments on the fly, rather than re-rendering all the lines every time a new point is added. Although this requires some more logic to render the line segment, but overall the experience turned out much smoother as the small increase in the length of the code path had much less impact than re-rendering the drawing every time (\cref{fig:drawing-lag-smooth}).
+To counteract this, I modified the code such that it renders new line segments on the fly, rather than re-rendering all the lines every time a new point is added. Although this requires some more logic to render the line segment, overall the experience turned out much smoother as the small increase in the length of the code path had much less impact than re-rendering the drawing every time (\cref{fig:drawing-lag-smooth}).
 
 \section{Data Storage and Retrieval}
 
 \subsection{Stave Drawing}
 I store the data gathered in \cref{sec:capturing-strokes} in two ways.
 
-Firstly, I store the serialized JSON of the stroke data in the database. This enables potential later on to experiment more with gesture based segmentation and recognition \todo[inline]{Reference Gesture based recognition}, showing a student corrections by transforming points in the strokes as opposed to transformations on the image. It also facilitates some great UI features like playing back the drawing for the tutor so they can see exactly how the student approached the problem and more ideas I express in \cref{sec:future-work}.
+Firstly, I store the serialised JSON of the stroke data in the database which is postiive for several reasons pertaining to future work as well as immediate benefits for \noteED. It enables more potential experiments in future in the area of gesture based segmentation and recognition (see \cref{sec:gestures}) and could support showing a student corrections by transforming points in the strokes as opposed to transformations on the image. It also facilitates some great UI features like playing back the drawing for the tutor so they can see exactly how the student approached the problem.
 
-Secondly, I store the entire rendered canvas in the cloud using an Amazon S3 bucket, as a 'reference copy' in case I need to check the JSON against the original image at a later date or re-analyse images after updating my classifiers, features or analysis techniques.
-
-\todo[inline]{Should I show my database schema here?}
+Secondly, I store the entire rendered canvas in the cloud using an Amazon S3 bucket, as a `reference copy' in case I need to check the JSON against the original image at a later date or re-analyse images after updating my classifiers, features or analysis techniques.
 
 \subsection{Components}
 
@@ -113,7 +115,87 @@ Although 3000 components uses around 1GB in data when raw, using compression we 
 
 \subsection{Database Schema}
 
+\begin{table}[H]
+
+    \begin{tabularx}{\textwidth}{ l l X }
+      \toprule
+      Column                 & Type                       \\
+      \midrule
+      id         & integer                     \\
+      email      & character varying(255)      \\
+      created\_at & timestamp without time zone \\
+      updated\_at & timestamp without time zone \\
+      \midrule
+      \multicolumn{3}{c}{Indexes} \\
+      \midrule
+      users\_pkey & \multicolumn{2}{c}{PRIMARY KEY, btree (id)} \\
+      \bottomrule
+    \end{tabularx}
+
+    \caption{Components Table}
+    \label{table:db-components}
+\end{table}
+
+\begin{table}[H]
+
+    \begin{tabularx}{\textwidth}{ l l X }
+      \toprule
+      Column           & Type                       \\
+      \midrule
+      id               & integer                     \\
+      user\_id          & integer                     \\
+      file             & character varying(255)      \\
+      binary\_file\_data & bytea                       \\
+      created\_at       & timestamp without time zone \\
+      updated\_at       & timestamp without time zone \\
+      json\_data        & json                        \\
+      \midrule
+      \multicolumn{3}{c}{Indexes} \\
+      \midrule
+      drawings\_pkey & \multicolumn{2}{c}{PRIMARY KEY, btree (id)} \\
+      \bottomrule
+    \end{tabularx}
+
+    \caption{Drawings Table}
+    \label{table:db-drawings}
+\end{table}
+
+\begin{table}[H]
+
+    \begin{tabularx}{\textwidth}{ l l X }
+      \toprule
+      Column                 & Type                       \\
+      \midrule
+      id                    & integer                     \\
+      drawing\_id           & integer                     \\
+      features              & json                        \\
+      created\_at           & timestamp without time zone \\
+      updated\_at           & timestamp without time zone \\
+      manual\_class         & character varying(255)      \\
+      parent\_component\_id & integer                     \\
+      auto\_class           & character varying(255)      \\
+      feedback              & json                        \\
+      \midrule
+      \multicolumn{3}{c}{Indexes} \\
+      \midrule
+      components\_pkey & \multicolumn{2}{c}{PRIMARY KEY, btree (id)} \\
+      \bottomrule
+    \end{tabularx}
+
+    \caption{Components Table}
+    \label{table:db-components}
+\end{table}
+
 \subsection{Entity Relationship Diagram}
+
+The following is a summarised view of the core entities that make up \noteED and how they're related to each other.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=.6\linewidth]{gfx/models-complete.png}
+  \caption{\noteED Entity relationship diagram}
+  \label{fig:erd}
+\end{figure}
 
 
 

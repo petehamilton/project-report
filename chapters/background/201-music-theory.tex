@@ -2,46 +2,46 @@
 
 \blockquote{``Right from the start, it is important to learn how to write down music clearly. As a musician, unclear manuscript can waste valuable rehearsal time and might lead to performance mistakes. In an exam, badly written work may be misunderstood and could lose you vital marks.'' \parencite{taylor1989ab}}
 
-For early grades of music theory, the criteria by which students need to adhere in order to maximize their marks and musical potential is covered in quite specific detail. This makes sense as the majority of students taking the exam are likely to be young and since they are also unlikely to have encountered much written music before, this is the most crucial time for teaching them good habits.
+For early grades of music theory, the criteria which students need to meet in order to maximize their marks and musical potential is covered in quite specific detail. This makes sense as the majority of students taking the exam are likely to be young. Since they are also unlikely to have encountered much written music before, this is the most crucial time for teaching them good habits.
 
 The following is a guide to the manuscript entities that a student aiming to take their grade 1 - 3 theory exams would most likely have to know about and/or write down, along with the relevant criteria for what constitutes acceptable and unacceptable manuscript, most of the examples below are taken from or based on the official documentation in \parencite{taylor2008music}
 
 \subsection{The Staff}
 \label{sec:music-theory-staff}
-A staff is comprised of five horizontal parallel staff lines separating four staff spaces, together they form a framework within which music elements are placed.
+A staff (or stave) is comprised of five horizontal parallel staff lines separating four staff spaces, together they form a framework within which music elements are placed.
 
-The lines are numbered from bottom (\emph{first line}) to top \emph{fifth line} and spaces are labelled in a similar fashion. Which staff positions represent which note depends on the clef (\cref{music-theroy-clefs}) and it can also be used for un-tuned percussion, although for the time being that remains outside the scope of this project.
+The lines are numbered from bottom (\emph{first line}) to top \emph{fifth line} and spaces are labelled in a similar fashion. Notes are then placed on the staff and depending on the clef, similar locations indicate different actual notes. Further information about the Clef is given in section (\cref{music-theory-clefs}) below. The staff can also be used to notate untuned percussion however this remains out of scope of this project for the time being.
 
 \begin{figure}[H]
   \centering
-  \missingfigure{Stave w/ 5 staff lines}
-  \caption{An example of a standard stave with 5 staff line}
+  \includegraphics[width=\linewidth]{gfx/music-theory/staff.png}
+  \caption{An example of a standard staff with 5 staff lines}
 \end{figure}
 
 \subsection{Bar Lines}
 
-Aside from the stave, bar lines are one of the most important parts of the score. If you think of a piece of music from beginning to end, bar lines divide the music up into smaller units of time called \emph{measures} or \emph{bars}.
+Aside from the staff, bar lines are one of the most important parts of the score. Bar lines divide the music up into smaller units of time called \emph{measures} or \emph{bars}.
 
 There are multiple types of bar lines, some of which are shown in \cref{fig:bar-line-types} but the most important one is the single bar line which separates the bars.
 
 \begin{figure}[H]
   \centering
 
-  \begin{subfigure}[b]{.3\linewidth}
+  \begin{subfigure}[b]{.2\linewidth}
       \centering
-      \missingfigure{Single bar line}
+      \includegraphics[width=\linewidth]{gfx/music-theory/barline-single.png}
       \caption{Single Bar Line}
       \label{fig:single-bar-line}
   \end{subfigure}
-  \begin{subfigure}[b]{.3\linewidth}
+  \begin{subfigure}[b]{.2\linewidth}
       \centering
-      \missingfigure{Double bar line}
+      \includegraphics[width=\linewidth]{gfx/music-theory/barline-double.png}
       \caption{Double bar line}
       \label{fig:double-bar-line}
   \end{subfigure}
-  \begin{subfigure}[b]{.3\linewidth}
+  \begin{subfigure}[b]{.2\linewidth}
       \centering
-      \missingfigure{Bar line with a repeat}
+      \includegraphics[width=\linewidth]{gfx/music-theory/barline-end-repeat.png}
       \caption{Bar line with a repeat}
       \label{fig:repeat-bar-line}
   \end{subfigure}
@@ -54,9 +54,9 @@ There are multiple types of bar lines, some of which are shown in \cref{fig:bar-
 
 \subsubsection{Notes}
 \label{sec:music-theory-notes}
-Notes are used represent duration (differentiated by their shape) and pitch (differentiated by where they're placed on the stave) of musical sounds. Most notes are comprised of a note head and a stem but may also have beams or tails in the case of notes shorter than a crotchet.
+Notes are used to represent duration (differentiated by their shape) and pitch (differentiated by where they're placed on the stave) of musical sounds. Most notes are comprised of a note head and a stem but may also have beams or tails in the case of notes shorter than a crotchet.
 
-Note that there are multiple variations in how note lengths are named and different papers refer to notes using the British and American versions. I will be proudly brandishing the traditional british version throughout this project but for reference I have put both naming styles in \Cref{table:note-lengths}.
+For reference, there are multiple variations in how note lengths are named and different papers refer to notes using the British and American terminology. I will be using british naming conventions throughout this project but for reference I have put both naming styles in \Cref{table:note-lengths}.
 
 \subsubsection{Rests}
 \label{sec:music-theory-rests}
@@ -77,17 +77,17 @@ There also exist duration dots which are single dots placed to the right of a no
 \begin{table}[H]
     \renewcommand{\arraystretch}{1.8}
     \centering
-    \begin{tabularx}{\textwidth}{ llll }
+    \begin{tabularx}{.7\textwidth}{ llll }
         \toprule
 
         Name & Name (American) & Note Symbol & Rest Symbol \\
         \midrule
-        Semibreve & Whole Note & & \\
-        Minim & Half Note & & \\
-        Crotchet & Quarter Note & & \\
-        Quaver & Eighth Note & & \\
-        Semiquaver & Sixteenth Note & & \\
-        Duration Dot & & & \\
+        Semibreve & Whole Note      & \includegraphics[height=1cm]{gfx/music-theory/notehead-semibreve.png}  & \includegraphics[height=1cm]{gfx/music-theory/rest-semibreve.png} \\
+        Minim & Half Note           & \includegraphics[height=1cm]{gfx/music-theory/notehead-minim.png}      & \includegraphics[height=1cm]{gfx/music-theory/rest-minim.png}     \\
+        Crotchet & Quarter Note     & \includegraphics[height=1cm]{gfx/music-theory/notehead-crotchet.png}   & \includegraphics[height=1cm]{gfx/music-theory/rest-crotchet.png}  \\
+        Quaver & Eighth Note        & \includegraphics[height=1cm]{gfx/music-theory/notehead-quaver.png}     & \includegraphics[height=1cm]{gfx/music-theory/rest-quaver.png}    \\
+        Semiquaver & Sixteenth Note & \includegraphics[height=1cm]{gfx/music-theory/notehead-semiquaver.png} & \includegraphics[height=1cm]{gfx/music-theory/rest-semiquaver.png}\\
+        Duration Dot &              & \includegraphics[height=1cm]{gfx/music-theory/notehead-dotted.png}  & \includegraphics[height=1cm]{gfx/music-theory/rest-dotted.png} \\
         \bottomrule
     \end{tabularx}
     \caption{An overview of note and rest durations}
@@ -99,29 +99,21 @@ There also exist duration dots which are single dots placed to the right of a no
 
 The absolute pitch of a note is determined by it's vertical position on the stave relative to the staff lines taking into account the clef (\cref{sec:music-theory-clefs}), the key signature (\cref{sec:music-theory-key-signatures}) and any applicable accidentals (\cref{sec:music-theory-accidentals}).
 
-Pitch is notated by letter and number corresponding to the note itself and the octave. For example, the central C on the piano (the first ledger line on a treble clef) is noted by C4 and the next C one octave above it is notated by C5. A sequence of notes is shown labelled in \cref{fig:music-theory-pitch-labels}. For notes with sharps or naturals applied, typically an additional lowercase character (s for Sharp and b for Flat) is added as shown in \cref{fig:music-theory-pitch-labels-accidentals}
+Pitch is notated by letter and number corresponding to the note itself and the octave. For example, the central C on the piano (the first ledger line on a treble clef) is noted by C4 and the next C one octave above it is notated by C5. A sequence of notes is shown labelled in \cref{fig:music-theory-pitch-labels}. For notes with sharps or naturals applied, typically an additional lowercase character (s for Sharp and b for Flat) is added, for example Fs4, Bb4 etc.
 
 \begin{figure}[H]
   \centering
-  \missingfigure{Pitch of notes C4 D4 etc}
+  \includegraphics[width=\linewidth]{gfx/music-theory/scale.png}
   \caption{Pitch labelling for notes}
   \label{fig:music-theory-pitch-labels}
 \end{figure}
-
-
-\begin{figure}[H]
-  \centering
-  \missingfigure{Pitch of notes C4 D4 with accidentals}
-  \caption{Pitch labelling for notes with accidentals applied}
-  \label{fig:music-theory-pitch-labels-accidentals}
-\end{figure}
-
 
 \subsection{Accidentals}
 \label{sec:music-theory-accidentals}
 When placed on staff lines or spaces, accidentals modify the note which they precede unless cancelled out by another accidental (often a natural). There are three types of accidental: sharps, flats and naturals, which are explained in \cref{table:note-accidentals}
 
 \begin{table}[H]
+%    \def\tabularxcolumn#1{m{#1}}
     \renewcommand{\arraystretch}{1.8}
     \centering
     \begin{tabularx}{\textwidth}{ llX }
@@ -129,12 +121,12 @@ When placed on staff lines or spaces, accidentals modify the note which they pre
 
         Name & Symbol & Description \\
         \midrule
-        Sharp & & Raise the pitch of a note by one semitone\\
-        Natural & & Cancels any previous sharp or flat which might have applied to a note, usually from the key signature \\
-        Flat & & Lowers the pitch of a note by one semitone \\
+        Sharp   & \includegraphics[width=1.5cm]{gfx/music-theory/accidental-sharp.png} & Raise the pitch of a note by one semitone\\
+        Natural & \includegraphics[width=1.5cm]{gfx/music-theory/accidental-natural.png} & Cancels any previous sharp or flat which might have applied to a note, usually from the key signature \\
+        Flat    & \includegraphics[width=1.5cm]{gfx/music-theory/accidental-flat.png} & Lowers the pitch of a note by one semitone \\
         \bottomrule
     \end{tabularx}
-    \caption{An overview of note and rest durations}
+    \caption{An overview of accidentals}
     \label{table:note-accidentals}
 \end{table}
 
@@ -146,14 +138,15 @@ A clef is generally the first entity on a staff and defines the pitch range for 
 \begin{table}[H]
     \renewcommand{\arraystretch}{1.8}
     \centering
-    \begin{tabularx}{\textwidth}{ l l }
+    \begin{tabularx}{.4\textwidth}{ l l }
         \toprule
         Name & Symbol \\
         \midrule
-
+        Treble Clef & \includegraphics[height=2cm]{gfx/music-theory/clef-treble.png} \\
+        Bass Clef   & \includegraphics[height=1.5cm]{gfx/music-theory/clef-bass.png} \\
         \bottomrule
     \end{tabularx}
-    \caption{An overview of note and rest durations}
+    \caption{An overview of common clefs}
     \label{table:clefs}
 \end{table}
 
@@ -166,38 +159,49 @@ The key itself is defined by the number of sharps or flats in the signature and 
 
 \todo[inline,color=red]{Key Signature Images}
 
-\begin{table}[H]
-    \renewcommand{\arraystretch}{1.8}
-    \centering
-    \begin{tabularx}{\textwidth}{ l l l XXXXXXX }
-        \toprule
-        Key & In Treble Clef & In Bass Clef & \multicolumn{7}{c}{Notes} \\
-        \midrule
-
-        \bottomrule
-    \end{tabularx}
-    \caption{An overview of note and rest durations}
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{gfx/music-theory/key-signatures.jpg}
+    \caption{An overview of key signatures in treble and bass clef showing the number of accidentals and the positions on the stave, from \url{http://www.netplaces.com/singing/basic-music-theory/key-signatures.htm}, accessed 10/06/2014}
     \label{table:key-signatures}
-\end{table}
+\end{figure}
 
 
 
 \subsection{Time Signatures}
 \label{sec:music-theory-time-signatures}
 
-Time signatures can be found at the beginning of the stave or the start of a bar and sets the number of beats per bar as well as which note value is used for a beat for the music which follows. They can be split into several subcategories depending on the rhythm as shown in \cref{table:time-signatures}.
+Time signatures can be found at the beginning of the stave or the start of a bar. The `numerator' sets the number of beats per bar and the `denominator' sets which note value is used to represent a beat for the music which follows. They can be split into several subcategories depending on the rhythm as shown in \cref{table:time-signatures}.
 
-\todo[inline,color=red]{Time Signature Examples}
-\begin{table}[H]
-    \renewcommand{\arraystretch}{1.8}
+\begin{figure}[h!]
     \centering
-    \begin{tabularx}{.8\textwidth}{ l l l }
-        \toprule
-        Type & Time Signature & Description \\
-        \midrule
-        \bottomrule
-    \end{tabularx}
-    \caption{An overview of note and rest durations}
-    \label{table:time-signatures}
-\end{table}
+    \begin{subfigure}[b]{.45\linewidth}
+        \centering
+        \includegraphics[height=2cm]{gfx/music-theory/time-signature-4-4.png}
+        \caption{Four crotchets per bar}
+        \label{fig:time-signature-4-4}
+    \end{subfigure}
+    \begin{subfigure}[b]{.45\linewidth}
+        \centering
+        \includegraphics[height=2cm]{gfx/music-theory/time-signature-common.png}
+        \caption{Common time, same as \cref{fig:time-signature-4-4}}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{.3\linewidth}
+        \centering
+        \includegraphics[height=2cm]{gfx/music-theory/time-signature-2-4.png}
+        \caption{Two crotchets per bar}
+    \end{subfigure}
+    \begin{subfigure}[b]{.3\linewidth}
+        \centering
+        \includegraphics[height=2cm]{gfx/music-theory/time-signature-3-4.png}
+        \caption{Three crotchets per bar}
+    \end{subfigure}
+    \begin{subfigure}[b]{.3\linewidth}
+        \centering
+        \includegraphics[height=2cm]{gfx/music-theory/time-signature-6-8.png}
+        \caption{Six quavers per bar}
+    \end{subfigure}
+
+    \caption{Examples of different time signatures}
+\end{figure}
 
