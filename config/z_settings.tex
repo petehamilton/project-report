@@ -115,15 +115,15 @@
 \usepackage[expert]{mathdesign}
 \usepackage{sectsty}
 
-%\usepackage{titlesec} 
+%\usepackage{titlesec}
 %\titleformat{\section}[hang]{
 %    \usefont{T1}{qhv}{b}{n}\selectfont} % "qhv" - TeX Gyre Heros, "b" - bold
-%    {} 
+%    {}
 %    {0em}
 %    {\hspace{-0.4pt}\Large \thesection\hspace{0.6em}}
-    
+
 \chapterfont{\usefont{T1}{qhv}{b}{n}\selectfont\huge}
-    
+
 \usepackage{tocloft} % subfigure option only if using subfigure package
 \renewcommand{\cfttoctitlefont} % ToC title
              {\usefont{T1}{qhv}{b}{n}\selectfont\huge}
@@ -132,14 +132,14 @@
 \renewcommand{\cftsecfont} % section titles
              {\usefont{T1}{bch}{m}{n}\selectfont}
 \renewcommand{\cftsubsecfont} % subsection titles
-             {\usefont{T1}{bch}{m}{n}\selectfont} 
+             {\usefont{T1}{bch}{m}{n}\selectfont}
 \renewcommand{\cftchappagefont} % chapter page numbers
              {\usefont{T1}{bch}{b}{n}\selectfont}
 \renewcommand{\cftsecpagefont} % section page numbers
-             {\cftsecfont} 
+             {\cftsecfont}
 \renewcommand{\cftsubsecpagefont} % subsection page numbers
              {\cftsubsecfont}
-             
+
 \newcommand\myshade{85}
 \colorlet{mylinkcolor}{RoyalBlue}
 \colorlet{mycitecolor}{Black}
@@ -151,6 +151,9 @@
   urlcolor   = myurlcolor!\myshade!black,
   colorlinks = true,
 }
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{3}
 
 %----------------------------------------------------------------------------------------
 % FRAMING FIGURES
@@ -174,7 +177,7 @@
 
 % for subfigures: caption label is bold, the caption text normal.
 % justification is raggedright (i.e. left aligned)
-% singlelinecheck=off means that the justification setting is used even when the caption is only a single line long. 
+% singlelinecheck=off means that the justification setting is used even when the caption is only a single line long.
 % if singlelinecheck=on, then caption is always centered when the caption is only one line.
 \captionsetup[subfigure]{singlelinecheck=on,justification=raggedright}
 
