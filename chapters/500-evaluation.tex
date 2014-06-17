@@ -3,18 +3,89 @@
 \section{Mistake Detection}
 
 \begin{quotation}
-  \emph{Objective}: \\ 
-Enable the detection of common errors in the correct application of symbols, pitch, time signatures etc
+\emph{Objective}: Enable the detection of common errors in notation symbols, pitch, time signatures and other musical features outlined in \cref{table:teacher-feedback-summary}.
 \end{quotation}
 
-\section{Image Analysis}
+This is one of the most important evaluation components, can we in fact spot the same mistakes which a teacher would?
 
-\emph{Objective}: \\
-Build a service which is capable of analysing a notation drawing and establishing one or more scores for multiple aspects of a notation attempt based on a reference example and/or previous attempts.
+I short, yes, I believe we can and although long term data gathering and trials haven't been performed, preliminary data is positive.
 
-\emph{Evaluation Technique}: \\
-Automated comparison against a test data set which has been evaluated by a professional music teacher.
-Analysis of scoring and feedback by professional music teacher given written and verbally.
+Once the likely mistakes had been established (\cref{table:teacher-feedback-summary}), I developed an application which assisted in rapid assignment of relevant mistakes to score entities by a human, shown in more detail in \cref{sec:implementation-mistake-classification}. I also used this over the original data gathered from students and ongoing data from participants and experiments.
+
+The result was a database of entities and their mistakes which I then used to adjust thresholds and parameters in \cref{sec:scoring}. It would be interesting to modify these values according to the results of scoring against this database automatically and I talk more about this in \cref{sec:future}.
+
+By comparing my heuristics against the `true' data provided by professionals and competent musicians I generated confusion matrices for each of the mistakes.
+
+The full dataset of results for the implemented mistake heuristics and algorithms can be seen in \cref{table:results-matrix}. Motice that for the majority of mistakes, we obtain a great accuracy, however since most samples actually do \emph{not} get labelled with a mistake, the accuracy is unfairly weighted by the large number of true negatives, meaning it isn't necessarily the best performance criteria. Instead, I think that it makes more sense to judge our system by it's predictive power or \emph{Precision} (the proportion of predicted positives which are actually positives). If we do this, the results still appear successful
+
+
+  \begin{figure}
+    \centering
+    \begin{subtable}[b]{\linewidth}
+      \begin{tabularx}{\textwidth}{r | XXXXXX}
+                                  & TP & FP & TN & FN & Accuracy & Precision \\
+        \midrule
+              note-head-ambiguous & 11 & 2& 251& 0 & 0.992 & 0.846 \\
+                 note-head-broken & 24 & 1& 239& 0 & 0.996 & 0.96 \\
+                 note-head-angled & 0 & 0& 256& 8 & 0.97 & NaN \\
+                  note-head-messy & 7 & 0& 252& 5 & 0.981 & 1.0 \\
+                note-head-too-big & 20 & 3& 241& 0 & 0.989 & 0.87 \\
+              note-head-too-small & 8 & 0& 250& 6 & 0.977 & 1.0 \\
+                stem-length-short & 17 & 7& 240& 0 & 0.973 & 0.708 \\
+                 stem-length-long & 19 & 9& 236& 0 & 0.966 & 0.679 \\
+                stem-straightness & 0 & 0& 245& 19 & 0.928 & NaN \\
+             stem-direction-wrong & 11 & 6& 247& 0 & 0.977 & 0.647 \\
+                  stem-side-wrong & 14 & 9& 241& 0 & 0.966 & 0.609 \\
+                       stem-angle & 21 & 17& 224& 2 & 0.928 & 0.553 \\
+                 quaver-tail-side & 0 & 0& 264& 0 & 1.0 & NaN \\
+                   dot-wrong-side & 9 & 1& 254& 0 & 0.996 & 0.9 \\
+            accidental-wrong-side & 19 & 4& 241& 0 & 0.985 & 0.826 \\
+            accidental-wrong-line & 0 & 0& 264& 0 & 1.0 & NaN \\
+                    keysig-octave & 0 & 3& 19& 0 & 0.864 & 0.0 \\
+                     keysig-order & 0 & 1& 20& 1 & 0.909 & 0.0 \\
+                keysig-wrong-clef & 0 & 0& 22& 0 & 1.0 & NaN \\
+                 keysig-incorrect & 5 & 8& 9& 0 & 0.636 & 0.385 \\
+             accidental-ambiguous & 0 & 0& 104& 0 & 1.0 & NaN \\
+             accidental-ambiguous & 0 & 0& 104& 0 & 1.0 & NaN \\
+                    rest-position & 0 & 0& 9& 0 & 1.0 & NaN \\
+
+      \end{tabularx}
+    \end{subtable}
+
+    \caption{DATA BITCHES}
+    \label{table:results-matrix}
+  \end{figure}
+
+
+\section{Notation Analysis}
+
+\begin{quotation}
+\emph{Objective}: Build a service which is capable of analysing a notation drawing and establishing one or more scores for multiple aspects of a notation attempt.
+\end{quotation}
+
+Notation analysis using computer vision and OMR techniques combined with Heuristics actually turned out to be quite successful in the end. As the results in \cref{sec:knn} show, we achieved a high level of accuracy for identification of musical symbols. Admittedly not as high as those of printed score OMR systems, but considering the data is handwritten and also comes in multiple often quite different representations, the model using KNN has perfomed rather well.
+
+\subsection{Learning Improvement}
+
+\begin{quotation}
+\emph{Objective}: Produce an application which can improve on and continue a child's learning outside of lessons
+\end{quotation}
+
+This is one of the most difficult outcomes to measure, initial in person feedback and conversation with students after performing various notation tasks (such as those in \cref{sec:implementation-lessons} suggest that \noteED is doing a good job so far.
+
+However, since a conversation is not a quantifiable measure of how well a child's learning has been improved, there is also logging throughout the system for use over a longer period of time, data such as average mistakes per task or mistakes compared to how many times a task has been done before can therefore be analysed. 
+
+We propose that in order to best establish a reliable outcome for learning improvement, a minimum of one month's observation is needed and preferably closer in the region of 6 months if possible.
+
+\subsection{Engaging Experience For Child}
+
+\begin{quotation}
+\emph{Objective}: Combine the tablet interface and notation analysis objectives to produce a streamlined experience which a student will happily engage with on a repeat basis.
+\end{quotation}
+
+Whilst talking with students was highly valuable in the design and implementation stages, what people say and what they do are often not the same\footnote{\url{http://www.nngroup.com/articles/first-rule-of-usability-dont-listen-to-users/}}. Therefore simply asking a student `would you use this again' isn't necessarily going to prove anything. Instead, we keep track of student actions and we can subsequently ascertain from these more reliable readings how often the student is interacting the the application.
+
+Preliminary (gathered through in-person trials) data suggests that a student will happily perform a task 4-5 times before wanting to move on, usually because they got it right and got bored or in a few early cases, because the feedback and analysis wasn't being very helpful which was a useful discovery in itself.
 
 \subsection{Tablet Interface}
 
@@ -25,30 +96,5 @@ A tablet oriented (or tablet compatible) user interface which can provide a chil
 Verbal and written feedback from child on their experience using the tablet for input.
 
 Verbal and written feedback from teachers on whether the tablet accurately reflects writing normal manuscript notation
-
-\subsection{Engaging Experience For Child}
-
-\emph{Objective}: \\
-Combine the two objectives above to produce a streamlined experience which a child will happily engage with on a repeat basis
-
-\emph{Evaluation Technique}: \\
-Short survey of each child after one week of use on criteria like ``Usability'', ``Fun-Factor'' and ``Likelihood of Repeat Use'' and analysis of usage logs for the application for each child.
-
-\subsection{Learning Improvement}
-
-\emph{Objective}: \\
-Produce an application which can improve on and continue a child's learning outside of lessons
-
-\emph{Evaluation Technique}: \\
-Feedback from the user's (child's) teacher on the impact the application has on a child's performance over a 4 week period.
-
-\subsection{Classification}
-Use manually classed data, classification tests as earlier
-
-\subsection{Pitch}
-Pitch heuristics - `does it give the right results?'
-
-\subsection{Duration}
-Duration heuristics - `does it give the right results?'
 
 \clearpage
