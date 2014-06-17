@@ -33,16 +33,6 @@ Before we perform any analysis, we need a reference copy of what we expect the a
     \label{table:key-signature-errors}
 \end{table}
 
-\subsubsection{Mixed Accidentals}\label{sec:scoring-keysig-mixed}
-
-Key signatures (of the type we're concerned with in the project) may contain only sharps or flats, not a combination of both. If a key signature is detected to contain both sharps and flats such as in \cref{fig:mixed-accidentals-bad}, the fact that this has been done is noted, but at this point no further analysis is done.
-
-\begin{figure}[H]
-  \missingfigure{Sharps and Flats Mixed}
-  \caption{}
-  \label{fig:mixed-accidentals-bad}
-\end{figure}
-
 \subsubsection{Wrong Octaves}\label{sec:scoring-keysig-octave}
 
 Sometimes the student gets the right accidental, but just in the wrong octave, for example the case identified by a teacher in \cref{fig:right-accidental-wrong-octave}. This can be identified by checking to see if the actual note (C, D, E) the drawn accidental rather than a specific pitch (C4, D4, E4) matches that of the expected accidental.
@@ -65,10 +55,11 @@ Sometimes a key signature contains all the sharps required, but not in the right
 
 \subsubsection{Incorrect Accidental}\label{sec:scoring-keysig-incorrect}
 
+In the case of an Incorrect Accidental, the other three conditions having been checked, the student will have got the right number of sharps/flats but not the right accidentals meaning it's not a permutation or ordering issue as in \cref{sec:scoring-keysig-order} and it's not that an accidental is in the wrong octave as the result of a clef mistake. Comparison with the correct reference example for the given number of accidentals enables us to identify specifically which accidentals are incorrect.
 
 \subsection{Beats and Timing}\label{sec:scoring-beats}
 
-There are really only two things we need to check for when scoring beats and timing, outlined in \cref{table:bar-beat-errors}.
+There are really only two things we need to check for when scoring beats and timing, either too few or too many beats in a bar as outlined in \cref{table:bar-beat-errors}.
 
 \begin{table}[H]
     \renewcommand{\arraystretch}{1.6}
@@ -117,7 +108,7 @@ Regardless of which mistake we're checking for the algorithm is essentially the 
 
 \subsection{Stems}
 
-Stems are a very common component of manuscript and as such will be drawn regularly. It's important to have detailed checking to weed out any bad habits early and so we check for the all the potential mistakes in \cref{table-stem-mistakes}.
+Stems are a very common component of manuscript and as such will be drawn regularly. It is important to have detailed checking to weed out any bad habits early and so we check for the all the potential mistakes in \cref{table:stem-mistakes}.
 
 \begin{table}[H]
     \renewcommand{\arraystretch}{1.6}
@@ -323,7 +314,7 @@ Stem length may seem like a simple case of measuring the length of the extracted
     \label{fig:stem-intersection}
 \end{figure}
 
-Similarly to the straightness and angular measures, we can establish the raw length $L_R$ by drawing a line through the perceived centre of the stem and measuring it's length using simple trigonometry. However, although it might seem counterintuitive to not use this as a measure of length, in reality a better measure of whether the stem is `too long' is to measure the distance between the stave line/space above stem's associated notehead and the y coordinate of the stem.
+Similarly to the straightness and angular measures, we can establish the raw length $L_R$ by drawing a line through the perceived centre of the stem and measuring its length using simple trigonometry. However, although it might seem counterintuitive to not use this as a measure of length, in reality a better measure of whether the stem is `too long' is to measure the distance between the stave line/space above stem's associated notehead and the y coordinate of the stem.
 
 If we define the correct length $L_E$ for a stem as outlined in \todo[inline]{REFERENCE where I talk about correct stem length} then the length score is therefore just $L_E - L_A$ where smaller values mean the stem is closer to the expected length.
 
@@ -391,3 +382,6 @@ Another method I investigated was to divide the image into two horizontally, the
 
 \subsubsection{Broken Heads}\label{sec:scoring-note-head-broken}
 \todo[inline,color=red]{Scoring Techniques - Note Head - Gaps/broken circles}
+
+\subsubsection{Angled Semibreve}\label{sec:scoring-semibreve-angled}
+\todo[inline,color=red]{Scoring Techniques - Semibreve Angle}
